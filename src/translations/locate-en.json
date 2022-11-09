@@ -1,0 +1,17 @@
+{
+  "TITLE": "Jobs Sports",
+  "LOADING": "Loading...",
+  "LOADING_PAGE": "Please wait a few seconds...",
+
+  "MSG_END_SESSION": "For security reasons, the session expires after 10 minutes of inactivity. Please, if you want to continue using the platform, you must re-authenticate.",
+  "MSG_FAIL_TOKEN": "For security reasons, the token generated when you authenticate has expired. Please, if you want to continue using the platform, you must re-authenticate.",
+
+  "BTN_CLOSE": "Close",
+
+  "MSG_COD200": "You must enter an email address and password to continue",
+  "MSG_COD201": "You must enter an email to continue",
+  "MSG_COD202": "You must complete all the data to continue",
+  "MSG_COD203": "The entered passwords do not match",
+  "MSG_COD204": "The email format is incorrect",
+  "MSG_COD205": "You should be agree the terms to continue"
+}

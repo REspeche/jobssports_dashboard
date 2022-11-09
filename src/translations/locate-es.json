@@ -1,0 +1,17 @@
+{
+  "TITLE": "Jobs Sports",
+  "LOADING": "Cargando...",
+  "LOADING_PAGE": "Espere unos segundos...",
+
+  "MSG_END_SESSION": "Por razones de seguridad, la sesión caduca después de 10 minutos de inactividad. Por favor, si desea continuar utilizando la plataforma, debe volver a autenticarse.",
+  "MSG_FAIL_TOKEN": "Por razones de seguridad, el token generado cuando se autentica ha caducado. Por favor, si desea continuar usando la plataforma, debe volver a autenticarse.",
+
+  "BTN_CLOSE": "Cerrar",
+
+  "MSG_COD200": "Debe introducir una dirección de correo electrónico y una contraseña para continuar",
+  "MSG_COD201": "Debe ingresar un correo electrónico para continuar",
+  "MSG_COD202": "Debe completar todos los datos para continuar",
+  "MSG_COD203": "Las contraseñas ingresadas no coinciden",
+  "MSG_COD204": "El formato del correo electrónico es incorrecto",
+  "MSG_COD205": "Debe aceptar los términos para continuar"
+}
