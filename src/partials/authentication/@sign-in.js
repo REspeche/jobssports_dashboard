@@ -1,6 +1,6 @@
 angular.module('mainApp').controller('signInController',
-['$scope', 'authenticationSvc', '$translate', 'mainSvc',
-    function ($scope, authenticationSvc, $translate, mainSvc) {
+['$scope', 'authenticationSvc', '$translate', 'mainSvc', 'actionSvc',
+    function ($scope, authenticationSvc, $translate, mainSvc, actionSvc) {
       $scope.formData = {
         email: '',
         password: '',
@@ -29,7 +29,7 @@ angular.module('mainApp').controller('signInController',
           //load popup end session
           if ($scope.querystring.endSession == '1' || $scope.querystring.endToken == '1') {
             $translate.onReady(function() {
-              setHash('/sign-in');
+              setHash('/authentication/sign-in');
               mainSvc.showModal({
                 icon: 'warning',
                 confirmButtonText: $translate.instant('BTN_CLOSE'),
@@ -44,6 +44,72 @@ angular.module('mainApp').controller('signInController',
         if (!$scope.formData.email || !$scope.formData.password) {
           mainSvc.showAlertByCode(200);
           return false;
+        };
+        mainSvc.callService({
+            url: 'auth/login',
+            params: {
+               'email': $scope.formData.email,
+               'password': $scope.formData.password
+            },
+            secured: false
+        }).then(function (response) {
+          if (response.code==200) {
+            $scope.formData.password = "";
+          }
+          else if (response.code==207) {
+            $scope.showValidateMsg = true;
+          }
+          else {
+            if (response.token) {
+              if (response.trial==3) {
+                // version trial finished
+                mainSvc.showAlertByCode(317);
+                return false;
+              }
+              authenticationSvc.saveLogin({
+                id              : response.id,
+                email           : response.email,
+                token           : response.token,
+                type            : response.type,
+                name            : response.name,
+                forceProfile    : response.forceProfile,
+                role            : response.role,
+                rememberLogin   : $scope.formData.remember,
+                avatar          : response.avatar,
+                codeMenu        : response.codeMenu,
+                canDelivery     : response.canDelivery,
+                multipleQR      : response.multipleQR,
+                covid19         : response.covid19,
+                trial           : response.trial,
+                isDebtor        : response.isDebtor,
+                multiLanguage   : response.multiLanguage
+              });
+              if (authenticationSvc.login().isLogin) {
+                //remove cache
+                $cookies.remove("LENGOLO_MENU_LST");
+                $cookies.remove("LENGOLO_CATEGORY_LST");
+                $cookies.remove("LENGOLO_MENU");
+                $cookies.remove("LENGOLO_CATEGORY");
+                localStorage.removeItem("categories_lstBreadcrumbs");
+
+                if (response.forceProfile) actionSvc.goToExternal(6); //profile
+                else actionSvc.goToExternal(1); //home
+              }
+            }
+          }
+        });
+      };
+
+      $scope.forgotPass = function() {
+        //Verify if already get a request to change password
+        if (localStorage.getItem("resetPassInterval")) {
+          let objResetPassInterval = JSON.parse(localStorage.getItem("resetPassInterval"));
+          actionSvc.goToAction(5, {
+            email: objResetPassInterval.email
+          }); // go to verify email
+        }
+        else {
+          actionSvc.goToAction(3);
         }
       }
 

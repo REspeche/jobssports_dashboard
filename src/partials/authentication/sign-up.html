@@ -98,20 +98,12 @@
             <!--end::Accept-->
             <!--begin::Submit button-->
             <div class="d-grid mb-10">
-              <button type="submit" id="kt_sign_up_submit" class="btn btn-primary">
-                <!--begin::Indicator label-->
-                <span class="indicator-label">Sign up</span>
-                <!--end::Indicator label-->
-                <!--begin::Indicator progress-->
-                <span class="indicator-progress">Please wait...
-                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                <!--end::Indicator progress-->
-              </button>
+              <btn-submit label="Sign In" btn-class="w100"></btn-submit>
             </div>
             <!--end::Submit button-->
             <!--begin::Sign up-->
             <div class="text-gray-500 text-center fw-semibold fs-6">Already have an Account?
-            <a href="/sign-in" class="link-primary fw-semibold">Sign in</a></div>
+            <a href="/authentication/sign-in" class="link-primary fw-semibold">Sign in</a></div>
             <!--end::Sign up-->
           </form>
           <!--end::Form-->
@@ -119,28 +111,14 @@
         <!--end::Wrapper-->
       </div>
       <!--end::Form-->
-      <!--begin::Footer-->
-      <div class="d-flex flex-center flex-wrap px-5">
-        <!--begin::Links-->
-        <div class="d-flex fw-semibold text-primary fs-base">
-          <a href="../../demo1/dist/pages/team.html" class="px-5" target="_blank">Terms</a>
-          <a href="../../demo1/dist/pages/pricing/column.html" class="px-5" target="_blank">Plans</a>
-          <a href="../../demo1/dist/pages/contact.html" class="px-5" target="_blank">Contact Us</a>
-        </div>
-        <!--end::Links-->
-      </div>
-      <!--end::Footer-->
+      <div ng-include src="'/templates/partials/authentication/footer.html'"></div>
     </div>
     <!--end::Body-->
     <!--begin::Aside-->
     <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-image: url(assets/media/misc/auth-bg.png)">
       <!--begin::Content-->
       <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
-        <!--begin::Logo-->
-        <a href="../../demo1/dist/index.html" class="mb-0 mb-lg-12">
-          <img alt="Logo" src="assets/media/logos/custom-1.png" class="h-60px h-lg-75px" />
-        </a>
-        <!--end::Logo-->
+        <logo-app size="60" size-lg="75"></logo-app>
         <!--begin::Image-->
         <img class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src="assets/media/misc/auth-screens.png" alt="" />
         <!--end::Image-->

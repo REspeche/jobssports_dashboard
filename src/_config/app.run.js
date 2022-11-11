@@ -49,6 +49,10 @@ mainApp.run(['$rootScope', 'authenticationSvc', '$state', 'alertSvc', 'mainSvc',
 
         $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams) {
           document.body.scrollTop = document.documentElement.scrollTop = 0;
+          if (toState.data && angular.isDefined(toState.data.bodyClasses)) {
+              $('body').addClass(toState.data.bodyClasses);
+              return;
+          }
           $rootScope.isBusy = false;
         });
 

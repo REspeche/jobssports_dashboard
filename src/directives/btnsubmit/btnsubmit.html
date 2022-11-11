@@ -1,0 +1,10 @@
+<button type="submit" id="kt_sign_in_submit" class="btn btn-primary {{btnClass}}" ng-disable="$root.isBusy">
+  <!--begin::Indicator label-->
+  <span ng-hide="$root.isBusy">{{label}}</span>
+  <!--end::Indicator label-->
+  <!--begin::Indicator progress-->
+  <span ng-show="$root.isBusy">Please wait...
+    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+  </span>
+  <!--end::Indicator progress-->
+</button>

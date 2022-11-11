@@ -2,7 +2,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
     function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         $stateProvider
             .state('sign-in', {
-                url         : '/sign-in',
+                url         : '/authentication/sign-in',
                 templateUrl : 'templates/partials/authentication/sign-in.html',
                 controller  : 'signInController',
                 resolve: {
@@ -38,11 +38,11 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   isFree: true
                 },
                 data: {
-                    bodyClasses: 'loadScreen'
+                    bodyClasses: 'verifyAuthentication-page'
                 }
             })
             .state('reset-password', {
-                url         : '/reset-password',
+                url         : '/authentication/reset-password',
                 templateUrl : 'templates/partials/authentication/reset-password.html',
                 controller  : 'resetPasswordController',
                 resolve: {
@@ -62,7 +62,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 }
             })
             .state('sign-up', {
-                url         : '/sign-up',
+                url         : '/authentication/sign-up',
                 templateUrl : 'templates/partials/authentication/sign-up.html',
                 controller  : 'signUpController',
                 resolve: {
@@ -79,6 +79,103 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 },
                 data: {
                   bodyClasses: 'signUp-page'
+                }
+            })
+            .state('multi-steps-sign-up', {
+                url         : '/authentication/multi-steps-sign-up',
+                templateUrl : 'templates/partials/authentication/multi-steps-sign-up.html',
+                controller  : 'multiSignUpController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/multi-steps-sign-up.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                  bodyClasses: 'signUp-page'
+                }
+            })
+            .state('verify-email', {
+                url         : '/authentication/verify-email/:email',
+                templateUrl : 'templates/partials/authentication/verify-email.html',
+                controller  : 'verifyEmailController',
+                params: {
+                    email: null
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/verify-email.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                  bodyClasses: 'verifyEmail-page'
+                }
+            })
+            .state('welcome', {
+                url         : '/authentication/welcome',
+                templateUrl : 'templates/partials/authentication/welcome.html',
+                controller  : 'welcomeController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/welcome.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                  bodyClasses: 'verifyEmail-page'
+                }
+            })
+            .state('change-pass', {
+                url         : '/authentication/change-pass',
+                templateUrl : 'templates/partials/authentication/change-pass.html',
+                controller  : 'changePassController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/change-pass.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                    bodyClasses: 'changePass-page'
+                }
+            })
+            .state('panel', {
+                url         : '/panel',
+                templateUrl : 'templates/partials/panel.html',
+                controller  : 'panelController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/panel.js'
+                            ]
+                        }]);
+                    }]
                 }
             });
 

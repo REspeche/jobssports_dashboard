@@ -1,5 +1,5 @@
 mainApp.constant('BASE_URL', {
-    'api': 'http://localhost:3000/api',
+    'api': 'http://localhost:3000',
     'secured': true, //[true:default]
     'dashboard': 'http://localhost:8080/',
     'site': 'http://localhost/',
