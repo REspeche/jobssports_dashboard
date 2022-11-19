@@ -6,6 +6,7 @@ angular.module('mainApp').controller('activateAccountController',
         hash: ''
       };
       $scope.error = false;
+      $scope.timeRefresh = 12;
 
       $scope.lodPartial = function() {
         $scope.formData.email = getQueryStringValue('email','');
