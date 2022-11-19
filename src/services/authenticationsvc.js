@@ -24,13 +24,14 @@ mainApp.factory('authenticationSvc',
         $rootScope.userInfo = saveLogin(userInfo);
       }
 
-      function saveLogin(userInfo) {
+      function saveLogin(response) {
         _data = {
           isLogin         : true,
-          id              : userInfo.id,
-          email           : userInfo.email,
-          token           : userInfo.token,
-          type            : userInfo.type
+          id              : response.id,
+          name            : response.name,
+          email           : response.email,
+          token           : response.token,
+          type            : response.type
         };
         var expireDate = undefined;
         if (_data.rememberLogin==true) {

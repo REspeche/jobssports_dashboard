@@ -17,7 +17,7 @@ angular.module('mainApp').controller('signInController',
 
         if (authenticationSvc.verifyLogin()) {
           if (authenticationSvc.login().isLogin) {
-            actionSvc.goToExternal(1); //go to home
+            actionSvc.goToAction(1); //go to home
           }
         }
         else {
@@ -66,34 +66,9 @@ angular.module('mainApp').controller('signInController',
                 mainSvc.showAlertByCode(317);
                 return false;
               }
-              authenticationSvc.saveLogin({
-                id              : response.id,
-                email           : response.email,
-                token           : response.token,
-                type            : response.type,
-                name            : response.name,
-                forceProfile    : response.forceProfile,
-                role            : response.role,
-                rememberLogin   : $scope.formData.remember,
-                avatar          : response.avatar,
-                codeMenu        : response.codeMenu,
-                canDelivery     : response.canDelivery,
-                multipleQR      : response.multipleQR,
-                covid19         : response.covid19,
-                trial           : response.trial,
-                isDebtor        : response.isDebtor,
-                multiLanguage   : response.multiLanguage
-              });
+              authenticationSvc.saveLogin(response);
               if (authenticationSvc.login().isLogin) {
-                //remove cache
-                $cookies.remove("LENGOLO_MENU_LST");
-                $cookies.remove("LENGOLO_CATEGORY_LST");
-                $cookies.remove("LENGOLO_MENU");
-                $cookies.remove("LENGOLO_CATEGORY");
-                localStorage.removeItem("categories_lstBreadcrumbs");
-
-                if (response.forceProfile) actionSvc.goToExternal(6); //profile
-                else actionSvc.goToExternal(1); //home
+                actionSvc.goToAction(1); //home
               }
             }
           }
@@ -102,10 +77,10 @@ angular.module('mainApp').controller('signInController',
 
       $scope.forgotPass = function() {
         //Verify if already get a request to change password
-        if (localStorage.getItem("resetPassInterval")) {
-          let objResetPassInterval = JSON.parse(localStorage.getItem("resetPassInterval"));
+        if (localStorage.getItem("sendMailInterval")) {
+          let objSendMailInterval = JSON.parse(localStorage.getItem("sendMailInterval"));
           actionSvc.goToAction(5, {
-            email: objResetPassInterval.email
+            email: objSendMailInterval.email
           }); // go to verify email
         }
         else {

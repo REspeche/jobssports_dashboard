@@ -2,7 +2,7 @@ angular.module('mainApp').controller('verifyAuthenticationController',
 ['$scope', 'authenticationSvc', 'alertSvc', 'actionSvc',
     function ($scope, authenticationSvc, alertSvc, actionSvc) {
 
-      $scope.loadVerifyAuthentication = function() {
+      $scope.loadPartial = function() {
         if(authenticationSvc.getUserInfo().isLogin) {
           actionSvc.goToAction(1); //go to home
         }

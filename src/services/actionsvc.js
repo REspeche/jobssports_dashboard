@@ -20,7 +20,6 @@ mainApp.factory('actionSvc',
 					case 3: 	retRoute = 'reset-password'; break;
 					case 4: 	retRoute = 'sign-up'; break;
 					case 5: 	retRoute = 'verify-email'; break;
-					case 6: 	retRoute = 'welcome'; break;
 				}
 				var arrRoutes = retRoute.split('/');
 				$rootScope.itemRoute = arrRoutes[arrRoutes.length-1];

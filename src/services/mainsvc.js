@@ -139,19 +139,20 @@ mainApp.factory('mainSvc',
 				};
 			}
 
-			function showAlertByCode(code) {
+			function showAlertByCode(code, callBackFunction) {
 				toastr.clear();
-				var msg = $translate.instant('MSG_COD'+code);
+				let msg = $translate.instant('MSG_COD'+code);
+				let iconStr = undefined;
 				if (code >= 0 && code < 100) toastr.success(msg);
-				if (code >= 100 && code < 200) toastr.info(msg);
-				if (code >= 200 && code < 300) showModal({
-					icon: 'warning',
-					text: msg
-				});
-				if (code >= 300 && code < 400) showModal({
-					icon: 'error',
-					text: msg
-				});
+				if (code >= 100 && code < 200) iconStr = 'info';
+				if (code >= 200 && code < 300) iconStr = 'warning';
+				if (code >= 300 && code < 400) iconStr = 'error';
+				if (iconStr) {
+					showModal({
+						icon: iconStr,
+						text: msg
+					}, callBackFunction);
+				}
 			}
 
 			function getDateFormat(pMilliseconds) {
@@ -169,13 +170,15 @@ mainApp.factory('mainSvc',
 				return new Date(parts[2], parts[1] - 1, parts[0]);
 			}
 
-			function showModal(customModalOptions) {
-					return Swal.fire({
+			function showModal(customModalOptions, callBackFunction) {
+					Swal.fire({
 							text: customModalOptions.text || 'Do you want to continue with this action?',
 							icon: customModalOptions.icon || 'error',
 							buttonsStyling: !1,
 							confirmButtonText: customModalOptions.confirmButtonText || 'Close',
-							customClass: { confirmButton: "btn btn-primary" },
+							customClass: { confirmButton: "btn btn-primary" }
+					}).then(function() {
+						if (callBackFunction) callBackFunction();
 					});
 			}
 

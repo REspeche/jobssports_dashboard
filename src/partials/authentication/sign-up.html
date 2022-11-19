@@ -48,8 +48,24 @@
             <!--end::Separator-->
             <!--begin::Input group=-->
             <div class="fv-row mb-8">
+              <div class="row">
+                <!--begin::First Name-->
+                <div class="col-md-6">
+                  <input type="text" placeholder="First Name" name="firstName" autocomplete="off" class="form-control bg-transparent" ng-model="formData.firstName"/>
+                </div>
+                <!--end::First Name-->
+                <!--begin::Last Name-->
+                <div class="col-md-6">
+                  <input type="text" placeholder="Last Name" name="lastName" autocomplete="off" class="form-control bg-transparent" ng-model="formData.lastName"/>
+                </div>
+                <!--end::Last Name-->
+              </div>
+            </div>
+            <!--begin::Input group-->
+            <!--begin::Input group=-->
+            <div class="fv-row mb-8">
               <!--begin::Email-->
-              <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" ng-value="formData.email"/>
+              <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" ng-model="formData.email"/>
               <!--end::Email-->
             </div>
             <!--begin::Input group-->
@@ -58,7 +74,7 @@
               <div class="mb-1">
                 <!--begin::Input wrapper-->
                 <div class="position-relative mb-3">
-                  <input class="form-control bg-transparent" type="password" placeholder="Password" name="password" autocomplete="off" ng-value="formData.password"/>
+                  <input class="form-control bg-transparent" type="password" placeholder="Password" name="password" autocomplete="off" ng-model="formData.password"/>
                   <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
                     <i class="bi bi-eye-slash fs-2"></i>
                     <i class="bi bi-eye fs-2 d-none"></i>
@@ -83,14 +99,14 @@
             <!--end::Input group=-->
             <div class="fv-row mb-8">
               <!--begin::Repeat Password-->
-              <input placeholder="Repeat Password" name="confirm-password" type="password" autocomplete="off" class="form-control bg-transparent" g-value="formData.passwordR"/>
+              <input placeholder="Repeat Password" name="confirm-password" type="password" autocomplete="off" class="form-control bg-transparent" ng-model="formData.passwordR"/>
               <!--end::Repeat Password-->
             </div>
             <!--end::Input group=-->
             <!--begin::Accept-->
             <div class="fv-row mb-8">
               <label class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="toc" value="1" />
+                <input class="form-check-input" type="checkbox" name="toc" value="1" ng-model="formData.agree"/>
                 <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">I Accept the
                 <a href="#" class="ms-1 link-primary">Terms</a></span>
               </label>
@@ -98,7 +114,7 @@
             <!--end::Accept-->
             <!--begin::Submit button-->
             <div class="d-grid mb-10">
-              <btn-submit label="Sign In" btn-class="w100"></btn-submit>
+              <btn-submit label="Sign Up" btn-class="w100"></btn-submit>
             </div>
             <!--end::Submit button-->
             <!--begin::Sign up-->
@@ -115,15 +131,12 @@
     </div>
     <!--end::Body-->
     <!--begin::Aside-->
-    <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-image: url(assets/media/misc/auth-bg.png)">
+    <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2 back-split">
       <!--begin::Content-->
       <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
-        <logo-app size="60" size-lg="75"></logo-app>
-        <!--begin::Image-->
-        <img class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src="assets/media/misc/auth-screens.png" alt="" />
-        <!--end::Image-->
+        <logo-app size="60" size-lg="125"></logo-app>
         <!--begin::Title-->
-        <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7">Fast, Efficient and Productive</h1>
+        <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7 mt-text-split">Your future just a click away</h1>
         <!--end::Title-->
         <!--begin::Text-->
         <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,

@@ -1,12 +1,17 @@
 {
   "TITLE": "Jobs Sports",
   "LOADING": "Loading...",
-  "LOADING_PAGE": "Please wait a few seconds...",
+  "LOADING_PAGE": "Please wait a few seconds, loading information...",
 
   "MSG_END_SESSION": "For security reasons, the session expires after 10 minutes of inactivity. Please, if you want to continue using the platform, you must re-authenticate.",
   "MSG_FAIL_TOKEN": "For security reasons, the token generated when you authenticate has expired. Please, if you want to continue using the platform, you must re-authenticate.",
 
   "BTN_CLOSE": "Close",
+
+  "TXT_ACTIVE_ACCOUNT_1": "Your account was successfully activated.",
+  "TXT_ACTIVE_ACCOUNT_2": "You can continue using the platform.",
+  "TXT_ACTIVE_ACCOUNT_WRONG_1": "The information to activate the account is incorrect.",
+  "TXT_ACTIVE_ACCOUNT_WRONG_2": "Please try again or contact with us.",
 
   "MSG_ERROR_LOGIN": "Oh, sorry! There was an error trying to authenticate. Please try again later",
   "MSG_FIELDS_MANDATORY": "Fields marked with a * are mandatory",
@@ -30,14 +35,17 @@
   "MSG_COD200": "You must enter an email address and password to continue",
   "MSG_COD201": "You must enter an email to continue",
   "MSG_COD202": "You must complete all the data to continue",
-  "MSG_COD203": "The entered passwords do not match",
+  "MSG_COD203": "The password and its confirm are not the same",
   "MSG_COD204": "The email format is incorrect",
   "MSG_COD205": "You should be agree the terms to continue",
   "MSG_COD206": "Wrong email or password",
   "MSG_COD207": "The email account has not yet been validated, please check your inbox or spam.",
+  "MSG_COD208": "The password cannot be the same as the current one",
+  "MSG_COD209": "An email has been sent to your account with the steps to follow",
   "MSG_COD300": "Service call failed",
   "MSG_COD301": "The service returned the wrong code",
-  "MSG_COD302": "The email address does not exist in the database",
+  "MSG_COD302": "The email address already exist in the database",
   "MSG_COD303": "The token to change the password has expired. Please try again to request the password change",
-  "MSG_COD304": "There was an error trying to change the password, please try again"
+  "MSG_COD304": "There was an error trying to change the password, please try again",
+  "MSG_COD305": "The details to activate the account are incorrect. Please try again or contact the administrator"
 }

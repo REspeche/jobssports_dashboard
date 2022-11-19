@@ -22,14 +22,18 @@ body::-webkit-scrollbar-thumb {
   text-align: center;
   z-index: 1111;
   .spinner {
-    background-image: url("/assets/media/gif/busy.gif");
     width: 80px;
     height: 80px;
     position: relative;
     margin: auto;
-    top: 45%;
-    background-size: contain; }
+    top: calc(45% + 40px);
+    background-size: contain;
 
+    .spinner-border {
+      width: 30px;
+      height: 30px;
+    }
+  }
   .label {
     position: relative;
     top: calc(45% + 10px);
@@ -54,4 +58,15 @@ ui-view.page > div.d-flex {
 
 .w100 {
   width: 100%;
+}
+
+.back-split {
+  min-height: 100%;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), url(/assets/media/misc/m70.jpg);
+  background-size: cover;
+  background-position: center top;
+}
+
+.mt-text-split {
+  margin-top: 200px;
 }

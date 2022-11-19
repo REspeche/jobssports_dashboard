@@ -1,12 +1,17 @@
 {
   "TITLE": "Jobs Sports",
   "LOADING": "Cargando...",
-  "LOADING_PAGE": "Espere unos segundos...",
+  "LOADING_PAGE": "Espere unos segundos, cargando información...",
 
   "MSG_END_SESSION": "Por razones de seguridad, la sesión caduca después de 10 minutos de inactividad. Por favor, si desea continuar utilizando la plataforma, debe volver a autenticarse.",
   "MSG_FAIL_TOKEN": "Por razones de seguridad, el token generado cuando se autentica ha caducado. Por favor, si desea continuar usando la plataforma, debe volver a autenticarse.",
 
   "BTN_CLOSE": "Cerrar",
+
+  "TXT_ACTIVE_ACCOUNT_1": "Su cuenta fue habilitada con éxito.",
+  "TXT_ACTIVE_ACCOUNT_2": "Puedes seguir usando la plataforma.",
+  "TXT_ACTIVE_ACCOUNT_WRONG_1": "Los datos para activar la cuenta son incorrectos.",
+  "TXT_ACTIVE_ACCOUNT_WRONG_2": "Por favor intente nuevamente o contacte con nosotros.",
 
   "MSG_ERROR_LOGIN": "¡Oh, lo siento! Se produjo un error al intentar la autenticación. Vuelva a intentarlo más tarde",
   "MSG_FIELDS_MANDATORY": "Los campos marcados con un * son obligatorios",
@@ -30,14 +35,17 @@
   "MSG_COD200": "Debe introducir una dirección de correo electrónico y una contraseña para continuar",
   "MSG_COD201": "Debe ingresar un correo electrónico para continuar",
   "MSG_COD202": "Debe completar todos los datos para continuar",
-  "MSG_COD203": "Las contraseñas ingresadas no coinciden",
+  "MSG_COD203": "La contraseña y su confirmación no son lo mismo",
   "MSG_COD204": "El formato del correo electrónico es incorrecto",
   "MSG_COD205": "Debe aceptar los términos para continuar",
   "MSG_COD206": "Correo electrónico o contraseña incorrecto",
   "MSG_COD207": "Todavía no se validó la cuenta de correo, por favor, revise su bandeja de entrada o correos no deseados.",
+  "MSG_COD208": "La contraseña no puede ser la misma que la actual",
+  "MSG_COD209": "Se le ha enviado un correo electrónico a su cuenta con los pasos a seguir",
   "MSG_COD300": "Error en la llamada de servicio",
   "MSG_COD301": "El servicio devolvió el código erroneo",
-  "MSG_COD302": "La dirección de correo electrónico no existe en la base de datos",
+  "MSG_COD302": "La dirección de correo electrónico ya existe en la base de datos",
   "MSG_COD303": "El token para cambiar la contraseña han caducado. Vuelva a intentar solicitar el cambio de contraseña",
-  "MSG_COD304": "Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente"
+  "MSG_COD304": "Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente",
+  "MSG_COD305": "Los datos para activar la cuenta son incorrectos. Vuelva a intentarlo o póngase en contacto con el administrador"
 }

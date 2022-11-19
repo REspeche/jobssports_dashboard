@@ -102,10 +102,11 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 }
             })
             .state('verify-email', {
-                url         : '/authentication/verify-email/:email',
+                url         : '/authentication/verify-email/:type/:email',
                 templateUrl : 'templates/partials/authentication/verify-email.html',
                 controller  : 'verifyEmailController',
                 params: {
+                    type: 'reset',
                     email: null
                 },
                 resolve: {
@@ -113,26 +114,6 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                         return $ocLazyLoad.load([{
                             files: [
                                 'assets/js/partials/authentication/verify-email.js'
-                            ]
-                        }]);
-                    }]
-                },
-                access: {
-                  isFree: true
-                },
-                data: {
-                  bodyClasses: 'verifyEmail-page'
-                }
-            })
-            .state('welcome', {
-                url         : '/authentication/welcome',
-                templateUrl : 'templates/partials/authentication/welcome.html',
-                controller  : 'welcomeController',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load([{
-                            files: [
-                                'assets/js/partials/authentication/welcome.js'
                             ]
                         }]);
                     }]
@@ -176,6 +157,26 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                             ]
                         }]);
                     }]
+                }
+            })
+            .state('activate-account', {
+                url         : '/authentication/activate-account',
+                templateUrl : 'templates/partials/authentication/activate-account.html',
+                controller  : 'activateAccountController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/activate-account.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                    bodyClasses: 'activateAccount-page'
                 }
             });
 

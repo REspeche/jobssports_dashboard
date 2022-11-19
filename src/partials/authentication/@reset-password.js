@@ -11,7 +11,7 @@ angular.module('mainApp').controller('resetPasswordController',
       $scope.loadPartial = function() {
         if (authenticationSvc.verifyLogin()) {
           if (authenticationSvc.login().isLogin) {
-            actionSvc.goToExternal(1); //go to home
+            actionSvc.goToAction(1); //go to home
           }
         }
         else {
@@ -19,10 +19,10 @@ angular.module('mainApp').controller('resetPasswordController',
           $scope.formData.hash = getQueryStringValue('hash','');
         };
         //Verify if already get a request to change password
-        if (localStorage.getItem("resetPassInterval")) {
-          let objResetPassInterval = JSON.parse(localStorage.getItem("resetPassInterval"));
+        if (localStorage.getItem("sendMailInterval")) {
+          let objSendMailInterval = JSON.parse(localStorage.getItem("sendMailInterval"));
           actionSvc.goToAction(5, {
-            email: objResetPassInterval.email
+            email: objSendMailInterval.email
           }); // go to verify email
         };
       }
@@ -43,13 +43,14 @@ angular.module('mainApp').controller('resetPasswordController',
             },
             secured: false
         }).then(function (response) {
-          localStorage.setItem("resetPassInterval", JSON.stringify({
+          localStorage.setItem("sendMailInterval", JSON.stringify({
             email: $scope.formData.email,
             disableLink: true,
             remainingTime: 60
           }));
           actionSvc.goToAction(5, {
-            email: $scope.formData.email
+            email: $scope.formData.email,
+            type: 'reset'
           }); // go to verify email
         });
       }

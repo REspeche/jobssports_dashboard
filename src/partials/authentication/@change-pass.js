@@ -11,19 +11,23 @@ angular.module('mainApp').controller('changePassController',
       $scope.loadPartial = function() {
         if (authenticationSvc.verifyLogin()) {
           if (authenticationSvc.login().isLogin) {
-            actionSvc.goToExternal(1); //go to home
+            actionSvc.goToAction(1); //go to home
           }
         }
         else {
           $scope.formData.email = getQueryStringValue('email','');
           $scope.formData.hash = getQueryStringValue('hash','');
         };
+
+        KTPasswordMeter.createInstances();
+        var passwordMeterElement = document.querySelector('[data-kt-password-meter="true"]');
+        var passwordMeter = KTPasswordMeter.getInstance(passwordMeterElement);
       }
 
       $scope.submit = function() {
         //Validations
         if (!$scope.formData.password || !$scope.formData.passwordR) {
-          mainSvc.showAlertByCode(201);
+          mainSvc.showAlertByCode(202);
           return false;
         };
         if ($scope.formData.password != $scope.formData.passwordR) {
@@ -40,16 +44,10 @@ angular.module('mainApp').controller('changePassController',
             secured: false
         }).then(function (response) {
           if (response.token) {
-            authenticationSvc.saveLogin({
-              isLogin       : true,
-              id            : response.id,
-              email         : response.email,
-              token         : response.token,
-              type          : response.type
-            });
+            authenticationSvc.saveLogin(response);
             if (authenticationSvc.login().isLogin) {
               mainSvc.showAlertByCode(2);
-              actionSvc.goToExternal(1); //home
+              actionSvc.goToAction(1); //home
             }
           }
         });
