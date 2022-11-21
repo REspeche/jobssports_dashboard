@@ -159,6 +159,7 @@ String.prototype.format = function() {
   }
   return a
 }
+
 var dateFormat = function () {
     var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
         timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
@@ -357,28 +358,59 @@ function initRangeTime(timeS, timeE, controller) {
           }
       });
     });
-  }
+}
 
-  function keydownTextarea(e) {
-    var keyCode = e.keyCode || e.which;
+function keydownTextarea(e) {
+  var keyCode = e.keyCode || e.which;
 
-    if (keyCode == 9) {
-      e.preventDefault();
-      var start = this.selectionStart;
-      var end = this.selectionEnd;
+  if (keyCode == 9) {
+    e.preventDefault();
+    var start = this.selectionStart;
+    var end = this.selectionEnd;
 
-      // set textarea value to: text before caret + tab + text after caret
-      $(this).val($(this).val().substring(0, start)
-                  + "\t"
-                  + $(this).val().substring(end));
+    // set textarea value to: text before caret + tab + text after caret
+    $(this).val($(this).val().substring(0, start)
+                + "\t"
+                + $(this).val().substring(end));
 
-      // put caret at right position again
-      this.selectionStart =
-      this.selectionEnd = start + 1;
-    };
-  }
+    // put caret at right position again
+    this.selectionStart =
+    this.selectionEnd = start + 1;
+  };
+}
 
-  function changeProtocolSSL(url) {
-    var ssl = ('https:' == document.location.protocol)?true:false;
-    return (ssl)?url.replace('http:','https:').replace(':8080',':443'):url;
-  }
+function changeProtocolSSL(url) {
+  var ssl = ('https:' == document.location.protocol)?true:false;
+  return (ssl)?url.replace('http:','https:').replace(':8080',':443'):url;
+}
+
+function geoplugin_request() { return '201.253.135.90';}
+function geoplugin_status() { return '200';}
+function geoplugin_credit() { return 'Some of the returned data includes GeoLite data created by MaxMind, available from <a href=\'http://www.maxmind.com\'>http://www.maxmind.com</a>.';}
+function geoplugin_delay() { return '2ms';}
+function geoplugin_city() { return 'Santa Fe';}
+function geoplugin_region() { return 'Santa Fe';}
+function geoplugin_regionCode() { return 'S';}
+function geoplugin_regionName() { return 'Santa Fe';}
+function geoplugin_areaCode() { return '';}
+function geoplugin_dmaCode() { return '';}
+function geoplugin_countryCode() { return 'AR';}
+function geoplugin_countryName() { return 'Argentina';}
+function geoplugin_inEU() { return 0;}
+function geoplugin_euVATrate() { return ;}
+function geoplugin_continentCode() { return 'SA';}
+function geoplugin_latitude() { return '-31.6333';}
+function geoplugin_longitude() { return '-60.7';}
+function geoplugin_locationAccuracyRadius() { return '1';}
+function geoplugin_timezone() { return 'America/Argentina/Cordoba';}
+function geoplugin_currencyCode() { return 'ARS';}
+function geoplugin_currencySymbol() { return '&#36;';}
+function geoplugin_currencySymbol_UTF8() { return '$';}
+function geoplugin_currencyConverter(amt, symbol) {
+	if (!amt) { return false; }
+	var converted = amt * 162.8437;
+	if (converted <0) { return false; }
+	if (symbol === false) { return Math.round(converted * 100)/100; }
+	else { return '&#36;'+(Math.round(converted * 100)/100);}
+	return false;
+}

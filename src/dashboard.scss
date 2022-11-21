@@ -70,3 +70,11 @@ ui-view.page > div.d-flex {
 .mt-text-split {
   margin-top: 200px;
 }
+
+.required:after {
+  padding-left: 0.3rem !important;
+}
+
+.text-right {
+  text-align: right;
+}

@@ -19,6 +19,7 @@ mainApp.factory('actionSvc',
 					case 2.1: retRoute = 'multi-steps-sign-up'; break;
 					case 3: 	retRoute = 'reset-password'; break;
 					case 4: 	retRoute = 'sign-up'; break;
+					case 4.1: retRoute = 'sign-up-player'; break;
 					case 5: 	retRoute = 'verify-email'; break;
 				}
 				var arrRoutes = retRoute.split('/');

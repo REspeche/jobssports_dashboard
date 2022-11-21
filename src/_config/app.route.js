@@ -61,15 +61,15 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   bodyClasses: 'resetPassword-page'
                 }
             })
-            .state('sign-up', {
-                url         : '/authentication/sign-up',
-                templateUrl : 'templates/partials/authentication/sign-up.html',
+            .state('sign-up-player', {
+                url         : '/authentication/player/sign-up',
+                templateUrl : 'templates/partials/authentication/player/sign-up.html',
                 controller  : 'signUpController',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/sign-up.js'
+                                'assets/js/partials/authentication/player/sign-up.js'
                             ]
                         }]);
                     }]
@@ -81,10 +81,14 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   bodyClasses: 'signUp-page'
                 }
             })
-            .state('multi-steps-sign-up', {
-                url         : '/authentication/multi-steps-sign-up',
+            .state('sign-up', {
+                url         : '/authentication/sign-up/:type/:step',
                 templateUrl : 'templates/partials/authentication/multi-steps-sign-up.html',
                 controller  : 'multiSignUpController',
+                params: {
+                    type: 'player',
+                    step: 1
+                },
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
