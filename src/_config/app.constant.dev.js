@@ -7,10 +7,10 @@ mainApp.constant('BASE_URL', {
     'cdn': 'http://incloux-jobssports-cdn.sfo3.cdn.digitaloceanspaces.com'
   })
   .constant('CONSTANTS', {
-    'timeout_ajax': 35000, //milliseconds
+    'timeout_ajax': 5000, //milliseconds
     'askOpenNewTab': true,
     'regexMail': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
-    'maxFileUpload': '10MB',
+    'maxFileUpload': '1MB',
     'files': {
       'profile': [600, 600]
     },

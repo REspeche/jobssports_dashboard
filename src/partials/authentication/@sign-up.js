@@ -1,9 +1,7 @@
 angular.module('mainApp').controller('signUpController',
-['$scope', 'actionSvc', 'authenticationSvc', 'mainSvc',
-    function ($scope, actionSvc, authenticationSvc, mainSvc) {
+['$scope', 'authenticationSvc', 'actionSvc', 'mainSvc',
+    function ($scope, authenticationSvc, actionSvc, mainSvc) {
       $scope.formData = {
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
         passwordR: '',
@@ -13,20 +11,19 @@ angular.module('mainApp').controller('signUpController',
       $scope.loadForm = false;
 
       $scope.loadPartial = function() {
-        if (authenticationSvc.verifyLogin()) {
-          if (authenticationSvc.login().isLogin) {
-            actionSvc.goToAction(1); //go to home
-          }
-        }
-        else {
-          $scope.formData.type = getQueryStringValue('type',0);
+        //Check Profile if it's loged
+        let _login = authenticationSvc.login();
+        if (_login.isLogin && _login.isProfile == 0) {
+          actionSvc.goToAction(6); //go to profile
+          return false;
+        };
 
-          if  (getQueryStringValue('email',undefined)!=undefined) {
-            $scope.blockEmail = true;
-            $scope.formData.email = getQueryStringValue('email','');
-          }
-          $scope.loadForm = true;
+        $scope.formData.type = getQueryStringValue('type',0);
+        if  (getQueryStringValue('email',undefined)!=undefined) {
+          $scope.blockEmail = true;
+          $scope.formData.email = getQueryStringValue('email','');
         }
+        $scope.loadForm = true;
 
         KTPasswordMeter.createInstances();
         var passwordMeterElement = document.querySelector('[data-kt-password-meter="true"]');
@@ -36,9 +33,7 @@ angular.module('mainApp').controller('signUpController',
       $scope.submit = function() {
 
         //Validations
-        if ($scope.formData.firstName=='' ||
-            $scope.formData.lastName=='' ||
-            $scope.formData.email=='' ||
+        if ($scope.formData.email=='' ||
             $scope.formData.password=='' ||
             $scope.formData.passwordR=='') {
           mainSvc.showAlertByCode(202);
@@ -59,10 +54,8 @@ angular.module('mainApp').controller('signUpController',
 
         //Ajax send
         mainSvc.callService({
-            url: 'auth/signupplayer',
+            url: 'auth/signup',
             params: {
-              'firstName': $scope.formData.firstName,
-              'lastName': $scope.formData.lastName,
               'email': $scope.formData.email,
               'password': $scope.formData.password,
               'agree': $scope.formData.agree

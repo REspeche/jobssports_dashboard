@@ -23,13 +23,13 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
             })
             .state('verify-authentication', {
                 url         : '/verify-authentication',
-                templateUrl : 'templates/partials/authentication/verify-authentication.html',
+                templateUrl : 'templates/partials/authentication/transition-screen/verify-authentication.html',
                 controller  : 'verifyAuthenticationController',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/verify-authentication.js'
+                                'assets/js/partials/authentication/transition-screen/verify-authentication.js'
                             ]
                         }]);
                     }]
@@ -61,15 +61,15 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   bodyClasses: 'resetPassword-page'
                 }
             })
-            .state('sign-up-player', {
-                url         : '/authentication/player/sign-up',
-                templateUrl : 'templates/partials/authentication/player/sign-up.html',
+            .state('sign-up', {
+                url         : '/authentication/sign-up',
+                templateUrl : 'templates/partials/authentication/sign-up.html',
                 controller  : 'signUpController',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/player/sign-up.js'
+                                'assets/js/partials/authentication/sign-up.js'
                             ]
                         }]);
                     }]
@@ -81,25 +81,22 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   bodyClasses: 'signUp-page'
                 }
             })
-            .state('sign-up', {
-                url         : '/authentication/sign-up/:type/:step',
-                templateUrl : 'templates/partials/authentication/multi-steps-sign-up.html',
-                controller  : 'multiSignUpController',
+            .state('create-profile', {
+                url         : '/authentication/create-profile/:type/:step',
+                templateUrl : 'templates/partials/authentication/create-profile.html',
+                controller  : 'createProfileController',
                 params: {
                     type: 'player',
-                    step: 1
+                    step: '1'
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/multi-steps-sign-up.js'
+                                'assets/js/partials/authentication/create-profile.js'
                             ]
                         }]);
                     }]
-                },
-                access: {
-                  isFree: true
                 },
                 data: {
                   bodyClasses: 'signUp-page'
@@ -107,7 +104,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
             })
             .state('verify-email', {
                 url         : '/authentication/verify-email/:type/:email',
-                templateUrl : 'templates/partials/authentication/verify-email.html',
+                templateUrl : 'templates/partials/authentication/info-screen/verify-email.html',
                 controller  : 'verifyEmailController',
                 params: {
                     type: 'reset',
@@ -117,7 +114,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/verify-email.js'
+                                'assets/js/partials/authentication/info-screen/verify-email.js'
                             ]
                         }]);
                     }]
@@ -163,15 +160,15 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     }]
                 }
             })
-            .state('activate-account', {
-                url         : '/authentication/activate-account',
-                templateUrl : 'templates/partials/authentication/activate-account.html',
-                controller  : 'activateAccountController',
+            .state('welcome', {
+                url         : '/authentication/welcome',
+                templateUrl : 'templates/partials/authentication/info-screen/welcome.html',
+                controller  : 'welcomeController',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/activate-account.js'
+                                'assets/js/partials/authentication/info-screen/welcome.js'
                             ]
                         }]);
                     }]
@@ -180,7 +177,31 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   isFree: true
                 },
                 data: {
-                    bodyClasses: 'activateAccount-page'
+                    bodyClasses: 'welcome-page'
+                }
+            })
+            .state('redirect-external', {
+                url         : '/redirect-external/:page',
+                templateUrl : 'templates/partials/authentication/transition-screen/redirect-external.html',
+                controller  : 'redirectExternalController',
+                params: {
+                    page: null,
+                    backurl: null
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/transition-screen/redirect-external.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                    bodyClasses: 'load-screen'
                 }
             });
 

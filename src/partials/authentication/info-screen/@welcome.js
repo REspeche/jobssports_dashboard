@@ -1,4 +1,4 @@
-angular.module('mainApp').controller('activateAccountController',
+angular.module('mainApp').controller('welcomeController',
 ['$scope', 'actionSvc', 'mainSvc', '$timeout', 'authenticationSvc',
     function ($scope, actionSvc, mainSvc, $timeout, authenticationSvc) {
       $scope.formData = {
@@ -6,7 +6,7 @@ angular.module('mainApp').controller('activateAccountController',
         hash: ''
       };
       $scope.error = false;
-      $scope.timeRefresh = 12;
+      $scope.timeRefresh = 10;
 
       $scope.lodPartial = function() {
         $scope.formData.email = getQueryStringValue('email','');
@@ -44,14 +44,16 @@ angular.module('mainApp').controller('activateAccountController',
             $timeout(updateCounter, 1000);
           }
           else {
-            $scope.goToHome();
+            $scope.goToProfile();
           }
         };
-        updateCounter();
+        if (!$scope.error) updateCounter();
       }
 
-      $scope.goToHome = function() {
-        if ($scope.error) actionSvc.goToAction(2); //login
-        else actionSvc.goToAction(1); //home
+      $scope.goToProfile = function() {
+        actionSvc.goToAction(6, {
+          type: 'player',
+          step: '1'
+        }); //profile
       }
     }]);

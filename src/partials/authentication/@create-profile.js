@@ -1,6 +1,6 @@
-angular.module('mainApp').controller('multiSignUpController',
-['$scope', '$stateParams', 'mainSvc',
-    function ($scope, $stateParams, mainSvc) {
+angular.module('mainApp').controller('createProfileController',
+['$scope', '$rootScope', '$stateParams', 'mainSvc', 'actionSvc', 'authenticationSvc',
+    function ($scope, $rootScope, $stateParams, mainSvc, actionSvc, authenticationSvc) {
       $scope.formData = {
         type: 'player',
         player: {
@@ -23,8 +23,7 @@ angular.module('mainApp').controller('multiSignUpController',
           pictureH: undefined,
           videoH: undefined,
           pictureGallery: [],
-          videoGallery: [],
-          billingPlan: '2'
+          videoGallery: []
         },
         club: {
           name: '',
@@ -67,8 +66,21 @@ angular.module('mainApp').controller('multiSignUpController',
           rangeDate: undefined,
           degree: ''
         },
+        payment: {
+          billingPlan: '2',
+          cardName: 'Max Doe',
+          cardNumber: '4111 1111 1111 1111',
+          expMonth: '1',
+          expYear: '2022',
+          cvv: '',
+          saveCard: 1
+        },
         agree: false
       };
+      $scope.pictureH_FileNew = undefined;
+      $scope.countryPassport_FileNew = undefined;
+      $scope.logo_FileNew = undefined;
+
       $scope.formDataCopy = {};
       $scope.formDataClub = {
         id: 0,
@@ -154,6 +166,11 @@ angular.module('mainApp').controller('multiSignUpController',
       ];
 
       $scope.loadPartial = function() {
+        authenticationSvc.login(true);
+        $scope.formData.club.email = $rootScope.userInfo.email;
+        $scope.formData.agent.email = $rootScope.userInfo.email;
+        $scope.formData.coach.email = $rootScope.userInfo.email;
+
         //load Form data
         if (localStorage.getItem("formData")) {
           $scope.formData = JSON.parse(localStorage.getItem("formData"));
@@ -313,23 +330,97 @@ angular.module('mainApp').controller('multiSignUpController',
       $scope.selectType = function(_type) {
         $scope.formData.type = _type;
         $stateParams.type = _type
-        setHash('/authentication/sign-up/' + $stateParams.type + '/1');
+        actionSvc.goToAction(6, {
+          type: $stateParams.type,
+          step: '1'
+        });
       }
 
       $scope.actionPrevious = function() {
         if ($scope.step>1) {
           localStorage.setItem("formData", JSON.stringify($scope.formData));
           $scope.step -= 1;
-          setHash('/authentication/sign-up/' + $stateParams.type + '/' + $scope.step);
+          actionSvc.goToAction(6, {
+            type: $stateParams.type,
+            step: $scope.step
+          });
         }
       }
 
       $scope.actionNext = function() {
-        if ($scope.step<7) {
+        let _maxStep = 0;
+        let validForm = false;
+        let stepToVerify = false;
+        switch ($scope.formData.type) {
+          case 'player':
+            _maxStep = 7;
+            if ($scope.step == 2) {
+              stepToVerify = true;
+              if ($scope.formData.player.firstName != '' &&
+                  $scope.formData.player.lastName != '' &&
+                  $scope.formData.player.gender != '' &&
+                  $scope.formData.player.dateBirth != undefined &&
+                  $scope.formData.player.countryBirth != '') {
+                    validForm = true;
+              };
+            };
+            if ($scope.step == 3) {
+              stepToVerify = true;
+              if ($scope.formData.player.clubs.length > 0) {
+                    validForm = true;
+              };
+            };
+            if ($scope.step == 4) {
+              stepToVerify = true;
+              if ($scope.formData.player.mainPosition != '' &&
+                  $scope.formData.player.height > 0 &&
+                  $scope.formData.player.weight > 0) {
+                    validForm = true;
+              };
+            };
+            if ($scope.step == 5) {
+              stepToVerify = true;
+              if ($scope.pictureH_FileNew != undefined) {
+                    validForm = true;
+              };
+            };
+            if ($scope.step == 6) {
+              stepToVerify = true;
+              if ($scope.formData.payment.billingPlan != '' &&
+                  $scope.formData.payment.cardName != '' &&
+                  $scope.formData.payment.cardNumber != '' &&
+                  $scope.formData.payment.expMonth != '' &&
+                  $scope.formData.payment.expMonth != '' &&
+                  $scope.formData.payment.cvv != '') {
+                    validForm = true;
+              };
+            };
+            break;
+          case 'club':
+            _maxStep = 5;
+            break;
+          case 'agent':
+            _maxStep = 4;
+            break;
+          case 'coach':
+            _maxStep = 5;
+            break;
+        };
+        if (((stepToVerify && validForm) || !stepToVerify) && $scope.step<_maxStep) {
           localStorage.setItem("formData", JSON.stringify($scope.formData));
           $scope.step += 1;
-          setHash('/authentication/sign-up/' + $stateParams.type + '/' + $scope.step);
+          actionSvc.goToAction(6, {
+            type: $stateParams.type,
+            step: $scope.step
+          });
         }
+        else if (!validForm) {
+          mainSvc.showAlertByCode(202);
+        };
+      }
+
+      $scope.isFileChange = function() {
+
       }
 
       $scope.partialSave = function() {
@@ -348,6 +439,24 @@ angular.module('mainApp').controller('multiSignUpController',
           mainSvc.showAlertByCode(205);
           return false;
         };
+
+        //Ajax send
+        mainSvc.callService({
+            url: 'profile/createNewProfile_'+$scope.formData.type,
+            params: {
+              'dataJson': JSON.stringify($scope.formData.player),
+              'payment': JSON.stringify($scope.formData.payment),
+              'agree': $scope.formData.agree
+            },
+            secured: true
+        }).then(function (response) {
+          if (response.code==0) {
+            actionSvc.goToExternal(1); // go to home
+          }
+          else {
+            mainSvc.showAlertByCode(response.code);
+          }
+        });
       }
 
       /* Clubs ------------ */
@@ -471,6 +580,20 @@ angular.module('mainApp').controller('multiSignUpController',
           rangeDate: undefined,
           description: ''
         };
+      }
+
+      $scope.logOut = function() {
+        mainSvc.callService({
+            url: 'auth/logout'
+        }).then(function (response) {
+          authenticationSvc.logout();
+          actionSvc.goToExternal(2); // go to login
+        });
+      }
+
+      $scope.changeSaveCard = function() {
+        const cb = document.querySelector('#chkSaveCard');
+        $scope.formData.payment.saveCard=(cb.checked)?1:0;
       }
 
     }

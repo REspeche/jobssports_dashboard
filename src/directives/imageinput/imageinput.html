@@ -1,4 +1,4 @@
-<div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/svg/avatars/blank.svg)" id="{{name}}" name="{{name}}">
+<div class="image-input image-input-empty" style="background-image: url(/assets/media/svg/avatars/blank.svg)" id="{{name}}">
      <!--begin::Image preview wrapper-->
      <div class="image-input-wrapper w-{{size}}px h-{{size}}px"></div>
      <!--end::Image preview wrapper-->
@@ -12,7 +12,7 @@
          <i class="bi bi-pencil-fill fs-7"></i>
 
          <!--begin::Inputs-->
-         <input type="file" name="avatar" accept=".png, .jpg, .jpeg" ng-model="valueReturn"/>
+         <input type="file" name="avatar" accept=".png, .jpg, .jpeg" maxsize="{{maxFileUpload}}Mb"/>
          <input type="hidden" name="avatar_remove" />
          <!--end::Inputs-->
      </label>

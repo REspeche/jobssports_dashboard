@@ -1,6 +1,6 @@
 angular.module('mainApp').controller('resetPasswordController',
-['$scope', 'mainSvc', 'authenticationSvc', 'actionSvc',
-    function ($scope, mainSvc, authenticationSvc, actionSvc) {
+['$scope', 'authenticationSvc', 'mainSvc', 'actionSvc',
+    function ($scope, authenticationSvc, mainSvc, actionSvc) {
       $scope.formData = {
         email: '',
         hash: '',
@@ -9,15 +9,16 @@ angular.module('mainApp').controller('resetPasswordController',
       };
 
       $scope.loadPartial = function() {
-        if (authenticationSvc.verifyLogin()) {
-          if (authenticationSvc.login().isLogin) {
-            actionSvc.goToAction(1); //go to home
-          }
-        }
-        else {
-          $scope.formData.email = getQueryStringValue('email','');
-          $scope.formData.hash = getQueryStringValue('hash','');
+        //Check Profile if it's loged
+        let _login = authenticationSvc.login();
+        if (_login.isLogin && _login.isProfile == 0) {
+          actionSvc.goToAction(6); //go to profile
+          return false;
         };
+
+        $scope.formData.email = getQueryStringValue('email','');
+        $scope.formData.hash = getQueryStringValue('hash','');
+
         //Verify if already get a request to change password
         if (localStorage.getItem("sendMailInterval")) {
           let objSendMailInterval = JSON.parse(localStorage.getItem("sendMailInterval"));

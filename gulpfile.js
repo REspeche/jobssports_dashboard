@@ -46,6 +46,7 @@ var arrFrameworkJs = [
   'framework/angular/angular-ui-router.js',
   'framework/angular/angular-sanitize.js',
   'framework/angular/angular-cookies.js',
+  'framework/angular/angular-idle.js',
   'framework/angular/ocLazyLoad.js',
   'framework/bootstrap/ui-bootstrap-tpls.js',
   'framework/addons/angular-translate/angular-translate.min.js',

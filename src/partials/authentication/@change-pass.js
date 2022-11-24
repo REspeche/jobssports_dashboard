@@ -9,15 +9,8 @@ angular.module('mainApp').controller('changePassController',
       };
 
       $scope.loadPartial = function() {
-        if (authenticationSvc.verifyLogin()) {
-          if (authenticationSvc.login().isLogin) {
-            actionSvc.goToAction(1); //go to home
-          }
-        }
-        else {
-          $scope.formData.email = getQueryStringValue('email','');
-          $scope.formData.hash = getQueryStringValue('hash','');
-        };
+        $scope.formData.email = getQueryStringValue('email','');
+        $scope.formData.hash = getQueryStringValue('hash','');
 
         KTPasswordMeter.createInstances();
         var passwordMeterElement = document.querySelector('[data-kt-password-meter="true"]');
@@ -45,10 +38,8 @@ angular.module('mainApp').controller('changePassController',
         }).then(function (response) {
           if (response.token) {
             authenticationSvc.saveLogin(response);
-            if (authenticationSvc.login().isLogin) {
-              mainSvc.showAlertByCode(2);
-              actionSvc.goToAction(1); //home
-            }
+            mainSvc.showAlertByCode(2);
+            actionSvc.goToAction(1); //go to home
           }
         });
       }

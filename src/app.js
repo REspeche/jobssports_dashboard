@@ -5,5 +5,6 @@ var mainApp = angular.module('mainApp',
       'ngCookies',
       'ui.bootstrap',
       'oc.lazyLoad',
-      'pascalprecht.translate'
+      'pascalprecht.translate',
+      'ngIdle'
     ]);

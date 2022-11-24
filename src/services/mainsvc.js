@@ -143,7 +143,7 @@ mainApp.factory('mainSvc',
 				toastr.clear();
 				let msg = $translate.instant('MSG_COD'+code);
 				let iconStr = undefined;
-				if (code >= 0 && code < 100) toastr.success(msg);
+				if (code >= 0 && code < 100) toastr.info(msg);
 				if (code >= 100 && code < 200) iconStr = 'info';
 				if (code >= 200 && code < 300) iconStr = 'warning';
 				if (code >= 300 && code < 400) iconStr = 'error';

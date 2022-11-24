@@ -12,32 +12,37 @@ mainApp.factory('authenticationSvc',
         updateUserInfo: updateUserInfo
       };
 
-      var _data = {
+      var _data = {};
+      var _dataDefault = {
         isLogin         : false,
         id              : 0,
         email           : undefined,
         token           : undefined,
-        type            : 1
+        isProfile       : 0
       };
+
+      var printObject = function (_isLogin, _param) {
+        return {
+          isLogin         : _isLogin,
+          id              : _param.id,
+          email           : _param.email,
+          token           : _param.token,
+          isProfile       : _param.isProfile
+        };
+      }
 
       function updateUserInfo(userInfo) {
         $rootScope.userInfo = saveLogin(userInfo);
       }
 
       function saveLogin(response) {
-        _data = {
-          isLogin         : true,
-          id              : response.id,
-          name            : response.name,
-          email           : response.email,
-          token           : response.token,
-          type            : response.type
-        };
+        _data = printObject(true, response);
         var expireDate = undefined;
         if (_data.rememberLogin==true) {
           expireDate = new Date();
           expireDate.setYear(expireDate.getFullYear() + 1);
         }
+        $rootScope.userInfo = _data;
         $cookies.put(COOKIES.files.main, angular.toJson(_data), (expireDate)?{'expires': expireDate}:{});
         return _data;
       }
@@ -46,24 +51,12 @@ mainApp.factory('authenticationSvc',
         if (!!$cookies.get(COOKIES.files.main)) {
           var cookieStr = decodeURIComponent($cookies.get(COOKIES.files.main).replace(/\+/g, '%20'));
           var cookieObjMain = angular.fromJson(cookieStr);
-          _data = {
-            isLogin         : true,
-            id              : cookieObjMain.id,
-            email           : cookieObjMain.email,
-            token           : cookieObjMain.token,
-            type            : cookieObjMain.type
-          };
+          _data = printObject(true, cookieObjMain);
           if (cookieObjMain.tabRefreshed) $cookies.put(COOKIES.files.main, angular.toJson(_data));
           if (updateScope) $rootScope.userInfo = _data;
         }
         else {
-          _data = {
-            isLogin : false,
-            id      : 0,
-            email   : undefined,
-            token   : undefined,
-            type    : 1
-          };
+          _data = printObject(false, _dataDefault);
         }
         return _data;
       }
@@ -74,13 +67,7 @@ mainApp.factory('authenticationSvc',
 
       function logout(updateScope) {
         $cookies.remove(COOKIES.files.main);
-        _data = {
-          isLogin : false,
-          id      : 0,
-          email   : undefined,
-          token   : undefined,
-          type    : 1
-        };
+        _data = printObject(false, _dataDefault);
         if (updateScope) $rootScope.userInfo = _data;
       }
 

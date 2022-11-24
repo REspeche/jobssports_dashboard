@@ -414,3 +414,12 @@ function geoplugin_currencyConverter(amt, symbol) {
 	else { return '&#36;'+(Math.round(converted * 100)/100);}
 	return false;
 }
+
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}

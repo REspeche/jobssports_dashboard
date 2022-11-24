@@ -13,23 +13,39 @@ mainApp.run(['$rootScope', 'authenticationSvc', '$state', 'alertSvc', 'mainSvc',
           if(!authenticationSvc.getUserInfo().isLogin) {
               if (authenticationSvc.verifyLogin()) {
                 //autentificarse
-                if (authenticationSvc.login(true).isLogin) {
-                  //llama al servicio de alertas
-                  alertSvc.getAlerts();
+                let _login = authenticationSvc.login(true);
+                if (toState.name != 'create-profile' && _login.isLogin) {
+                  if (_login.isProfile == 0) {
+                    $rootScope.isBusy = false;
+                    e.preventDefault(); // stop current execution
+                    $state.go('create-profile'); // go to profile
+                  }
+                  else {
+                    //llama al servicio de alertas
+                    alertSvc.getAlerts();
+                  }
                 }
               }
               else {
+                $rootScope.isBusy = false;
                 e.preventDefault(); // stop current execution
                 authenticationSvc.logout();
-                $state.go('login'); // go to login
+                $state.go('sign-in'); // go to login
               }
           }
           else {
-            //llama al servicio de alertas si es que nunca lo llamo
-            if (!$rootScope.alerts.pull) alertSvc.getAlerts();
+            if (toState.name!='create-profile' && $rootScope.userInfo.isProfile == 0) {
+              $rootScope.isBusy = false;
+              e.preventDefault(); // stop current execution
+              $state.go('create-profile'); // go to profile
+            }
+            else {
+              //llama al servicio de alertas si es que nunca lo llamo
+              if ($rootScope.alerts && !$rootScope.alerts.pull) alertSvc.getAlerts();
+            };
           };
           //llama al servicio de configuracion si es que nunca lo llamo
-          if (!$rootScope.settings || !$rootScope.settings.pull) {
+          if ($rootScope.userInfo && $rootScope.userInfo.isProfile == 1 && (!$rootScope.settings || !$rootScope.settings.pull)) {
             settingSvc.getSettings().then(function () {
               $translate.onReady(function() {
                 metaTagsSvc.setDefaultTags({

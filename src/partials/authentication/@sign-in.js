@@ -2,12 +2,19 @@ angular.module('mainApp').controller('signInController',
 ['$scope', 'authenticationSvc', '$translate', 'mainSvc', 'actionSvc',
     function ($scope, authenticationSvc, $translate, mainSvc, actionSvc) {
       $scope.formData = {
-        email: '',
-        password: '',
+        email: 'ricardo_espeche@hotmail.com',
+        password: 'Ricard0Espech3',
         remember: false
       };
 
       $scope.loadPartial = function () {
+        //Check Profile if it's loged
+        let _login = authenticationSvc.login();
+        if (_login.isLogin && _login.isProfile == 0) {
+          actionSvc.goToAction(6); //go to profile
+          return false;
+        };
+
         $scope.querystring = {
           urlback: getQueryStringValue('urlback'),
           email: getQueryStringValue('email'),
@@ -15,28 +22,21 @@ angular.module('mainApp').controller('signInController',
           endToken: getQueryStringValue('endToken')
         };
 
-        if (authenticationSvc.verifyLogin()) {
-          if (authenticationSvc.login().isLogin) {
-            actionSvc.goToAction(1); //go to home
-          }
+        //load email
+        if ($scope.querystring.email) {
+            $scope.formData.email = $scope.querystring.email;
         }
-        else {
-          //load email
-          if ($scope.querystring.email != "") {
-              $scope.formData.email = $scope.querystring.email;
-          }
 
-          //load popup end session
-          if ($scope.querystring.endSession == '1' || $scope.querystring.endToken == '1') {
-            $translate.onReady(function() {
-              setHash('/authentication/sign-in');
-              mainSvc.showModal({
-                icon: 'warning',
-                confirmButtonText: $translate.instant('BTN_CLOSE'),
-                text: ($scope.querystring.endSession=='1')?$translate.instant('MSG_END_SESSION'):$translate.instant('MSG_FAIL_TOKEN')
-              });
+        //load popup end session
+        if ($scope.querystring.endSession == '1' || $scope.querystring.endToken == '1') {
+          $translate.onReady(function() {
+            setHash('/authentication/sign-in');
+            mainSvc.showModal({
+              icon: 'warning',
+              confirmButtonText: $translate.instant('BTN_CLOSE'),
+              text: ($scope.querystring.endSession=='1')?$translate.instant('MSG_END_SESSION'):$translate.instant('MSG_FAIL_TOKEN')
             });
-          }
+          });
         }
       };
 
@@ -61,17 +61,12 @@ angular.module('mainApp').controller('signInController',
           }
           else {
             if (response.token) {
-              if (response.trial==3) {
-                // version trial finished
-                mainSvc.showAlertByCode(317);
-                return false;
-              }
+              localStorage.removeItem("formData");
+              localStorage.removeItem("listCombosSignUp");
               authenticationSvc.saveLogin(response);
-              if (authenticationSvc.login().isLogin) {
-                actionSvc.goToAction(1); //home
-              }
-            }
-          }
+              actionSvc.goToExternal(1); //go to home
+            };
+          };
         });
       };
 

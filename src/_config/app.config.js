@@ -16,6 +16,12 @@ mainApp.config(['$qProvider', '$locationProvider',
   }
 ]);
 
+mainApp.config(function(IdleProvider, KeepaliveProvider) {
+    IdleProvider.idle(300); //5 min
+    IdleProvider.timeout(30);
+    KeepaliveProvider.interval(10);
+});
+
 mainApp.config(['$translateProvider',
   function($translateProvider) {
     $translateProvider
