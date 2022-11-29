@@ -4,6 +4,8 @@
   "LOADING_PAGE": "Espere unos segundos, cargando información...",
 
   "BTN_CLOSE": "Cerrar",
+  "BTN_YES": "Si",
+  "BTN_NO": "No",
 
   "LBL_MAIN_IMAGE_INFO": "formato JPG / PNG",
 
@@ -45,6 +47,7 @@
   "MSG_COD303": "El token para cambiar la contraseña han caducado. Vuelva a intentar solicitar el cambio de contraseña",
   "MSG_COD304": "Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente",
   "MSG_COD305": "Los datos para activar la cuenta son incorrectos. Vuelva a intentarlo o póngase en contacto con el administrador",
+  "MSG_COD306": "Ya existe un perfil creado como jugador con los mismo datos de autentificacion.",
 
   "TXT_ACTIVE_ACCOUNT_1": "Su cuenta fue habilitada con éxito.",
   "TXT_ACTIVE_ACCOUNT_2": "Puedes seguir usando la plataforma.",

@@ -15,19 +15,29 @@ mainApp.factory('authenticationSvc',
       var _data = {};
       var _dataDefault = {
         isLogin         : false,
+        type           : 1,
         id              : 0,
+        plaId           : 0,
+        cluId           : 0,
+        ageId           : 0,
+        coaId           : 0,
         email           : undefined,
         token           : undefined,
-        isProfile       : 0
+        logo            : ''
       };
 
       var printObject = function (_isLogin, _param) {
         return {
           isLogin         : _isLogin,
+          type            : _param.type,
           id              : _param.id,
+          plaId           : _param.plaId,
+          cluId           : _param.cluId,
+          ageId           : _param.ageId,
+          coaId           : _param.coaId,
           email           : _param.email,
           token           : _param.token,
-          isProfile       : _param.isProfile
+          logo            : _param.logo
         };
       }
 
@@ -36,13 +46,16 @@ mainApp.factory('authenticationSvc',
       }
 
       function saveLogin(response) {
-        _data = printObject(true, response);
-        var expireDate = undefined;
-        if (_data.rememberLogin==true) {
-          expireDate = new Date();
-          expireDate.setYear(expireDate.getFullYear() + 1);
+        if (!response) _data = angular.copy($rootScope.userInfo);
+        else {
+          _data = printObject(true, response);
+          var expireDate = undefined;
+          if (_data.rememberLogin==true) {
+            expireDate = new Date();
+            expireDate.setYear(expireDate.getFullYear() + 1);
+          }
+          $rootScope.userInfo = _data;
         }
-        $rootScope.userInfo = _data;
         $cookies.put(COOKIES.files.main, angular.toJson(_data), (expireDate)?{'expires': expireDate}:{});
         return _data;
       }

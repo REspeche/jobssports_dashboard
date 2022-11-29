@@ -82,12 +82,11 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 }
             })
             .state('create-profile', {
-                url         : '/authentication/create-profile/:type/:step',
+                url         : '/authentication/create-profile/:type',
                 templateUrl : 'templates/partials/authentication/create-profile.html',
                 controller  : 'createProfileController',
                 params: {
-                    type: 'player',
-                    step: '1'
+                    type: ''
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -99,7 +98,24 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     }]
                 },
                 data: {
-                  bodyClasses: 'signUp-page'
+                  bodyClasses: 'createProfile-page'
+                }
+            })
+            .state('select-profile', {
+                url         : '/authentication/select-profile',
+                templateUrl : 'templates/partials/authentication/select-profile.html',
+                controller  : 'selectProfileController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/select-profile.js'
+                            ]
+                        }]);
+                    }]
+                },
+                data: {
+                  bodyClasses: 'selectProfile-page'
                 }
             })
             .state('verify-email', {

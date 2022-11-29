@@ -64,7 +64,9 @@ mainApp.factory('mainSvc',
 								}
 								if (data.files && data.files.length > 0) {
 									for (var i = 0; i < data.files.length; i++) {
-										formData.append("files[" + i + "]", data.files[i]);
+										let key = Object.keys(data.files[i])[0];
+										let value = data.files[i][key];
+										formData.append(key, value);
 									}
 								}
 								if (data.gallery && data.gallery.length > 0) {
@@ -171,14 +173,17 @@ mainApp.factory('mainSvc',
 			}
 
 			function showModal(customModalOptions, callBackFunction) {
-					Swal.fire({
-							text: customModalOptions.text || 'Do you want to continue with this action?',
-							icon: customModalOptions.icon || 'error',
-							buttonsStyling: !1,
-							confirmButtonText: customModalOptions.confirmButtonText || 'Close',
-							customClass: { confirmButton: "btn btn-primary" }
-					}).then(function() {
-						if (callBackFunction) callBackFunction();
+					var p = Object.assign({}, {
+							text: 'Do you want to continue with this action?',
+							icon: 'error',
+							confirmButtonText: 'Close',
+							customClass: {
+								confirmButton: "btn btn-primary",
+								cancelButton: "btn btn-secondary"
+							}
+					}, customModalOptions);
+					Swal.fire(p).then((result) => {
+					  if (result.isConfirmed && callBackFunction) callBackFunction();
 					});
 			}
 

@@ -110,45 +110,8 @@ function initializeTooltips () {
 function DateTimeToDateObj(DATETIME) {
     if (DATETIME == null) return null;
     var date = DATETIME.split("/");
-    var d1 = new Date(Number(date[2]), Number(date[1]) - 1, Number(date[0]));
+    var d1 = new Date(Number(date[1]), Number(date[0]) - 1, Number(date[2]));
     return d1;
-}
-
-function DateTimeToUnixTimestamp(DATETIME) {
-    if (DATETIME == null) return null;
-    var parts = DATETIME.split(" ");
-    var date = parts[0].split("/");
-    var time = parts[1].split(":");
-    var d1 = new Date(Number(date[2]), Number(date[1]) - 1, Number(date[0]), time[0], time[1]);
-    return d1.getTime() / 1000;
-}
-function DateToUnixTimestamp(DATETIME) {
-    if (DATETIME == null) return null;
-    var parts = DATETIME.split(" ");
-    var date = parts[0].split("/");
-    var d1 = new Date(Number(date[2]), Number(date[1]) - 1, Number(date[0]), 0, 0);
-    return d1.getTime() / 1000;
-}
-
-function UnixTimeStampToDateTime(UNIX_timestamp, obj = false) {
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    var monthsStr = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-    var year = a.getFullYear();
-    var date = a.getDate();
-    var hour = (a.getHours()<10)?a.getHours()+'0':a.getHours();
-    var min = (a.getMinutes()<10)?a.getMinutes()+'0':a.getMinutes();
-    var dateReturn = (!obj) ?  date + '/' + months[a.getMonth()] + '/' + year + ' ' + hour + ':' + min : new Date(year, a.getMonth(), date, hour, min);;
-    return dateReturn;
-}
-function UnixTimeStampToDate(UNIX_timestamp, obj = false) {
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    var monthsStr = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-    var year = a.getFullYear();
-    var date = a.getDate();
-    var dateReturn = (!obj) ?  date + '/' + months[a.getMonth()] + '/' + year: new Date(year, a.getMonth(), date);
-    return dateReturn;
 }
 
 /* Prototype functions */

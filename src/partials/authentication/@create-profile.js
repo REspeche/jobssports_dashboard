@@ -2,7 +2,7 @@ angular.module('mainApp').controller('createProfileController',
 ['$scope', '$rootScope', '$stateParams', 'mainSvc', 'actionSvc', 'authenticationSvc',
     function ($scope, $rootScope, $stateParams, mainSvc, actionSvc, authenticationSvc) {
       $scope.formData = {
-        type: 'player',
+        type: '',
         player: {
           firstName: '',
           lastName: '',
@@ -63,13 +63,14 @@ angular.module('mainApp').controller('createProfileController',
           dateStart: undefined,
           club: '',
           trainingType: '1',
-          rangeDate: undefined,
+          rangeDateStart: undefined,
+          rangeDateEnd: undefined,
           degree: ''
         },
         payment: {
           billingPlan: '2',
-          cardName: 'Max Doe',
-          cardNumber: '4111 1111 1111 1111',
+          cardName: '',
+          cardNumber: '',
           expMonth: '1',
           expYear: '2022',
           cvv: '',
@@ -77,9 +78,12 @@ angular.module('mainApp').controller('createProfileController',
         },
         agree: false
       };
-      $scope.pictureH_FileNew = undefined;
-      $scope.countryPassport_FileNew = undefined;
       $scope.logo_FileNew = undefined;
+      $scope.countryPassport_FileNew = undefined;
+      $scope.pictureH_FileNew = undefined;
+      $scope.pictureGallery_FileNew = [];
+      $scope.loadForm = false;
+      $scope.editForm = false;
 
       $scope.formDataCopy = {};
       $scope.formDataClub = {
@@ -87,13 +91,15 @@ angular.module('mainApp').controller('createProfileController',
         name: '',
         contract: '1',
         country: '10',
-        rangeDate: undefined,
+        rangeDateStart: undefined,
+        rangeDateEnd: undefined,
         description: ''
       };
       $scope.formDataTeam = {
         id: 0,
         type: '1',
-        rangeDate: undefined,
+        rangeDateStart: undefined,
+        rangeDateEnd: undefined,
         description: ''
       };
       $scope.step = 1;
@@ -171,24 +177,17 @@ angular.module('mainApp').controller('createProfileController',
         $scope.formData.agent.email = $rootScope.userInfo.email;
         $scope.formData.coach.email = $rootScope.userInfo.email;
 
-        //load Form data
-        if (localStorage.getItem("formData")) {
-          $scope.formData = JSON.parse(localStorage.getItem("formData"));
-        };
-
         //load type
         if ($stateParams.type) {
           $scope.formData.type = $stateParams.type;
-        };
-        //load step
-        if ($stateParams.step) {
-          $scope.step = parseInt($stateParams.step);
+          $scope.step = 2;
         };
 
         //load combos
         if (localStorage.getItem("listCombosSignUp")) {
           let response = JSON.parse(localStorage.getItem("listCombosSignUp"));
           setListCombosSignUp(response);
+          $scope.loadForm = true;
         }
         else {
           mainSvc.callService({
@@ -215,28 +214,12 @@ angular.module('mainApp').controller('createProfileController',
                   });
                 };
             });
+            $scope.loadForm = true;
           });
         }
 
         $( document ).ready(function() {
             //restrict date birth
-            const d = new Date();
-            let year = d.getFullYear();
-            let month = d.getMonth() + 1;
-            let day = d.getDate();
-            $("#kt_datepicker_birth").flatpickr({
-                defaultDate: month+"-"+day+"-"+(year-18),
-                dateFormat: "m-d-Y",
-                maxDate: month+"-"+day+"-"+(year-18)
-            });
-            $("#kt_datepicker_foundation, #kt_datepicker_startActivity").flatpickr({
-                defaultDate: month+"-"+day+"-"+year,
-                dateFormat: "m-d-Y"
-            });
-            $("#kt_daterangepicker_club, #kt_daterangepicker_team, #kt_daterangepicker_training").daterangepicker({
-                dateFormat: "m-d-Y",
-                maxDate: month+"-"+day+"-"+year
-            });
             var heightSlider = document.querySelector("#kt_player_height_slider");
             var heightValue = document.querySelector("#kt_player_height_label");
             noUiSlider.create(heightSlider, {
@@ -288,7 +271,7 @@ angular.module('mainApp').controller('createProfileController',
                     $(this).slideUp(deleteElement);
                 }
             });
-            $('#kt_repeater_youtube,#kt_repeater_palmares').repeater({
+            $('#kt_repeater_youtube').repeater({
                 initEmpty: false,
                 show: function () {
                     $(this).slideDown();
@@ -297,7 +280,15 @@ angular.module('mainApp').controller('createProfileController',
                     $(this).slideUp(deleteElement);
                 }
             });
-
+            $('#kt_repeater_palmares').repeater({
+                initEmpty: false,
+                show: function () {
+                    $(this).slideDown();
+                },
+                hide: function (deleteElement) {
+                    $(this).slideUp(deleteElement);
+                }
+            });
             // Phone
             Inputmask({
                 "mask" : "(999) 999-9999"
@@ -329,21 +320,18 @@ angular.module('mainApp').controller('createProfileController',
 
       $scope.selectType = function(_type) {
         $scope.formData.type = _type;
-        $stateParams.type = _type
-        actionSvc.goToAction(6, {
-          type: $stateParams.type,
-          step: '1'
-        });
       }
 
       $scope.actionPrevious = function() {
         if ($scope.step>1) {
-          localStorage.setItem("formData", JSON.stringify($scope.formData));
-          $scope.step -= 1;
-          actionSvc.goToAction(6, {
-            type: $stateParams.type,
-            step: $scope.step
-          });
+          if ($scope.step==2) {
+            actionSvc.goToAction(6, {
+              type: ''
+            });
+          }
+          else {
+            $scope.step -= 1;
+          };
         }
       }
 
@@ -351,107 +339,203 @@ angular.module('mainApp').controller('createProfileController',
         let _maxStep = 0;
         let validForm = false;
         let stepToVerify = false;
-        switch ($scope.formData.type) {
-          case 'player':
-            _maxStep = 7;
-            if ($scope.step == 2) {
-              stepToVerify = true;
-              if ($scope.formData.player.firstName != '' &&
-                  $scope.formData.player.lastName != '' &&
-                  $scope.formData.player.gender != '' &&
-                  $scope.formData.player.dateBirth != undefined &&
-                  $scope.formData.player.countryBirth != '') {
-                    validForm = true;
+        if ($scope.step > 1) {
+          switch ($scope.formData.type) {
+            case 'player':
+              _maxStep = 7;
+              if ($scope.step == 2) {
+                stepToVerify = true;
+                if ($scope.formData.player.firstName != '' &&
+                    $scope.formData.player.lastName != '' &&
+                    $scope.formData.player.gender != '' &&
+                    $scope.formData.player.dateBirth != undefined &&
+                    $scope.formData.player.countryBirth != '') {
+                      validForm = true;
+                };
               };
-            };
-            if ($scope.step == 3) {
-              stepToVerify = true;
-              if ($scope.formData.player.clubs.length > 0) {
-                    validForm = true;
+              if ($scope.step == 3) {
+                stepToVerify = true;
+                if ($scope.formData.player.clubs.length > 0) {
+                      validForm = true;
+                };
               };
-            };
-            if ($scope.step == 4) {
-              stepToVerify = true;
-              if ($scope.formData.player.mainPosition != '' &&
-                  $scope.formData.player.height > 0 &&
-                  $scope.formData.player.weight > 0) {
-                    validForm = true;
+              if ($scope.step == 4) {
+                stepToVerify = true;
+                if ($scope.formData.player.mainPosition != '' &&
+                    $scope.formData.player.height > 0 &&
+                    $scope.formData.player.weight > 0) {
+                      validForm = true;
+                };
               };
-            };
-            if ($scope.step == 5) {
-              stepToVerify = true;
-              if ($scope.pictureH_FileNew != undefined) {
-                    validForm = true;
+              if ($scope.step == 5) {
+                stepToVerify = true;
+                if ($scope.pictureH_FileNew != undefined) {
+                      validForm = true;
+                };
               };
-            };
-            if ($scope.step == 6) {
-              stepToVerify = true;
-              if ($scope.formData.payment.billingPlan != '' &&
-                  $scope.formData.payment.cardName != '' &&
-                  $scope.formData.payment.cardNumber != '' &&
-                  $scope.formData.payment.expMonth != '' &&
-                  $scope.formData.payment.expMonth != '' &&
-                  $scope.formData.payment.cvv != '') {
-                    validForm = true;
+              if ($scope.step == 6) {
+                stepToVerify = true;
+                if ($scope.formData.payment.billingPlan > 1 &&
+                    $scope.formData.payment.cardName != '' &&
+                    $scope.formData.payment.cardNumber != '' &&
+                    $scope.formData.payment.expMonth != '' &&
+                    $scope.formData.payment.expMonth != '' &&
+                    $scope.formData.payment.cvv != '') {
+                      validForm = true;
+                }
+                else {
+                  validForm = true;
+                };
               };
-            };
-            break;
-          case 'club':
-            _maxStep = 5;
-            break;
-          case 'agent':
-            _maxStep = 4;
-            break;
-          case 'coach':
-            _maxStep = 5;
-            break;
+              break;
+            case 'club':
+              _maxStep = 5;
+              if ($scope.step == 2) {
+                stepToVerify = true;
+                if ($scope.formData.club.name != '' &&
+                    $scope.formData.club.country != '' &&
+                    $scope.formData.club.dateFoundation != undefined) {
+                      validForm = true;
+                };
+              };
+              if ($scope.step == 3) {
+                stepToVerify = true;
+                if ($scope.formData.club.firstName != '' &&
+                    $scope.formData.club.lastName != '' &&
+                    $scope.formData.club.gender != '' &&
+                    $scope.formData.club.dateBirth != undefined &&
+                    $scope.formData.club.email != '') {
+                      validForm = true;
+                };
+              };
+              if ($scope.step == 4) {
+                stepToVerify = true;
+                if ($scope.formData.club.teams != '') {
+                      validForm = true;
+                };
+              };
+              break;
+            case 'agent':
+              _maxStep = 4;
+              break;
+            case 'coach':
+              _maxStep = 5;
+              break;
+          };
         };
-        if (((stepToVerify && validForm) || !stepToVerify) && $scope.step<_maxStep) {
-          localStorage.setItem("formData", JSON.stringify($scope.formData));
-          $scope.step += 1;
+        if ($scope.step==1) {
           actionSvc.goToAction(6, {
-            type: $stateParams.type,
-            step: $scope.step
+            type: $scope.formData.type
           });
         }
-        else if (!validForm) {
-          mainSvc.showAlertByCode(202);
+        else {
+          if (((stepToVerify && validForm) || !stepToVerify) && $scope.step<_maxStep) {
+            $scope.step += 1;
+          }
+          else if (!validForm) {
+            mainSvc.showAlertByCode(202);
+          };
         };
       }
 
-      $scope.isFileChange = function() {
-
+      $scope.fileSaveOnServer = function(fileToSave) {
+        var filesUpload = [];
+        if (fileToSave) {
+          filesUpload.push(fileToSave);
+          mainSvc.callService({
+              url: 'profile/saveTempFile',
+              params: {
+                'usrId': $rootScope.userInfo.id
+              },
+              data: {
+                files: filesUpload
+              }
+          }).then(function (response) {
+            if (response.code==0) {
+              return true;
+            }
+            else {
+              return false;
+            }
+          });
+        }
+        else return false;
       }
 
-      $scope.partialSave = function() {
-        $scope.formDataCopy = angular.copy($scope.formData);
-        localStorage.setItem("formData", JSON.stringify($scope.formData));
-        mainSvc.showAlertByCode(100);
-      }
-
-      $scope.enableSave = function() {
-        let ret = angular.equals($scope.formData, $scope.formDataCopy);
-        return !ret;
-      }
-
-      $scope.finishSave = function() {
+      $scope.submitForm = function() {
+        //Validations
         if (!$scope.formData.agree) {
           mainSvc.showAlertByCode(205);
           return false;
         };
 
+        if ($scope.formData.type=="player") {
+          //Get palmares
+          $scope.pictureGallery_FileNew = [];
+          $('[name^="kt_repeater_gallery"]').each(function( index ) {
+            let filObj = $(this).prop('files');
+            if (filObj) $scope.pictureGallery_FileNew.push(filObj[0]);
+          });
+          $scope.formData.player.videoGallery = [];
+          $('[name^="kt_repeater_youtube"]').each(function( index ) {
+            $scope.formData.player.videoGallery.push($(this).val());
+          });
+        };
+        if ($scope.formData.type=="club") {
+          //Get palmares
+          $scope.formData.club.palmares = [];
+          $('[name^="kt_repeater_palmares"]').each(function( index ) {
+            $scope.formData.club.palmares.push($(this).val());
+          });
+        };
+
         //Ajax send
+        var filesUpload = [];
+        if ($scope.logo_FileNew) filesUpload.push({ 'logo': $scope.logo_FileNew });
+        if ($scope.pictureH_FileNew) filesUpload.push({ 'pictureH': $scope.pictureH_FileNew });
+        if ($scope.pictureGallery_FileNew.length>0) {
+          for(var t=0;t<$scope.pictureGallery_FileNew.length;t++) {
+            let key = 'pictureGallery'+t;
+            let obj = {};
+            obj[key] = $scope.pictureGallery_FileNew[t];
+            filesUpload.push(obj);
+          };
+        };
+        debugger;
         mainSvc.callService({
             url: 'profile/createNewProfile_'+$scope.formData.type,
             params: {
+              'usrId': $rootScope.userInfo.id,
               'dataJson': JSON.stringify($scope.formData.player),
               'payment': JSON.stringify($scope.formData.payment),
               'agree': $scope.formData.agree
             },
-            secured: true
+            data: {
+              files: filesUpload
+            }
         }).then(function (response) {
           if (response.code==0) {
-            actionSvc.goToExternal(1); // go to home
+            let ret = angular.copy(response);
+            switch ($scope.formData.type) {
+              case 'player':
+                $rootScope.userInfo.type = 2;
+                $rootScope.userInfo.plaId = ret.plaId;
+                break;
+                case 'club':
+                  $rootScope.userInfo.type = 3;
+                  break;
+                  case 'agent':
+                    $rootScope.userInfo.type = 4;
+                    break;
+                    case 'coach':
+                      $rootScope.userInfo.type = 5;
+                      break;
+            };
+            angular.forEach(ret.images, function(item, key) {
+              if (item.name=='logo') $rootScope.userInfo.logo = item.data;
+            });
+            authenticationSvc.saveLogin();
+            actionSvc.goToAction(1); // go to home
           }
           else {
             mainSvc.showAlertByCode(response.code);
@@ -464,7 +548,9 @@ angular.module('mainApp').controller('createProfileController',
       $scope.addClub = function() {
         resetObjDataClub();
         const d = new Date().format('m/d/yyyy');
-        $scope.formDataClub.rangeDate = d+' - '+d;
+        $scope.formDataClub.rangeDateStart = d;
+        $scope.formDataClub.rangeDateEnd = d;
+        $scope.formDataClub.action = 1;
         $("#kt_modal_club").modal('show');
       }
 
@@ -476,7 +562,6 @@ angular.module('mainApp').controller('createProfileController',
           mainSvc.showAlertByCode(202);
           return false;
         };
-        $scope.formDataClub.rangeDate = $("#kt_daterangepicker_club").val();
         $scope.formDataClub.id = $scope.formData.player.clubs.length + 1;
         $scope.formData.player.clubs.push (angular.copy($scope.formDataClub));
         $("#kt_modal_club").modal('hide');
@@ -490,18 +575,18 @@ angular.module('mainApp').controller('createProfileController',
           mainSvc.showAlertByCode(202);
           return false;
         };
-        $scope.formDataClub.rangeDate = $("#kt_daterangepicker_club").val();
         let index = $scope.formData.player.clubs.findIndex(x => x.id == $scope.formDataClub.id);
         $scope.formData.player.clubs[index] = angular.copy($scope.formDataClub);
         $("#kt_modal_club").modal('hide');
       }
 
       $scope.removeClub = function(idx) {
-        $scope.formData.player.clubs.splice(idx, 1);
+        $scope.formData.player.club[idx].action = 3;
       }
 
       $scope.editClub = function(item) {
         $scope.formDataClub = angular.copy(item);
+        $scope.formDataClub.action = 2;
         $("#kt_modal_club").modal('show');
       }
 
@@ -521,7 +606,8 @@ angular.module('mainApp').controller('createProfileController',
           name: '',
           contract: '1',
           country: '10',
-          rangeDate: undefined,
+          rangeDateStart: undefined,
+          rangeDateEnd: undefined,
           description: ''
         };
       }
@@ -531,7 +617,8 @@ angular.module('mainApp').controller('createProfileController',
       $scope.addTeam = function() {
         resetObjDataTeam();
         const d = new Date().format('m/d/yyyy');
-        $scope.formDataTeam.rangeDate = d+' - '+d;
+        $scope.formDataTeam.rangeDateStart = d;
+        $scope.formDataTeam.rangeDateEnd = d;
         $("#kt_modal_team").modal('show');
       }
 
@@ -541,7 +628,6 @@ angular.module('mainApp').controller('createProfileController',
           mainSvc.showAlertByCode(202);
           return false;
         };
-        $scope.formDataTeam.rangeDate = $("#kt_daterangepicker_team").val();
         $scope.formDataTeam.id = $scope.formData.player.nationalTeams.length + 1;
         $scope.formData.player.nationalTeams.push (angular.copy($scope.formDataTeam));
         $("#kt_modal_team").modal('hide');
@@ -553,7 +639,6 @@ angular.module('mainApp').controller('createProfileController',
           mainSvc.showAlertByCode(202);
           return false;
         };
-        $scope.formDataTeam.rangeDate = $("#kt_daterangepicker_team").val();
         let index = $scope.formData.player.nationalTeams.findIndex(x => x.id == $scope.formDataTeam.id);
         $scope.formData.player.nationalTeams[index] = angular.copy($scope.formDataTeam);
         $("#kt_modal_team").modal('hide');
@@ -577,7 +662,8 @@ angular.module('mainApp').controller('createProfileController',
         $scope.formDataTeam = {
           id: 0,
           type: '1',
-          rangeDate: undefined,
+          rangeDateStart: undefined,
+          rangeDateEnd: undefined,
           description: ''
         };
       }
@@ -596,5 +682,8 @@ angular.module('mainApp').controller('createProfileController',
         $scope.formData.payment.saveCard=(cb.checked)?1:0;
       }
 
+      $scope.onlyActive = function(item) {
+        return item.action != 3;
+      }
     }
 ]);

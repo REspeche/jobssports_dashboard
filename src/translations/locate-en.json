@@ -4,6 +4,8 @@
   "LOADING_PAGE": "Please wait a few seconds, loading information...",
 
   "BTN_CLOSE": "Close",
+  "BTN_YES": "Yes",
+  "BTN_NO": "No",
 
   "LBL_MAIN_IMAGE_INFO": "JPG / PNG format",
 
@@ -13,7 +15,7 @@
   "MSG_REMOVE_ACTION": "Are you sure you want to suspend account \"{{name}}\"?",
   "MSG_REMOVE_IMAGE": "Are you sure you want to remove the image?",
   "MSG_CONFIRM_ACTION": "Are you sure you want to proceed with this action?",
-  "MSG_CONFIRM_LOGOUT": "Are you sure you want to log out?",
+  "MSG_CONFIRM_LOGOUT": "Are you sure you want to sign out?",
   "MSG_BUSY_ALERT": "Wait for the current transaction to finish processing",
   "MSG_OPEN_REPORT": "Accessing report. Please wait a few seconds",
   "MSG_INVALID_INPUT": "You must complete this field",
@@ -45,6 +47,7 @@
   "MSG_COD303": "The token to change the password has expired. Please try again to request the password change",
   "MSG_COD304": "There was an error trying to change the password, please try again",
   "MSG_COD305": "The details to activate the account are incorrect. Please try again or contact the administrator",
+  "MSG_COD306": "There is already a profile created as a player with the same authentication data.",
 
   "TXT_ACTIVE_ACCOUNT_1": "Your account was successfully activated.",
   "TXT_ACTIVE_ACCOUNT_2": "You can continue using the platform.",

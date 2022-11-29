@@ -51,9 +51,6 @@ angular.module('mainApp').controller('welcomeController',
       }
 
       $scope.goToProfile = function() {
-        actionSvc.goToAction(6, {
-          type: 'player',
-          step: '1'
-        }); //profile
+        actionSvc.goToAction(6); //profile
       }
     }]);

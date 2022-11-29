@@ -9,8 +9,7 @@ mainApp.factory('alertSvc',
 
       var _data = {
         pull: false,
-        notifications: 0,
-        isChange: false
+        notifications: 0
       };
 
       function getAlerts() {
@@ -22,8 +21,7 @@ mainApp.factory('alertSvc',
           }).then(function (response) {
             _data = {
               pull: true,
-              notifications: response.notifications,
-              isChange: response.isChange
+              notifications: response.notifications
             };
             $rootScope.alerts = _data;
             _defered.resolve(_data);

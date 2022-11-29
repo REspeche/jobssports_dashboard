@@ -6,12 +6,14 @@
     <div class="d-flex flex-column flex-lg-row-auto w-lg-350px w-xl-500px">
       <div class="d-flex flex-column position-lg-fixed top-0 bottom-0 w-lg-350px w-xl-500px scroll-y bgi-size-cover bgi-position-center back-split">
         <!--begin::Header-->
-        <div class="d-flex flex-center mt-lg-15"></div>
+        <div class="d-flex flex-center mt-lg-15">
+          <logo-app size="60" size-lg="125"></logo-app>
+        </div>
         <!--end::Header-->
         <!--begin::Body-->
         <div class="d-flex flex-row-fluid justify-content-center p-10">
           <!--begin::Nav-->
-          <div class="stepper-nav">
+          <div class="stepper-nav" ng-hide="formData.type==''">
             <!--begin::Step 1-->
             <div class="stepper-item" ng-class="{'current':step==1, 'completed':step>1}" data-kt-stepper-element="nav">
               <!--begin::Wrapper-->
@@ -226,7 +228,7 @@
         <!--begin::Wrapper-->
         <div class="w-lg-650px w-xl-700px p-10 p-lg-15 mx-auto">
           <!--begin::Form-->
-          <form class="my-auto pb-5" novalidate="novalidate" id="kt_create_account_form">
+          <form id="frmProduct" name="frmProfile" class="my-auto pb-5" ng-submit="submitForm()" autocomplete="off" ng-show="loadForm">
             <!--begin::Step 1-->
             <div class="current" ng-show="step==1">
               <!--begin::Wrapper-->
@@ -381,7 +383,7 @@
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" ng-model="formData.player.dateBirth" id="kt_datepicker_birth"/>
+                      <date-time name="kt_datepicker_playerbirth" value="formData.player.dateBirth" yearsubtract="18"></date-time>
                       <!--end::Input-->
                     </div>
                     <div class="col-md-6">
@@ -423,6 +425,16 @@
                     </div>
                   </div>
                   <!--end::Row-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                  <!--begin::Label-->
+                  <label class="d-flex align-items-center form-label mb-3 required">Identify Picture</label>
+                  <!--end::Label-->
+                  <!--begin::Image input-->
+                  <image-input name="filPictureLogoPlayer" size="125" base64="formData.player.logo" file="logo_FileNew"></image-input>
+                  <!--end::Image input-->
                 </div>
                 <!--end::Input group-->
               </div>
@@ -472,7 +484,7 @@
                       <label class="form-label required">Foundation Date</label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" ng-model="formData.club.dateFoundation" id="kt_datepicker_foundation"/>
+                      <date-time name="kt_datepicker_foundation" value="formData.club.dateFoundation"></date-time>
                       <!--end::Input-->
                     </div>
                   </div>
@@ -485,7 +497,7 @@
                   <label class="d-flex align-items-center form-label mb-3">Logo</label>
                   <!--end::Label-->
                   <!--begin::Image input-->
-                  <image-input data-name="filPictureLogo" data-size="125" base64="formData.club.logo" file="logo_FileNew"></image-input>
+                  <image-input name="filPictureLogoClub" size="125" base64="formData.club.logo" file="logo_FileNew"></image-input>
                   <!--end::Image input-->
                 </div>
                 <!--end::Input group-->
@@ -551,7 +563,7 @@
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" ng-model="formData.agent.dateBirth" id="kt_datepicker_birth"/>
+                      <input class="form-control" placeholder="Pick a date" ng-model="formData.agent.dateBirth" id="kt_datepicker_agentbirth"/>
                       <!--end::Input-->
                     </div>
                     <!--end::Last Name-->
@@ -666,7 +678,7 @@
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" ng-model="formData.coach.dateBirth" id="kt_datepicker_birth"/>
+                      <input class="form-control" placeholder="Pick a date" ng-model="formData.coach.dateBirth" id="kt_datepicker_coachbirth"/>
                       <!--end::Input-->
                     </div>
                     <!--end::Last Name-->
@@ -762,16 +774,18 @@
                       <th>Name</th>
                       <th>Contract</th>
                       <th>Country</th>
-                      <th>Start/End Date</th>
+                      <th>Start</th>
+                      <th>End Date</th>
                       <th></th>
                      </tr>
                     </thead>
                     <tbody>
-                     <tr ng-repeat="item in formData.player.clubs">
+                     <tr ng-repeat="item in formData.player.clubs | filter: onlyActive">
                       <td>{{item.name}}</td>
                       <td>{{showContractType(item.contract)}}</td>
                       <td>{{showCountry(item.country)}}</td>
-                      <td>{{item.rangeDate}}</td>
+                      <td>{{item.rangeDateStart}}</td>
+                      <td>{{item.rangeDateEnd}}</td>
                       <td class="text-right">
                         <i class="fa-solid fa-pen-to-square text-primary" ng-click="editClub(item)"></i>
                         <i class="fa-solid fa-trash text-danger ms-2" ng-click="removeClub($index)"></i>
@@ -805,14 +819,16 @@
                     <thead>
                      <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                       <th>Type</th>
-                      <th>Start/End Date</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
                       <th></th>
                      </tr>
                     </thead>
                     <tbody>
                      <tr ng-repeat="item in formData.player.nationalTeams">
                       <td>{{showTeamType(item.type)}}</td>
-                      <td>{{item.rangeDate}}</td>
+                      <td>{{item.rangeDateStart}}</td>
+                      <td>{{item.rangeDateEnd}}</td>
                       <td class="text-right">
                         <i class="fa-solid fa-pen-to-square text-primary" ng-click="editTeam(item)"></i>
                         <i class="fa-solid fa-trash text-danger ms-2" ng-click="removeTeam($index)"></i>
@@ -886,7 +902,7 @@
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" ng-model="formData.club.dateBirth" id="kt_datepicker_birth"/>
+                      <date-time name="kt_datepicker_clubbirth" value="formData.club.dateBirth"></date-time>
                       <!--end::Input-->
                     </div>
                     <!--end::Last Name-->
@@ -954,7 +970,7 @@
                       <label class="d-flex align-items-center form-label mb-3 required">Start Activity</label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" id="kt_datepicker_startActivity" ng-model="formData.agent.dateStart"/>
+                      <date-time name="kt_datepicker_startActivity" value="formData.agent.dateStart"></date-time>
                       <!--end::Input-->
                     </div>
                   </div>
@@ -1192,7 +1208,7 @@
                 <!--end::Heading-->
                 <!--begin::Input group-->
                 <div class="mb-10 fv-row">
-                  <label class="form-label">Teams and Leagues</label>
+                  <label class="form-label required">Teams and Leagues</label>
                   <input class="form-control" value="" id="kt_tagify_teams" placeholder='Add a team or a league'  ng-model="formData.club.teams"/>
                 </div>
                 <!--end::Input group-->
@@ -1209,7 +1225,7 @@
                               <div data-repeater-item>
                                 <!--begin::Input-->
                                 <div class="input-group pb-3 mb-7">
-                                    <input type="text" class="form-control" placeholder="Success, merit or victory achieved" ng-model="formData.club.palmares"/>
+                                    <input type="text" class="form-control" placeholder="Success, merit or victory achieved" name="txtPalmares"/>
                                     <button class="border btn btn-icon btn-light-danger" data-repeater-delete type="button">
                                         <i class="la la-trash-o fs-3"></i>
                                     </button>
@@ -1267,7 +1283,7 @@
                       <label class="d-flex align-items-center form-label mb-3 required">Study period</label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control form-control-solid" placeholder="Pick date rage" id="kt_daterangepicker_training" ng-model="formData.coach.rangeDate"/>
+                      <date-time name="kt_daterangepicker_training" valuestart="formData.coach.rangeDateStart" valueend="formData.coach.rangeDateEnd" range="true"></date-time>
                       <!--end::Input-->
                     </div>
                   </div>
@@ -1343,7 +1359,7 @@
                                   <div data-repeater-item>
                                       <div class="form-group row mb-8">
                                           <div class="col-md-7">
-                                            <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/svg/avatars/blank.svg)" name="filImageGallery">
+                                            <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/svg/avatars/blank.svg)">
                                                  <!--begin::Image preview wrapper-->
                                                  <div class="image-input-wrapper w-45px h-45px"></div>
                                                  <!--end::Image preview wrapper-->
@@ -1357,7 +1373,7 @@
                                                      <i class="bi bi-pencil-fill fs-7"></i>
 
                                                      <!--begin::Inputs-->
-                                                     <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                     <input type="file" name="avatar" accept=".png, .jpg, .jpeg" name="filImageGallery"/>
                                                      <input type="hidden" name="avatar_remove" />
                                                      <!--end::Inputs-->
                                                  </label>
@@ -1415,7 +1431,7 @@
                                   <div data-repeater-item>
                                     <!--begin::Input-->
                                     <div class="input-group pb-3 mb-7">
-                                        <input type="text" class="form-control" placeholder="https://youtube.com/..." />
+                                        <input type="text" class="form-control" placeholder="https://youtube.com/..." name="txtVideoYoutubeGallery"/>
                                         <button class="border btn btn-icon btn-light-danger" data-repeater-delete type="button">
                                             <i class="la la-trash-o fs-3"></i>
                                         </button>
@@ -1469,7 +1485,7 @@
                           <div class="d-flex align-items-center me-2">
                               <!--begin::Radio-->
                               <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                  <input class="form-check-input" type="radio" name="plan" ng-value="1" ng-model="formData.player.billingPlan"/>
+                                  <input class="form-check-input" type="radio" name="plan" ng-value="1" ng-model="formData.payment.billingPlan"/>
                               </div>
                               <!--end::Radio-->
 
@@ -1506,7 +1522,7 @@
                           <div class="d-flex align-items-center me-2">
                               <!--begin::Radio-->
                               <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                  <input class="form-check-input" type="radio" name="plan" ng-checked="true" ng-value="2" ng-model="formData.player.billingPlan"/>
+                                  <input class="form-check-input" type="radio" name="plan" ng-checked="true" ng-value="2" ng-model="formData.payment.billingPlan"/>
                               </div>
                               <!--end::Radio-->
 
@@ -1544,7 +1560,7 @@
                           <div class="d-flex align-items-center me-2">
                               <!--begin::Radio-->
                               <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                  <input class="form-check-input" type="radio" name="plan" ng-value="3" ng-model="formData.player.billingPlan"/>
+                                  <input class="form-check-input" type="radio" name="plan" ng-value="3" ng-model="formData.payment.billingPlan"/>
                               </div>
                               <!--end::Radio-->
 
@@ -1578,7 +1594,7 @@
                   <!--end::Radio group-->
                 </div>
                 <!--end::Input group-->
-                <credit-card ng-show="formData.player.billingPlan>1" payment="formData.payment"></credit-card>
+                <credit-card ng-show="formData.payment.billingPlan>1" payment="formData.payment"></credit-card>
               </div>
               <!--end::Wrapper-->
             </div>
@@ -1652,17 +1668,12 @@
                 <!--end::Svg Icon-->Previous</button>
               </div>
               <div>
-                <button type="button" class="btn btn-lg btn-info me-3" ng-show="step>1 && step<6 && enableSave()" ng-click="partialSave()">
-                  <span class="indicator-label">Save</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button>
-                <button type="button" class="btn btn-lg btn-primary me-3" ng-show="(step==7 && formData.type=='player') || (step==5 && formData.type=='club') || (step==4 && formData.type=='agent') || (step==5 && formData.type=='coach')" ng-click="finishSave()">
+                <button type="submit" class="btn btn-lg btn-primary me-3" ng-show="(step==7 && formData.type=='player') || (step==5 && formData.type=='club') || (step==4 && formData.type=='agent') || (step==5 && formData.type=='coach')"">
                   <span class="indicator-label">Finish</span>
                   <span class="indicator-progress">Please wait...
                   <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                 </button>
-                <button type="button" class="btn btn-lg btn-primary" ng-click="actionNext()" ng-show="(step<7 && formData.type=='player') || (step<5 && formData.type=='club') || (step<4 && formData.type=='agent') || (step<5 && formData.type=='coach')">Continue
+                <button type="button" class="btn btn-lg btn-primary" ng-click="actionNext()" ng-show="(step<7 && formData.type=='player') || (step<5 && formData.type=='club') || (step<4 && formData.type=='agent') || (step<5 && formData.type=='coach')"><span ng-show="step==1">Select</span><span ng-show="step>1">Continue</span>
                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                 <span class="svg-icon svg-icon-4 ms-1">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1742,7 +1753,7 @@
                     <label class="d-flex align-items-center form-label mb-3 required">Start/End Date</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input class="form-control form-control-solid" placeholder="Pick date rage" ng-model="formDataClub.rangeDate" id="kt_daterangepicker_club"/>
+                    <date-time name="kt_daterangepicker_club" valuestart="formDataClub.rangeDateStart" valueend="formDataClub.rangeDateEnd" range="true"></date-time>
                     <!--end::Input-->
                   </div>
                 </div>
@@ -1807,7 +1818,7 @@
                     <label class="d-flex align-items-center form-label mb-3 required">Start/End Date</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input class="form-control form-control-solid" placeholder="Pick date rage" ng-model="formDataTeam.rangeDate" id="kt_daterangepicker_team"/>
+                    <date-time name="kt_daterangepicker_team" valuestart="formDataTeam.rangeDateStart" valueend="formDataTeam.rangeDateEnd" range="true"></date-time>
                     <!--end::Input-->
                   </div>
                 </div>

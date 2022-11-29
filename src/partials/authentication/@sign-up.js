@@ -13,7 +13,7 @@ angular.module('mainApp').controller('signUpController',
       $scope.loadPartial = function() {
         //Check Profile if it's loged
         let _login = authenticationSvc.login();
-        if (_login.isLogin && _login.isProfile == 0) {
+        if (_login.isLogin && _login.type == 1) {
           actionSvc.goToAction(6); //go to profile
           return false;
         };
