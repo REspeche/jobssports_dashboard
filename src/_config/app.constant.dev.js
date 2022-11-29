@@ -26,6 +26,6 @@ mainApp.constant('BASE_URL', {
     'domain': 'localhost'
   })
   .constant('LOGIN', {
-    email: 'ricardo_espeche@hotmail.com',
-    password: 'ricardo123'
+    email: 'test.player@jobs-sports.com',
+    password: 'jobssports123$'
   });

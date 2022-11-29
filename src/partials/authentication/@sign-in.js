@@ -1,9 +1,9 @@
 angular.module('mainApp').controller('signInController',
-['$scope', 'authenticationSvc', '$translate', 'mainSvc', 'actionSvc',
-    function ($scope, authenticationSvc, $translate, mainSvc, actionSvc) {
+['$scope', 'authenticationSvc', '$translate', 'mainSvc', 'actionSvc', 'LOGIN',
+    function ($scope, authenticationSvc, $translate, mainSvc, actionSvc, LOGIN) {
       $scope.formData = {
-        email: 'ricardo_espeche@hotmail.com',
-        password: 'Ricard0Espech3',
+        email: LOGIN.email,
+        password: LOGIN.password,
         remember: false
       };
 

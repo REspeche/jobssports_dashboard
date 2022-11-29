@@ -1,6 +1,7 @@
 angular.module('mainApp').controller('createProfileController',
 ['$scope', '$rootScope', '$stateParams', 'mainSvc', 'actionSvc', 'authenticationSvc',
     function ($scope, $rootScope, $stateParams, mainSvc, actionSvc, authenticationSvc) {
+      const _dNow = new Date().format('m/d/yyyy');
       $scope.formData = {
         type: '',
         player: {
@@ -63,9 +64,9 @@ angular.module('mainApp').controller('createProfileController',
           dateStart: undefined,
           club: '',
           trainingType: '1',
-          rangeDateStart: undefined,
-          rangeDateEnd: undefined,
-          degree: ''
+          trainingDateStart: _dNow,
+          trainingDateEnd: _dNow,
+          degreeName: ''
         },
         payment: {
           billingPlan: '2',
@@ -85,21 +86,20 @@ angular.module('mainApp').controller('createProfileController',
       $scope.loadForm = false;
       $scope.editForm = false;
 
-      $scope.formDataCopy = {};
       $scope.formDataClub = {
         id: 0,
         name: '',
         contract: '1',
         country: '10',
-        rangeDateStart: undefined,
-        rangeDateEnd: undefined,
+        rangeDateStart: _dNow,
+        rangeDateEnd: _dNow,
         description: ''
       };
       $scope.formDataTeam = {
         id: 0,
         type: '1',
-        rangeDateStart: undefined,
-        rangeDateEnd: undefined,
+        rangeDateStart: _dNow,
+        rangeDateEnd: _dNow,
         description: ''
       };
       $scope.step = 1;
@@ -301,9 +301,13 @@ angular.module('mainApp').controller('createProfileController',
               bubbles: true,
               cancelable: true
             }));
-        });
 
-        $scope.formDataCopy = angular.copy($scope.formData);
+            if ($scope.formData.type=="coach") {
+              const d = new Date().format('m/d/yyyy');
+              $scope.formData.coach.trainingDateStart = _dNow;
+              $scope.formData.coach.trainingDateEnd = _dNow;
+            };
+        });
       }
 
       let setListCombosSignUp = function(response) {
@@ -417,9 +421,53 @@ angular.module('mainApp').controller('createProfileController',
               break;
             case 'agent':
               _maxStep = 4;
+              if ($scope.step == 2) {
+                stepToVerify = true;
+                if ($scope.formData.agent.firstName != '' &&
+                    $scope.formData.agent.lastName != '' &&
+                    $scope.formData.agent.gender != '' &&
+                    $scope.formData.agent.dateBirth != undefined &&
+                    $scope.formData.agent.email != '' &&
+                    $scope.formData.agent.countryBirth != '') {
+                      validForm = true;
+                };
+              };
+              if ($scope.step == 3) {
+                stepToVerify = true;
+                if ($scope.formData.agent.type != '' &&
+                    $scope.formData.agent.dateStart != undefined) {
+                      validForm = true;
+                };
+              };
               break;
             case 'coach':
               _maxStep = 5;
+              if ($scope.step == 2) {
+                stepToVerify = true;
+                if ($scope.formData.coach.firstName != '' &&
+                    $scope.formData.coach.lastName != '' &&
+                    $scope.formData.coach.gender != '' &&
+                    $scope.formData.coach.dateBirth != undefined &&
+                    $scope.formData.coach.email != '' &&
+                    $scope.formData.coach.countryBirth != '') {
+                      validForm = true;
+                };
+              };
+              if ($scope.step == 3) {
+                stepToVerify = true;
+                if ($scope.formData.coach.role != '' &&
+                    $scope.formData.coach.dateStart != undefined) {
+                      validForm = true;
+                };
+              };
+              if ($scope.step == 4) {
+                stepToVerify = true;
+                if ($scope.formData.coach.trainingType != '' &&
+                    $scope.formData.coach.trainingDateStart != undefined &&
+                    $scope.formData.coach.trainingDateEnd != undefined) {
+                      validForm = true;
+                };
+              };
               break;
           };
         };
@@ -522,6 +570,28 @@ angular.module('mainApp').controller('createProfileController',
             'agree': $scope.formData.agree
           };
         };
+        if ($scope.formData.type=="agent") {
+          //Files
+          if ($scope.logo_FileNew) filesUpload.push({ 'logo': $scope.logo_FileNew });
+
+          //Param
+          paramSet = {
+            'usrId': $rootScope.userInfo.id,
+            'dataJson': JSON.stringify($scope.formData.agent),
+            'agree': $scope.formData.agree
+          };
+        };
+        if ($scope.formData.type=="coach") {
+          //Files
+          if ($scope.logo_FileNew) filesUpload.push({ 'logo': $scope.logo_FileNew });
+
+          //Param
+          paramSet = {
+            'usrId': $rootScope.userInfo.id,
+            'dataJson': JSON.stringify($scope.formData.coach),
+            'agree': $scope.formData.agree
+          };
+        };
 
         //Ajax send
         debugger;
@@ -533,7 +603,6 @@ angular.module('mainApp').controller('createProfileController',
             }
         }).then(function (response) {
           if (response.code==0) {
-            /*
             let ret = angular.copy(response);
             switch ($scope.formData.type) {
               case 'player':
@@ -555,7 +624,6 @@ angular.module('mainApp').controller('createProfileController',
             });
             authenticationSvc.saveLogin();
             actionSvc.goToAction(1); // go to home
-            */
             mainSvc.showAlertByCode(100);
           }
           else {
@@ -568,9 +636,8 @@ angular.module('mainApp').controller('createProfileController',
 
       $scope.addClub = function() {
         resetObjDataClub();
-        const d = new Date().format('m/d/yyyy');
-        $scope.formDataClub.rangeDateStart = d;
-        $scope.formDataClub.rangeDateEnd = d;
+        $scope.formDataClub.rangeDateStart = _dNow;
+        $scope.formDataClub.rangeDateEnd = _dNow;
         $scope.formDataClub.action = 1;
         $("#kt_modal_club").modal('show');
       }
@@ -627,8 +694,8 @@ angular.module('mainApp').controller('createProfileController',
           name: '',
           contract: '1',
           country: '10',
-          rangeDateStart: undefined,
-          rangeDateEnd: undefined,
+          rangeDateStart: _dNow,
+          rangeDateEnd: _dNow,
           description: ''
         };
       }
@@ -637,9 +704,8 @@ angular.module('mainApp').controller('createProfileController',
 
       $scope.addTeam = function() {
         resetObjDataTeam();
-        const d = new Date().format('m/d/yyyy');
-        $scope.formDataTeam.rangeDateStart = d;
-        $scope.formDataTeam.rangeDateEnd = d;
+        $scope.formDataTeam.rangeDateStart = _dNow;
+        $scope.formDataTeam.rangeDateEnd = _dNow;
         $("#kt_modal_team").modal('show');
       }
 
@@ -683,8 +749,8 @@ angular.module('mainApp').controller('createProfileController',
         $scope.formDataTeam = {
           id: 0,
           type: '1',
-          rangeDateStart: undefined,
-          rangeDateEnd: undefined,
+          rangeDateStart: _dNow,
+          rangeDateEnd: _dNow,
           description: ''
         };
       }
