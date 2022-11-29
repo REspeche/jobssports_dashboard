@@ -563,7 +563,7 @@
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" ng-model="formData.agent.dateBirth" id="kt_datepicker_agentbirth"/>
+                      <date-time name="kt_datepicker_agentbirth" value="formData.agent.dateBirth" yearsubtract="18"></date-time>
                       <!--end::Input-->
                     </div>
                     <!--end::Last Name-->
@@ -678,7 +678,7 @@
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <input class="form-control" placeholder="Pick a date" ng-model="formData.coach.dateBirth" id="kt_datepicker_coachbirth"/>
+                      <date-time name="kt_datepicker_coachbirth" value="formData.coach.dateBirth" yearsubtract="18"></date-time>
                       <!--end::Input-->
                     </div>
                     <!--end::Last Name-->
@@ -902,7 +902,7 @@
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
                       <!--end::Label-->
                       <!--begin::Input-->
-                      <date-time name="kt_datepicker_clubbirth" value="formData.club.dateBirth"></date-time>
+                      <date-time name="kt_datepicker_clubbirth" value="formData.club.dateBirth" yearsubtract="18"></date-time>
                       <!--end::Input-->
                     </div>
                     <!--end::Last Name-->

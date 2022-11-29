@@ -463,12 +463,16 @@ angular.module('mainApp').controller('createProfileController',
       }
 
       $scope.submitForm = function() {
+        var filesUpload = [];
+        var paramSet = {};
+
         //Validations
         if (!$scope.formData.agree) {
           mainSvc.showAlertByCode(205);
           return false;
         };
 
+        //Set params
         if ($scope.formData.type=="player") {
           //Get palmares
           $scope.pictureGallery_FileNew = [];
@@ -480,6 +484,26 @@ angular.module('mainApp').controller('createProfileController',
           $('[name^="kt_repeater_youtube"]').each(function( index ) {
             $scope.formData.player.videoGallery.push($(this).val());
           });
+
+          //Files
+          if ($scope.logo_FileNew) filesUpload.push({ 'logo': $scope.logo_FileNew });
+          if ($scope.pictureH_FileNew) filesUpload.push({ 'pictureH': $scope.pictureH_FileNew });
+          if ($scope.pictureGallery_FileNew.length>0) {
+            for(var t=0;t<$scope.pictureGallery_FileNew.length;t++) {
+              let key = 'pictureGallery'+t;
+              let obj = {};
+              obj[key] = $scope.pictureGallery_FileNew[t];
+              filesUpload.push(obj);
+            };
+          };
+
+          //Param
+          paramSet = {
+            'usrId': $rootScope.userInfo.id,
+            'dataJson': JSON.stringify($scope.formData.player),
+            'payment': JSON.stringify($scope.formData.payment),
+            'agree': $scope.formData.agree
+          };
         };
         if ($scope.formData.type=="club") {
           //Get palmares
@@ -487,34 +511,29 @@ angular.module('mainApp').controller('createProfileController',
           $('[name^="kt_repeater_palmares"]').each(function( index ) {
             $scope.formData.club.palmares.push($(this).val());
           });
+
+          //Files
+          if ($scope.logo_FileNew) filesUpload.push({ 'logo': $scope.logo_FileNew });
+
+          //Param
+          paramSet = {
+            'usrId': $rootScope.userInfo.id,
+            'dataJson': JSON.stringify($scope.formData.club),
+            'agree': $scope.formData.agree
+          };
         };
 
         //Ajax send
-        var filesUpload = [];
-        if ($scope.logo_FileNew) filesUpload.push({ 'logo': $scope.logo_FileNew });
-        if ($scope.pictureH_FileNew) filesUpload.push({ 'pictureH': $scope.pictureH_FileNew });
-        if ($scope.pictureGallery_FileNew.length>0) {
-          for(var t=0;t<$scope.pictureGallery_FileNew.length;t++) {
-            let key = 'pictureGallery'+t;
-            let obj = {};
-            obj[key] = $scope.pictureGallery_FileNew[t];
-            filesUpload.push(obj);
-          };
-        };
         debugger;
         mainSvc.callService({
             url: 'profile/createNewProfile_'+$scope.formData.type,
-            params: {
-              'usrId': $rootScope.userInfo.id,
-              'dataJson': JSON.stringify($scope.formData.player),
-              'payment': JSON.stringify($scope.formData.payment),
-              'agree': $scope.formData.agree
-            },
+            params: paramSet,
             data: {
               files: filesUpload
             }
         }).then(function (response) {
           if (response.code==0) {
+            /*
             let ret = angular.copy(response);
             switch ($scope.formData.type) {
               case 'player':
@@ -536,6 +555,8 @@ angular.module('mainApp').controller('createProfileController',
             });
             authenticationSvc.saveLogin();
             actionSvc.goToAction(1); // go to home
+            */
+            mainSvc.showAlertByCode(100);
           }
           else {
             mainSvc.showAlertByCode(response.code);
