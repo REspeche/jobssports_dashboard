@@ -1,15 +1,17 @@
-mainApp.directive('creditCard', function() {
+mainApp.directive('billing', function() {
   return {
       restrict: 'E',
       scope: {
           name: '@',
-          payment: '='
+          plans: '=',
+          formData: '='
       },
       controller:['$scope', 'mainSvc',
         function ($scope, mainSvc) {
           $scope.isVisa = false;
           $scope.isMaster = false;
           $scope.isAmex = false;
+          $scope.selBillingPlan = undefined;
 
           let GetCardType = function(number)
           {
@@ -60,10 +62,15 @@ mainApp.directive('creditCard', function() {
             $scope.isVisa = false;
             $scope.isMaster = false;
             $scope.isAmex = false;
-            let cardType = GetCardType($scope.payment.cardNumber);
+            let cardType = GetCardType($scope.formData.cardNumber);
             if (cardType.toLowerCase()=="visa") $scope.isVisa = true;
             if (cardType.toLowerCase()=="master") $scope.isMaster = true;
             if (cardType.toLowerCase()=="amex") $scope.isAmex = true;
+          };
+
+          $scope.selPlan = function(val) {
+            $scope.selBillingPlan = val;
+            $scope.formData.billingPlan = val;
           };
 
           $( document ).ready(function() {
@@ -77,8 +84,9 @@ mainApp.directive('creditCard', function() {
                 "greedy": false
             }).mask("#kt_inputmask_cvv");
           });
+
         }
       ],
-      templateUrl: 'templates/directives/creditcard/creditcard.html'
+      templateUrl: 'templates/directives/billing/billing.html'
   };
 });

@@ -68,16 +68,16 @@ angular.module('mainApp').controller('createProfileController',
           trainingDateEnd: _dNow,
           degreeName: ''
         },
-        payment: {
-          billingPlan: '2',
-          cardName: '',
-          cardNumber: '',
-          expMonth: '1',
-          expYear: '2022',
-          cvv: '',
-          saveCard: 1
-        },
         agree: false
+      };
+      $scope.formPayment = {
+        billingPlan: undefined,
+        cardName: '',
+        cardNumber: '',
+        expMonth: '1',
+        expYear: '2022',
+        cvv: '',
+        saveCard: 1
       };
       $scope.logo_FileNew = undefined;
       $scope.countryPassport_FileNew = undefined;
@@ -170,6 +170,80 @@ angular.module('mainApp').controller('createProfileController',
           label: 'Town'
         }
       ];
+      $scope.billingPlans = {
+        player: [
+          {
+            id: 1,
+            title: 'Free',
+            label: 'Restrict Features',
+            cost: 0
+          },
+          {
+            id: 2,
+            title: 'Standard',
+            label: 'Best for initial career',
+            cost: 20,
+            popular: true
+          },
+          {
+            id: 3,
+            title: 'Premium',
+            label: 'Reach the success faster',
+            cost: 30
+          }
+        ],
+        club: [
+          {
+            id: 1,
+            title: 'Standard',
+            label: 'Basic functions with restrict features',
+            cost: 50,
+            popular: true
+          },
+          {
+            id: 2,
+            title: 'Premium',
+            label: 'All functions with unlimited features',
+            cost: 150
+          }
+        ],
+        agent: [
+          {
+            id: 1,
+            title: 'Standard',
+            label: 'Basic functions with restrict features',
+            cost: 50,
+            popular: true
+          },
+          {
+            id: 2,
+            title: 'Premium',
+            label: 'All functions with unlimited features',
+            cost: 150
+          }
+        ],
+        coach: [
+          {
+            id: 1,
+            title: 'Free',
+            label: 'Restrict Features',
+            cost: 0
+          },
+          {
+            id: 2,
+            title: 'Standard',
+            label: 'Basic functions with some limited features',
+            cost: 20,
+            popular: true
+          },
+          {
+            id: 3,
+            title: 'Premium',
+            label: 'All functions with unlimited features',
+            cost: 30
+          }
+        ]
+      };
 
       $scope.loadPartial = function() {
         authenticationSvc.login(true);
@@ -377,23 +451,23 @@ angular.module('mainApp').controller('createProfileController',
                       validForm = true;
                 };
               };
-              if ($scope.step == 6) {
+              if ($scope.step == 6) { //payment
                 stepToVerify = true;
-                if ($scope.formData.payment.billingPlan > 1 &&
-                    $scope.formData.payment.cardName != '' &&
-                    $scope.formData.payment.cardNumber != '' &&
-                    $scope.formData.payment.expMonth != '' &&
-                    $scope.formData.payment.expMonth != '' &&
-                    $scope.formData.payment.cvv != '') {
+                if ($scope.formPayment.billingPlan > 1 &&
+                    $scope.formPayment.cardName != '' &&
+                    $scope.formPayment.cardNumber != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.cvv != '') {
                       validForm = true;
                 }
-                else {
+                else if ($scope.formPayment.billingPlan == 1) {
                   validForm = true;
                 };
               };
               break;
             case 'club':
-              _maxStep = 5;
+              _maxStep = 6;
               if ($scope.step == 2) {
                 stepToVerify = true;
                 if ($scope.formData.club.name != '' &&
@@ -418,9 +492,19 @@ angular.module('mainApp').controller('createProfileController',
                       validForm = true;
                 };
               };
+              if ($scope.step == 5) { //payment
+                stepToVerify = true;
+                if ($scope.formPayment.cardName != '' &&
+                    $scope.formPayment.cardNumber != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.cvv != '') {
+                      validForm = true;
+                };
+              };
               break;
             case 'agent':
-              _maxStep = 4;
+              _maxStep = 5;
               if ($scope.step == 2) {
                 stepToVerify = true;
                 if ($scope.formData.agent.firstName != '' &&
@@ -439,9 +523,19 @@ angular.module('mainApp').controller('createProfileController',
                       validForm = true;
                 };
               };
+              if ($scope.step == 4) { //payment
+                stepToVerify = true;
+                if ($scope.formPayment.cardName != '' &&
+                    $scope.formPayment.cardNumber != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.cvv != '') {
+                      validForm = true;
+                };
+              };
               break;
             case 'coach':
-              _maxStep = 5;
+              _maxStep = 6;
               if ($scope.step == 2) {
                 stepToVerify = true;
                 if ($scope.formData.coach.firstName != '' &&
@@ -466,6 +560,20 @@ angular.module('mainApp').controller('createProfileController',
                     $scope.formData.coach.trainingDateStart != undefined &&
                     $scope.formData.coach.trainingDateEnd != undefined) {
                       validForm = true;
+                };
+              };
+              if ($scope.step == 5) { //payment
+                stepToVerify = true;
+                if ($scope.formPayment.billingPlan > 1 &&
+                    $scope.formPayment.cardName != '' &&
+                    $scope.formPayment.cardNumber != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.expMonth != '' &&
+                    $scope.formPayment.cvv != '') {
+                      validForm = true;
+                }
+                else if ($scope.formPayment.billingPlan == 1) {
+                  validForm = true;
                 };
               };
               break;
@@ -549,7 +657,7 @@ angular.module('mainApp').controller('createProfileController',
           paramSet = {
             'usrId': $rootScope.userInfo.id,
             'dataJson': JSON.stringify($scope.formData.player),
-            'payment': JSON.stringify($scope.formData.payment),
+            'payment': JSON.stringify($scope.formPayment),
             'agree': $scope.formData.agree
           };
         };
@@ -565,9 +673,7 @@ angular.module('mainApp').controller('createProfileController',
 
           //Param
           paramSet = {
-            'usrId': $rootScope.userInfo.id,
-            'dataJson': JSON.stringify($scope.formData.club),
-            'agree': $scope.formData.agree
+            'dataJson': JSON.stringify($scope.formData.club)
           };
         };
         if ($scope.formData.type=="agent") {
@@ -576,9 +682,7 @@ angular.module('mainApp').controller('createProfileController',
 
           //Param
           paramSet = {
-            'usrId': $rootScope.userInfo.id,
-            'dataJson': JSON.stringify($scope.formData.agent),
-            'agree': $scope.formData.agree
+            'dataJson': JSON.stringify($scope.formData.agent)
           };
         };
         if ($scope.formData.type=="coach") {
@@ -587,11 +691,13 @@ angular.module('mainApp').controller('createProfileController',
 
           //Param
           paramSet = {
-            'usrId': $rootScope.userInfo.id,
-            'dataJson': JSON.stringify($scope.formData.coach),
-            'agree': $scope.formData.agree
+            'dataJson': JSON.stringify($scope.formData.coach)
           };
         };
+        paramSet = Object.assign(paramSet, {
+          'payment': JSON.stringify($scope.formPayment),
+          'agree': $scope.formData.agree
+        });
 
         //Ajax send
         debugger;
@@ -624,7 +730,6 @@ angular.module('mainApp').controller('createProfileController',
             });
             authenticationSvc.saveLogin();
             actionSvc.goToAction(1); // go to home
-            mainSvc.showAlertByCode(100);
           }
           else {
             mainSvc.showAlertByCode(response.code);
@@ -766,7 +871,7 @@ angular.module('mainApp').controller('createProfileController',
 
       $scope.changeSaveCard = function() {
         const cb = document.querySelector('#chkSaveCard');
-        $scope.formData.payment.saveCard=(cb.checked)?1:0;
+        $scope.formPayment.saveCard=(cb.checked)?1:0;
       }
 
       $scope.onlyActive = function(item) {

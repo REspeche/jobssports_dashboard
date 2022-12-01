@@ -158,7 +158,7 @@
             </div>
             <!--end::Step 5-->
             <!--begin::Step 6-->
-            <div class="stepper-item" ng-class="{'current':step==6, 'completed':step>6}" data-kt-stepper-element="nav" ng-show="formData.type=='player'">
+            <div class="stepper-item" ng-class="{'current':(step==6 && formData.type=='player') || (step==5 && (formData.type=='club' || formData.type=='coach')) || (step==4 && formData.type=='agent'), 'completed':step>6}" data-kt-stepper-element="nav">
               <!--begin::Wrapper-->
               <div class="stepper-wrapper">
                 <!--begin::Icon-->
@@ -166,6 +166,8 @@
                   <i class="stepper-check fas fa-check"></i>
                   <span class="stepper-number" ng-show="formData.type=='player'">6</span>
                   <span class="stepper-number" ng-show="formData.type=='club'">5</span>
+                  <span class="stepper-number" ng-show="formData.type=='agent'">4</span>
+                  <span class="stepper-number" ng-show="formData.type=='coach'">5</span>
                 </div>
                 <!--end::Icon-->
                 <!--begin::Label-->
@@ -182,15 +184,15 @@
             </div>
             <!--end::Step 6-->
             <!--begin::Step 7-->
-            <div class="stepper-item" ng-class="{'current':step==7, 'completed':step>7}" data-kt-stepper-element="nav">
+            <div class="stepper-item" ng-class="{'current':(step==7 && formData.type=='player') || (step==6 && (formData.type=='club' || formData.type=='coach')) || (step==5 && formData.type=='agent'), 'completed':step>7}" data-kt-stepper-element="nav">
               <!--begin::Wrapper-->
               <div class="stepper-wrapper">
                 <!--begin::Icon-->
                 <div class="stepper-icon">
                   <i class="stepper-check fas fa-check"></i>
                   <span class="stepper-number" ng-show="formData.type=='player'">7</span>
-                  <span class="stepper-number" ng-show="formData.type=='club' || formData.type=='coach'">5</span>
-                  <span class="stepper-number" ng-show="formData.type=='agent'">4</span>
+                  <span class="stepper-number" ng-show="formData.type=='club' || formData.type=='coach'">6</span>
+                  <span class="stepper-number" ng-show="formData.type=='agent'">5</span>
                 </div>
                 <!--end::Icon-->
                 <!--begin::Label-->
@@ -336,6 +338,7 @@
                   <!--end::Notice-->
                 </div>
                 <!--end::Heading-->
+
                 <!--begin::Input group-->
                 <div class="mb-10 fv-row">
                   <!--begin::Label-->
@@ -1481,7 +1484,7 @@
             </div>
             <!--end::Step 5-->
             <!--begin::Step 6-->
-            <div class="" ng-show="step==6 && formData.type=='player'">
+            <div class="" ng-show="(step==6 && formData.type=='player') || (step==5 && formData.type=='club') || (step==4 && formData.type=='agent') || (step==5 && formData.type=='coach')">
               <!--begin::Wrapper-->
               <div class="w-100">
                 <!--begin::Heading-->
@@ -1495,132 +1498,13 @@
                   <!--end::Notice-->
                 </div>
                 <!--end::Heading-->
-                <!--begin::Input group-->
-                <div class="d-flex flex-column mb-7 fv-row">
-                  <!--begin::Radio group-->
-                  <div data-kt-buttons="true">
-                      <!--begin::Radio button-->
-                      <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5 col-md-8">
-                          <!--end::Description-->
-                          <div class="d-flex align-items-center me-2">
-                              <!--begin::Radio-->
-                              <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                  <input class="form-check-input" type="radio" name="plan" ng-value="1" ng-model="formData.payment.billingPlan"/>
-                              </div>
-                              <!--end::Radio-->
-
-                              <!--begin::Info-->
-                              <div class="flex-grow-1">
-                                  <h2 class="d-flex align-items-center fs-3 fw-bold flex-wrap">
-                                      Free
-                                  </h2>
-                                  <div class="fw-semibold opacity-50">
-                                      Restrict features
-                                  </div>
-                              </div>
-                              <!--end::Info-->
-                          </div>
-                          <!--end::Description-->
-
-                          <!--begin::Price-->
-                          <div class="ms-5">
-                              <span class="mb-2">$</span>
-                              <span class="fs-2x fw-bold">
-                                  0
-                              </span>
-                              <span class="fs-7 opacity-50">/
-                                  <span data-kt-element="period">Year</span>
-                              </span>
-                          </div>
-                          <!--end::Price-->
-                      </label>
-                      <!--end::Radio button-->
-
-                      <!--begin::Radio button-->
-                      <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5 col-md-8 active">
-                          <!--end::Description-->
-                          <div class="d-flex align-items-center me-2">
-                              <!--begin::Radio-->
-                              <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                  <input class="form-check-input" type="radio" name="plan" ng-checked="true" ng-value="2" ng-model="formData.payment.billingPlan"/>
-                              </div>
-                              <!--end::Radio-->
-
-                              <!--begin::Info-->
-                              <div class="flex-grow-1">
-                                  <h2 class="d-flex align-items-center fs-3 fw-bold flex-wrap">
-                                      Standard
-                                      <span class="badge badge-light-success ms-2 fs-7">Most popular</span>
-                                  </h2>
-                                  <div class="fw-semibold opacity-50">
-                                      Best for startups
-                                  </div>
-                              </div>
-                              <!--end::Info-->
-                          </div>
-                          <!--end::Description-->
-
-                          <!--begin::Price-->
-                          <div class="ms-5">
-                              <span class="mb-2">$</span>
-                              <span class="fs-2x fw-bold">
-                                  20
-                              </span>
-                              <span class="fs-7 opacity-50">/
-                                  <span data-kt-element="period">Year</span>
-                              </span>
-                          </div>
-                          <!--end::Price-->
-                      </label>
-                      <!--end::Radio button-->
-
-                      <!--begin::Radio button-->
-                      <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5 col-md-8">
-                          <!--end::Description-->
-                          <div class="d-flex align-items-center me-2">
-                              <!--begin::Radio-->
-                              <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                  <input class="form-check-input" type="radio" name="plan" ng-value="3" ng-model="formData.payment.billingPlan"/>
-                              </div>
-                              <!--end::Radio-->
-
-                              <!--begin::Info-->
-                              <div class="flex-grow-1">
-                                  <h2 class="d-flex align-items-center fs-3 fw-bold flex-wrap">
-                                      Premium
-                                  </h2>
-                                  <div class="fw-semibold opacity-50">
-                                      Best for 100+ team size
-                                  </div>
-                              </div>
-                              <!--end::Info-->
-                          </div>
-                          <!--end::Description-->
-
-                          <!--begin::Price-->
-                          <div class="ms-5">
-                              <span class="mb-2">$</span>
-                              <span class="fs-2x fw-bold">
-                                  30
-                              </span>
-                              <span class="fs-7 opacity-50">/
-                                  <span data-kt-element="period">Year</span>
-                              </span>
-                          </div>
-                          <!--end::Price-->
-                      </label>
-                      <!--end::Radio button-->
-                  </div>
-                  <!--end::Radio group-->
-                </div>
-                <!--end::Input group-->
-                <credit-card ng-show="formData.payment.billingPlan>1" payment="formData.payment"></credit-card>
+                <billing plans="billingPlans[formData.type]" form-data="formPayment"></billingd>
               </div>
               <!--end::Wrapper-->
             </div>
             <!--end::Step 6-->
             <!--begin::Step 7-->
-            <div class="" ng-show="(step==7 && formData.type=='player') || (step==5 && formData.type=='club') || (step==4 && formData.type=='agent') || (step==5 && formData.type=='coach')">
+            <div class="" ng-show="(step==7 && formData.type=='player') || (step==6 && formData.type=='club') || (step==5 && formData.type=='agent') || (step==6 && formData.type=='coach')">
               <!--begin::Wrapper-->
               <div class="w-100">
                 <!--begin::Heading-->
@@ -1688,12 +1572,12 @@
                 <!--end::Svg Icon-->Previous</button>
               </div>
               <div>
-                <button type="submit" class="btn btn-lg btn-primary me-3" ng-show="(step==7 && formData.type=='player') || (step==5 && formData.type=='club') || (step==4 && formData.type=='agent') || (step==5 && formData.type=='coach')"">
+                <button type="submit" class="btn btn-lg btn-primary me-3" ng-show="(step==7 && formData.type=='player') || (step==6 && formData.type=='club') || (step==5 && formData.type=='agent') || (step==6 && formData.type=='coach')"">
                   <span class="indicator-label">Finish</span>
                   <span class="indicator-progress">Please wait...
                   <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                 </button>
-                <button type="button" class="btn btn-lg btn-primary" ng-click="actionNext()" ng-show="(step<7 && formData.type=='player') || (step<5 && formData.type=='club') || (step<4 && formData.type=='agent') || (step<5 && formData.type=='coach')"><span ng-show="step==1">Select</span><span ng-show="step>1">Continue</span>
+                <button type="button" class="btn btn-lg btn-primary" ng-click="actionNext()" ng-show="(step<7 && formData.type=='player') || (step<6 && formData.type=='club') || (step<5 && formData.type=='agent') || (step<6 && formData.type=='coach')"><span ng-show="step==1">Select</span><span ng-show="step>1">Continue</span>
                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                 <span class="svg-icon svg-icon-4 ms-1">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -164,16 +164,19 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
             })
             .state('panel', {
                 url         : '/panel',
-                templateUrl : 'templates/partials/panel.html',
+                templateUrl : 'templates/partials/dashboard/panel/panel.html',
                 controller  : 'panelController',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/panel.js'
+                                'assets/js/partials/dashboard/panel/panel.js'
                             ]
                         }]);
                     }]
+                },
+                data: {
+                    bodyClasses: 'panel-page'
                 }
             })
             .state('welcome', {
