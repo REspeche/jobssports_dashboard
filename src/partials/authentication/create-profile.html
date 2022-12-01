@@ -409,6 +409,14 @@
                   <div class="row mb-2">
                     <div class="col-md-6">
                       <!--begin::Label-->
+                      <label class="form-label">Phone</label>
+                      <!--end::Label-->
+                      <!--begin::Input-->
+                      <input id="kt_club_phone" class="form-control" placeholder="Contact phone" ng-model="formData.player.phone" type="text"/>
+                      <!--end::Input-->
+                    </div>
+                    <div class="col-md-6">
+                      <!--begin::Label-->
                       <label class="form-label">Valid Passport
                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="The passport should not be from the country of birth"></i></label>
                       <!--end::Label-->
@@ -418,26 +426,33 @@
                       </select>
                       <!--end::Input-->
                     </div>
-                    <div class="col-md-6">
-                      <!--begin::Image input-->
-                      <image-input data-name="filPassport" data-size="70" ng-show="formData.player.countryPassport>0" base64="formData.player.countryPassport" file="countryPassport_FileNew"></image-input>
-                      <!--end::Image input-->
-                      <!--begin::Hint-->
-                      <div class="form-text" ng-show="formData.player.countryPassport>0">You'd have 5 days to upload a photo</div>
-                      <!--end::Hint-->
-                    </div>
                   </div>
                   <!--end::Row-->
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="mb-10 fv-row">
-                  <!--begin::Label-->
-                  <label class="d-flex align-items-center form-label mb-3 required">Identify Picture</label>
-                  <!--end::Label-->
-                  <!--begin::Image input-->
-                  <image-input name="filPictureLogoPlayer" size="125" base64="formData.player.logo" file="logo_FileNew"></image-input>
-                  <!--end::Image input-->
+                <div class="row mb-2">
+                  <div class="col-md-6">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center form-label mb-3 required">Identify Picture</label>
+                    <!--end::Label-->
+                    <!--begin::Image input-->
+                    <image-input name="filPictureLogoPlayer" size="125" base64="formData.player.logo" file="logo_FileNew"></image-input>
+                    <!--end::Image input-->
+                  </div>
+                  <div class="col-md-6">
+                    <div ng-show="formData.player.countryPassport>0">
+                      <!--begin::Label-->
+                      <label class="d-flex align-items-center form-label mb-3">Passport Picture</label>
+                      <!--end::Label-->
+                      <!--begin::Image input-->
+                      <image-input data-name="filPassport" data-size="125" base64="formData.player.countryPassport" file="countryPassport_FileNew"></image-input>
+                      <!--end::Image input-->
+                      <!--begin::Hint-->
+                      <div class="form-text">You'd have 5 days to upload a photo</div>
+                      <!--end::Hint-->
+                    </div>
+                  </div>
                 </div>
                 <!--end::Input group-->
               </div>

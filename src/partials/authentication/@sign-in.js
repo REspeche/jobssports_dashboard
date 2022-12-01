@@ -10,7 +10,7 @@ angular.module('mainApp').controller('signInController',
       $scope.loadPartial = function () {
         //Check Profile if it's loged
         let _login = authenticationSvc.login();
-        if (_login.isLogin && _login.type == 1) {
+        if (_login.isLogin && _login.type == 0) {
           actionSvc.goToAction(6); //go to profile
           return false;
         };

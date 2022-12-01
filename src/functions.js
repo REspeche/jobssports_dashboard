@@ -113,6 +113,15 @@ function DateTimeToDateObj(DATETIME) {
     var d1 = new Date(Number(date[1]), Number(date[0]) - 1, Number(date[2]));
     return d1;
 }
+function UnixTimeStampToDate(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    var monthsStr = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    var year = a.getFullYear();
+    var date = a.getDate();
+    var dateReturn = dateFormat(new Date(year, a.getMonth(), date),"mm/dd/yyyy");
+    return dateReturn;
+}
 
 /* Prototype functions */
 String.prototype.format = function() {
@@ -385,4 +394,19 @@ function getBase64(file) {
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
+}
+
+function loadKTComponents() {
+  KTComponents.init();
+  KTApp.initPageLoader();
+  KTUtil.onDOMContentLoaded((function() {
+      KTAppLayoutBuilder.init();
+      KTLayoutSearch.init();
+      KTThemeModeUser.init();
+      KTThemeMode.init();
+      KTAppSidebar.init();
+      KTLayoutToolbar.init();
+      KTProfileGeneral.init();
+      KTChartsWidget5.init();
+  }));
 }

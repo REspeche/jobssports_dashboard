@@ -5,7 +5,7 @@ angular.module('mainApp').controller('verifyAuthenticationController',
       $scope.loadPartial = function() {
         let _login = authenticationSvc.getUserInfo();
         if(_login.isLogin) {
-          if (_login.type == 1) {
+          if (_login.type == 0) {
             actionSvc.goToAction(6); //go to profile
           }
           else {
@@ -17,7 +17,7 @@ angular.module('mainApp').controller('verifyAuthenticationController',
             //autentificarse
             let _login = authenticationSvc.login(true);
             if (_login.isLogin) {
-              if (_login.type == 1) {
+              if (_login.type == 0) {
                 actionSvc.goToAction(6); //go to profile
               }
               else {

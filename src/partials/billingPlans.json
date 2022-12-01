@@ -1,0 +1,74 @@
+{
+  "player": [
+    {
+      "id": 1,
+      "title": "Free",
+      "label": "Restrict Features",
+      "cost": 0
+    },
+    {
+      "id": 2,
+      "title": "Standard",
+      "label": "Best for initial career",
+      "cost": 20,
+      "popular": true
+    },
+    {
+      "id": 3,
+      "title": "Premium",
+      "label": "Reach the success faster",
+      "cost": 30
+    }
+  ],
+  "club": [
+    {
+      "id": 1,
+      "title": "Standard",
+      "label": "Basic functions with restrict features",
+      "cost": 50,
+      "popular": true
+    },
+    {
+      "id": 2,
+      "title": "Premium",
+      "label": "All functions with unlimited features",
+      "cost": 150
+    }
+  ],
+  "agent": [
+    {
+      "id": 1,
+      "title": "Standard",
+      "label": "Basic functions with restrict features",
+      "cost": 50,
+      "popular": true
+    },
+    {
+      "id": 2,
+      "title": "Premium",
+      "label": "All functions with unlimited features",
+      "cost": 150
+    }
+  ],
+  "coach": [
+    {
+      "id": 1,
+      "title": "Free",
+      "label": "Restrict Features",
+      "cost": 0
+    },
+    {
+      "id": 2,
+      "title": "Standard",
+      "label": "Basic functions with some limited features",
+      "cost": 20,
+      "popular": true
+    },
+    {
+      "id": 3,
+      "title": "Premium",
+      "label": "All functions with unlimited features",
+      "cost": 30
+    }
+  ]
+}

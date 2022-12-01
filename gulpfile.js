@@ -134,7 +134,8 @@ function compilePartialJs(done) {
 
 function compileHtml() {
   return gulp.src([
-    'src/**/*.html'
+    'src/**/*.html',
+    'src/**/*.json'
   ])
     .pipe(production(headerComment(textVersionD)))
     .pipe(gulp.dest(pathBuild+"/templates"));

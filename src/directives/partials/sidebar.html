@@ -1,0 +1,154 @@
+<!--begin::Sidebar-->
+<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle"
+  postrender-action="actionPostRender()">
+  <!--begin::Logo-->
+  <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
+    <!--begin::Logo image-->
+    <a href="/">
+      <img alt="Logo" src="assets/media/logos/logo-dark.png" class="h-25px app-sidebar-logo-default" />
+      <img alt="Logo" src="assets/media/logos/logo-minimized.png" class="h-20px app-sidebar-logo-minimize" />
+    </a>
+    <!--end::Logo image-->
+    <!--begin::Sidebar toggle-->
+    <div id="kt_app_sidebar_toggle" class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize">
+      <!--begin::Svg Icon | path: icons/duotune/arrows/arr079.svg-->
+      <span class="svg-icon svg-icon-2 rotate-180">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+          <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+        </svg>
+      </span>
+      <!--end::Svg Icon-->
+    </div>
+    <!--end::Sidebar toggle-->
+  </div>
+  <!--end::Logo-->
+  <!--begin::sidebar menu-->
+  <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+    <!--begin::Menu wrapper-->
+    <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+      <!--begin::Menu-->
+      <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+        <!--begin:Menu item-->
+        <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
+          <!--begin:Menu link-->
+          <span class="menu-link">
+            <span class="menu-icon">
+              <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+              <span class="svg-icon svg-icon-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                  <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                  <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                  <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                </svg>
+              </span>
+              <!--end::Svg Icon-->
+            </span>
+            <span class="menu-title">Dashboards</span>
+            <span class="menu-arrow"></span>
+          </span>
+          <!--end:Menu link-->
+          <!--begin:Menu sub-->
+          <div class="menu-sub menu-sub-accordion">
+            <!--begin:Menu item-->
+            <div class="menu-item">
+              <!--begin:Menu link-->
+              <a class="menu-link active" href="../../demo1/dist/index.html">
+                <span class="menu-bullet">
+                  <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">Default</span>
+              </a>
+              <!--end:Menu link-->
+            </div>
+            <!--end:Menu item-->
+            <!--begin:Menu item-->
+            <div class="menu-item">
+              <!--begin:Menu link-->
+              <a class="menu-link" href="../../demo1/dist/dashboards/ecommerce.html">
+                <span class="menu-bullet">
+                  <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">eCommerce</span>
+              </a>
+              <!--end:Menu link-->
+            </div>
+            <!--end:Menu item-->
+          </div>
+          <!--end:Menu sub-->
+        </div>
+        <!--end:Menu item-->
+        <!--begin:Menu item-->
+        <div class="menu-item pt-5">
+          <!--begin:Menu content-->
+          <div class="menu-content">
+            <span class="menu-heading fw-bold text-uppercase fs-7">Help</span>
+          </div>
+          <!--end:Menu content-->
+        </div>
+        <!--end:Menu item-->
+        <!--begin:Menu item-->
+        <div class="menu-item">
+          <!--begin:Menu link-->
+          <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="blank">
+            <span class="menu-icon">
+              <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2022-11-24-050857/core/html/src/media/icons/duotune/coding/cod002.svg-->
+              <span class="svg-icon svg-icon-muted svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path opacity="0.3" d="M18 22C19.7 22 21 20.7 21 19C21 18.5 20.9 18.1 20.7 17.7L15.3 6.30005C15.1 5.90005 15 5.5 15 5C15 3.3 16.3 2 18 2H6C4.3 2 3 3.3 3 5C3 5.5 3.1 5.90005 3.3 6.30005L8.7 17.7C8.9 18.1 9 18.5 9 19C9 20.7 7.7 22 6 22H18Z" fill="currentColor"/>
+              <path d="M18 2C19.7 2 21 3.3 21 5H9C9 3.3 7.7 2 6 2H18Z" fill="currentColor"/>
+              <path d="M9 19C9 20.7 7.7 22 6 22C4.3 22 3 20.7 3 19H9Z" fill="currentColor"/>
+              </svg>
+              </span>
+              <!--end::Svg Icon-->
+            </span>
+            <span class="menu-title">Terms</span>
+          </a>
+          <!--end:Menu link-->
+        </div>
+        <!--end:Menu item-->
+        <!--begin:Menu item-->
+        <div class="menu-item">
+          <!--begin:Menu link-->
+          <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs" target="blank">
+            <span class="menu-icon">
+              <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2022-11-24-050857/core/html/src/media/icons/duotune/finance/fin008.svg-->
+              <span class="svg-icon svg-icon-muted svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path opacity="0.3" d="M3.20001 5.91897L16.9 3.01895C17.4 2.91895 18 3.219 18.1 3.819L19.2 9.01895L3.20001 5.91897Z" fill="currentColor"/>
+              <path opacity="0.3" d="M13 13.9189C13 12.2189 14.3 10.9189 16 10.9189H21C21.6 10.9189 22 11.3189 22 11.9189V15.9189C22 16.5189 21.6 16.9189 21 16.9189H16C14.3 16.9189 13 15.6189 13 13.9189ZM16 12.4189C15.2 12.4189 14.5 13.1189 14.5 13.9189C14.5 14.7189 15.2 15.4189 16 15.4189C16.8 15.4189 17.5 14.7189 17.5 13.9189C17.5 13.1189 16.8 12.4189 16 12.4189Z" fill="currentColor"/>
+              <path d="M13 13.9189C13 12.2189 14.3 10.9189 16 10.9189H21V7.91895C21 6.81895 20.1 5.91895 19 5.91895H3C2.4 5.91895 2 6.31895 2 6.91895V20.9189C2 21.5189 2.4 21.9189 3 21.9189H19C20.1 21.9189 21 21.0189 21 19.9189V16.9189H16C14.3 16.9189 13 15.6189 13 13.9189Z" fill="currentColor"/>
+              </svg>
+              </span>
+              <!--end::Svg Icon-->
+            </span>
+            <span class="menu-title">Plans</span>
+          </a>
+          <!--end:Menu link-->
+        </div>
+        <!--end:Menu item-->
+        <!--begin:Menu item-->
+        <div class="menu-item">
+          <!--begin:Menu link-->
+          <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/getting-started/changelog" target="blank">
+            <span class="menu-icon">
+              <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2022-11-24-050857/core/html/src/media/icons/duotune/general/gen016.svg-->
+              <span class="svg-icon svg-icon-muted svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.43 8.56949L10.744 15.1395C10.6422 15.282 10.5804 15.4492 10.5651 15.6236C10.5498 15.7981 10.5815 15.9734 10.657 16.1315L13.194 21.4425C13.2737 21.6097 13.3991 21.751 13.5557 21.8499C13.7123 21.9488 13.8938 22.0014 14.079 22.0015H14.117C14.3087 21.9941 14.4941 21.9307 14.6502 21.8191C14.8062 21.7075 14.9261 21.5526 14.995 21.3735L21.933 3.33649C22.0011 3.15918 22.0164 2.96594 21.977 2.78013C21.9376 2.59432 21.8452 2.4239 21.711 2.28949L15.43 8.56949Z" fill="currentColor"/>
+              <path opacity="0.3" d="M20.664 2.06648L2.62602 9.00148C2.44768 9.07085 2.29348 9.19082 2.1824 9.34663C2.07131 9.50244 2.00818 9.68731 2.00074 9.87853C1.99331 10.0697 2.04189 10.259 2.14054 10.4229C2.23919 10.5869 2.38359 10.7185 2.55601 10.8015L7.86601 13.3365C8.02383 13.4126 8.19925 13.4448 8.37382 13.4297C8.54839 13.4145 8.71565 13.3526 8.85801 13.2505L15.43 8.56548L21.711 2.28448C21.5762 2.15096 21.4055 2.05932 21.2198 2.02064C21.034 1.98196 20.8409 1.99788 20.664 2.06648Z" fill="currentColor"/>
+              </svg>
+              </span>
+              <!--end::Svg Icon-->
+            </span>
+            <span class="menu-title">Contact Us</span>
+          </a>
+          <!--end:Menu link-->
+        </div>
+        <!--end:Menu item-->
+      </div>
+      <!--end::Menu-->
+    </div>
+    <!--end::Menu wrapper-->
+  </div>
+  <!--end::sidebar menu-->
+</div>
+<!--end::Sidebar-->

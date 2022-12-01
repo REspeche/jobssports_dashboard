@@ -24,7 +24,8 @@ angular.module('mainApp').controller('createProfileController',
           pictureH: undefined,
           videoH: undefined,
           pictureGallery: [],
-          videoGallery: []
+          videoGallery: [],
+          phone: ''
         },
         club: {
           name: '',
@@ -170,80 +171,9 @@ angular.module('mainApp').controller('createProfileController',
           label: 'Town'
         }
       ];
-      $scope.billingPlans = {
-        player: [
-          {
-            id: 1,
-            title: 'Free',
-            label: 'Restrict Features',
-            cost: 0
-          },
-          {
-            id: 2,
-            title: 'Standard',
-            label: 'Best for initial career',
-            cost: 20,
-            popular: true
-          },
-          {
-            id: 3,
-            title: 'Premium',
-            label: 'Reach the success faster',
-            cost: 30
-          }
-        ],
-        club: [
-          {
-            id: 1,
-            title: 'Standard',
-            label: 'Basic functions with restrict features',
-            cost: 50,
-            popular: true
-          },
-          {
-            id: 2,
-            title: 'Premium',
-            label: 'All functions with unlimited features',
-            cost: 150
-          }
-        ],
-        agent: [
-          {
-            id: 1,
-            title: 'Standard',
-            label: 'Basic functions with restrict features',
-            cost: 50,
-            popular: true
-          },
-          {
-            id: 2,
-            title: 'Premium',
-            label: 'All functions with unlimited features',
-            cost: 150
-          }
-        ],
-        coach: [
-          {
-            id: 1,
-            title: 'Free',
-            label: 'Restrict Features',
-            cost: 0
-          },
-          {
-            id: 2,
-            title: 'Standard',
-            label: 'Basic functions with some limited features',
-            cost: 20,
-            popular: true
-          },
-          {
-            id: 3,
-            title: 'Premium',
-            label: 'All functions with unlimited features',
-            cost: 30
-          }
-        ]
-      };
+      mainSvc.getJson('/templates/partials/billingPlans.json').then(function (data) {
+        $scope.billingPlans = angular.copy(data);
+      });
 
       $scope.loadPartial = function() {
         authenticationSvc.login(true);
@@ -601,7 +531,7 @@ angular.module('mainApp').controller('createProfileController',
           mainSvc.callService({
               url: 'profile/saveTempFile',
               params: {
-                'usrId': $rootScope.userInfo.id
+                'usrId': $rootScope.userInfo.usrId
               },
               data: {
                 files: filesUpload
@@ -644,6 +574,7 @@ angular.module('mainApp').controller('createProfileController',
           //Files
           if ($scope.logo_FileNew) filesUpload.push({ 'logo': $scope.logo_FileNew });
           if ($scope.pictureH_FileNew) filesUpload.push({ 'pictureH': $scope.pictureH_FileNew });
+          if ($scope.countryPassport_FileNew) filesUpload.push({ 'countryPassport': $scope.countryPassport_FileNew });
           if ($scope.pictureGallery_FileNew.length>0) {
             for(var t=0;t<$scope.pictureGallery_FileNew.length;t++) {
               let key = 'pictureGallery'+t;
@@ -655,10 +586,7 @@ angular.module('mainApp').controller('createProfileController',
 
           //Param
           paramSet = {
-            'usrId': $rootScope.userInfo.id,
-            'dataJson': JSON.stringify($scope.formData.player),
-            'payment': JSON.stringify($scope.formPayment),
-            'agree': $scope.formData.agree
+            'dataJson': JSON.stringify($scope.formData.player)
           };
         };
         if ($scope.formData.type=="club") {

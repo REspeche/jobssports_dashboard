@@ -26,9 +26,8 @@ mainApp.factory('mainSvc',
 				'callService': callService,
 				'showAlert': showAlert,
 				'showAlertByCode': showAlertByCode,
-				'getDateFormat': getDateFormat,
-				'convertDateFromString': convertDateFromString,
-				'showModal': showModal
+				'showModal': showModal,
+				'getJson': getJson
 			};
 
 			function runCallService(paramReq) {
@@ -47,7 +46,7 @@ mainApp.factory('mainSvc',
 				$http({
 					'url': paramReq.path + paramReq.url,
 					'method': paramReq.method,
-					'params': (!paramReq.params.usrId && $rootScope.userInfo)?Object.assign({}, {'usrId':$rootScope.userInfo.id}, paramReq.params):paramReq.params,
+					'params': (!paramReq.params.usrId && $rootScope.userInfo)?Object.assign({}, {'usrId':$rootScope.userInfo.usrId}, paramReq.params):paramReq.params,
 					'data': paramReq.data,
 					'headers': headers,
 					'cache': false,
@@ -157,21 +156,6 @@ mainApp.factory('mainSvc',
 				}
 			}
 
-			function getDateFormat(pMilliseconds) {
-				var vDate = new Date(pMilliseconds);
-				var dd = vDate.getDate();
-				var mm = vDate.getMonth() + 1; //January is 0!
-				var yyyy = vDate.getFullYear();
-				if (dd < 10) dd = '0' + dd;
-				if (mm < 10) mm = '0' + mm;
-				return dd + '/' + mm + '/' + yyyy;
-			}
-
-			function convertDateFromString(pStrDate) {
-				var parts = pStrDate.split('/');
-				return new Date(parts[2], parts[1] - 1, parts[0]);
-			}
-
 			function showModal(customModalOptions, callBackFunction) {
 					var p = Object.assign({}, {
 							text: 'Do you want to continue with this action?',
@@ -185,6 +169,20 @@ mainApp.factory('mainSvc',
 					Swal.fire(p).then((result) => {
 					  if (result.isConfirmed && callBackFunction) callBackFunction();
 					});
+			}
+
+			function getJson(filePath) {
+				var defered = $q.defer();
+				var promise = defered.promise;
+				$http({
+					'url': filePath,
+					'method': 'GET'
+				}).then(function (response) {
+					defered.resolve(response.data);
+				}).catch(function (err) {
+					defered.reject(undefined);
+				});
+				return promise;
 			}
 
 			return _publicFunctions;

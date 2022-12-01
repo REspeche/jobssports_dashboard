@@ -15,7 +15,7 @@ mainApp.run(['$rootScope', 'authenticationSvc', '$state', 'alertSvc', 'mainSvc',
                 //autentificarse
                 let _login = authenticationSvc.login(true);
                 if (toState.name != 'create-profile' && _login.isLogin) {
-                  if (_login.type == 1) {
+                  if (_login.type == 0) {
                     $rootScope.isBusy = false;
                     e.preventDefault(); // stop current execution
                     $state.go('create-profile'); // go to profile
@@ -34,7 +34,7 @@ mainApp.run(['$rootScope', 'authenticationSvc', '$state', 'alertSvc', 'mainSvc',
               }
           }
           else {
-            if (toState.name!='create-profile' && $rootScope.userInfo.type == 1) {
+            if (toState.name!='create-profile' && $rootScope.userInfo.type == 0) {
               $rootScope.isBusy = false;
               e.preventDefault(); // stop current execution
               $state.go('create-profile'); // go to profile

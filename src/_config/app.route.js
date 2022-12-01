@@ -222,6 +222,23 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 data: {
                     bodyClasses: 'load-screen'
                 }
+            })
+            .state('account-overview', {
+                url         : '/account/overview',
+                templateUrl : 'templates/partials/dashboard/account/overview.html',
+                controller  : 'accountOverviewController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/dashboard/account/overview.js'
+                            ]
+                        }]);
+                    }]
+                },
+                data: {
+                    bodyClasses: 'accountOverview-page'
+                }
             });
 
         $urlRouterProvider.otherwise('/verify-authentication'); //page by default

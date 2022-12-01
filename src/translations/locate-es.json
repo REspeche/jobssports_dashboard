@@ -29,6 +29,7 @@
   "MSG_REQUEST_TIME_OUT": "Tiempo de respuesta caducado",
   "MSG_COD1"  : "Operación exitosa",
   "MSG_COD2"  : "Su contraseña ha sido cambiada con éxito",
+  "MSG_COD3"  : "Función aún no implementada",
   "MSG_COD100": "Los datos han sido guardado temporalmente",
   "MSG_COD200": "Debe introducir una dirección de correo electrónico y una contraseña para continuar",
   "MSG_COD201": "Debe ingresar un correo electrónico para continuar",

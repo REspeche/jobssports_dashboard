@@ -13,31 +13,39 @@ mainApp.factory('authenticationSvc',
       };
 
       var _data = {};
+      //loginData
       var _dataDefault = {
         isLogin         : false,
-        type           : 1,
-        id              : 0,
+        type            : 1,
+        typeStr         : '',
+        usrId           : 0,
         plaId           : 0,
         cluId           : 0,
         ageId           : 0,
         coaId           : 0,
+        name            : '',
         email           : undefined,
         token           : undefined,
-        logo            : ''
+        logo            : '',
+        subscription    : 1
       };
 
       var printObject = function (_isLogin, _param) {
+        //loginData
         return {
           isLogin         : _isLogin,
           type            : _param.type,
-          id              : _param.id,
+          typeStr         : _param.typeStr,
+          usrId           : _param.usrId,
           plaId           : _param.plaId,
           cluId           : _param.cluId,
           ageId           : _param.ageId,
           coaId           : _param.coaId,
+          name            : _param.name,
           email           : _param.email,
           token           : _param.token,
-          logo            : _param.logo
+          logo            : _param.logo,
+          subscription    : _param.subscription
         };
       }
 
