@@ -46,7 +46,6 @@ angular.module('mainApp').controller('resetPasswordController',
         }).then(function (response) {
           localStorage.setItem("sendMailInterval", JSON.stringify({
             email: $scope.formData.email,
-            disableLink: true,
             remainingTime: 60
           }));
           actionSvc.goToAction(5, {

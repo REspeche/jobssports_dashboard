@@ -11,7 +11,7 @@ mainApp.directive('headerPartial', function() {
                 };
 
                 $scope.goToMyProfile = function() {
-                  actionSvc.goToAction(8); // go to my profile
+                  actionSvc.goToAction(8); // go to my profile / overview
                 };
 
                 $scope.signOut = function() {

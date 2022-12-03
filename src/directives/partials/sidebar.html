@@ -4,7 +4,7 @@
   <!--begin::Logo-->
   <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
     <!--begin::Logo image-->
-    <a href="/">
+    <a href="/" ng-click="goToHome()">
       <img alt="Logo" src="assets/media/logos/logo-dark.png" class="h-25px app-sidebar-logo-default" />
       <img alt="Logo" src="assets/media/logos/logo-minimized.png" class="h-20px app-sidebar-logo-minimize" />
     </a>
@@ -54,23 +54,11 @@
             <!--begin:Menu item-->
             <div class="menu-item">
               <!--begin:Menu link-->
-              <a class="menu-link active" href="../../demo1/dist/index.html">
+              <a class="menu-link active" href="#" ng-click="goToHome()">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title">Default</span>
-              </a>
-              <!--end:Menu link-->
-            </div>
-            <!--end:Menu item-->
-            <!--begin:Menu item-->
-            <div class="menu-item">
-              <!--begin:Menu link-->
-              <a class="menu-link" href="../../demo1/dist/dashboards/ecommerce.html">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">eCommerce</span>
+                <span class="menu-title">Panel</span>
               </a>
               <!--end:Menu link-->
             </div>

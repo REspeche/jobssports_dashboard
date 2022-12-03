@@ -1,5 +1,5 @@
 <a href="#" class="btn btn-sm btn-light-success fw-bold ms-2 fs-8 py-1 px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan"
-  ng-hide="lastPlan">Upgrade to {{billingPlans[userInfo.typeStr][userInfo.subscription].title}}</a>
+  ng-hide="lastPlan">Upgrade to {{billingPlans[$root.userInfo.typeStr][$root.userInfo.subscription].title}}</a>
 
 <!--begin::Modal - Upgrade plan-->
 <div class="modal fade" id="kt_modal_upgrade_plan" tabindex="-1" aria-hidden="true">
@@ -41,7 +41,7 @@
 							<!--begin::Tabs-->
 							<div class="nav flex-column">
 								<!--begin::Tab link-->
-								<label ng-repeat="item in billingPlans[userInfo.typeStr]" class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 mb-6" data-bs-toggle="tab" data-bs-target="#kt_upgrade_plan_enterprise" ng-class="{'active': item.id==userInfo.subscription+1}">
+								<label ng-repeat="item in billingPlans[$root.userInfo.typeStr]" class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 mb-6" data-bs-toggle="tab" data-bs-target="#kt_upgrade_plan_enterprise" ng-class="{'active': item.id==$root.userInfo.subscription+1}">
 									<!--end::Description-->
 									<div class="d-flex align-items-center me-2">
 										<!--begin::Radio-->

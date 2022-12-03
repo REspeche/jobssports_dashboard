@@ -223,15 +223,18 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     bodyClasses: 'load-screen'
                 }
             })
-            .state('account-overview', {
-                url         : '/account/overview',
-                templateUrl : 'templates/partials/dashboard/account/overview.html',
-                controller  : 'accountOverviewController',
+            .state('account', {
+                url         : '/account/:page',
+                params: {
+                    page: 'overview'
+                },
+                templateUrl : 'templates/partials/dashboard/account/account.html',
+                controller  : 'accountController',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/dashboard/account/overview.js'
+                                'assets/js/partials/dashboard/account/account.js'
                             ]
                         }]);
                     }]

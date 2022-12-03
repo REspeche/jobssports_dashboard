@@ -371,7 +371,7 @@
                   <!--end::Label-->
                   <!--begin::Input-->
                   <select name="gender" class="form-select form-select-lg" ng-model="formData.player.gender" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                    <option ng-repeat="item in lstGenders" value="{{item.id}}">{{item.label}}</option>
+                    <option ng-repeat="item in lstGenders" ng-value="{{item.id}}">{{item.label}}</option>
                   </select>
                   <!--end::Input-->
                 </div>
@@ -395,7 +395,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="country" class="form-select form-select-lg" ng-model="formData.player.countryBirth" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstCountries" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstCountries" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -422,7 +422,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="countryPassport" class="form-select form-select-lg" ng-model="formData.player.countryPassport" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstCountriesPass" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstCountriesPass" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -493,7 +493,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="country" class="form-select form-select-lg" ng-model="formData.club.country" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstCountries" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstCountries" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -569,7 +569,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="gender" class="form-select form-select-lg" ng-model="formData.agent.gender" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstGenders" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstGenders" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -623,7 +623,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="country" class="form-select form-select-lg" ng-model="formData.agent.countryBirth" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstCountries" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstCountries" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -694,7 +694,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="gender" class="form-select form-select-lg" ng-model="formData.coach.gender" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstGenders" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstGenders" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -748,7 +748,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="country" class="form-select form-select-lg" ng-model="formData.coach.countryBirth" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstCountries" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstCountries" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -928,7 +928,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="gender" class="form-select form-select-lg" ng-model="formData.club.gender" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstGenders" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstGenders" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -999,7 +999,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="country" class="form-select form-select-lg" ng-model="formData.agent.type" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstAgentType" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstAgentType" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -1055,7 +1055,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="country" class="form-select form-select-lg" ng-model="formData.coach.role" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstCoachRole" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstCoachRole" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -1110,7 +1110,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="mainPosition" class="form-select form-select-lg" ng-model="formData.player.mainPosition" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstRugbyPositions" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstRugbyPositions" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -1120,7 +1120,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="secondaryPosition" class="form-select form-select-lg" ng-model="formData.player.secondaryPosition" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstRugbyPositions" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstRugbyPositions" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -1222,7 +1222,7 @@
                   <!--end::Label-->
                   <!--begin::Input-->
                   <select name="secondaryPosition" class="form-select form-select-lg" ng-model="formData.player.personalQuality" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                    <option ng-repeat="item in lstPersonalQualities" value="{{item.id}}">{{item.label}}</option>
+                    <option ng-repeat="item in lstPersonalQualities" ng-value="{{item.id}}">{{item.label}}</option>
                   </select>
                   <!--end::Input-->
                 </div>
@@ -1312,7 +1312,7 @@
                       <!--end::Label-->
                       <!--begin::Input-->
                       <select name="country" class="form-select form-select-lg" ng-model="formData.coach.trainingType" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option ng-repeat="item in lstCoachTrainingType" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in lstCoachTrainingType" ng-value="{{item.id}}">{{item.label}}</option>
                       </select>
                       <!--end::Input-->
                     </div>
@@ -1649,7 +1649,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="country" class="form-select form-select-lg" ng-model="formDataClub.contract" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                      <option ng-repeat="item in lstContracts" value="{{item.id}}">{{item.label}}</option>
+                      <option ng-repeat="item in lstContracts" ng-value="{{item.id}}">{{item.label}}</option>
                     </select>
                     <!--end::Input-->
                   </div>
@@ -1663,7 +1663,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="country" class="form-select form-select-lg" ng-model="formDataClub.country" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                      <option ng-repeat="item in lstCountries" value="{{item.id}}">{{item.label}}</option>
+                      <option ng-repeat="item in lstCountries" ng-value="{{item.id}}">{{item.label}}</option>
                     </select>
                     <!--end::Input-->
                   </div>
@@ -1728,7 +1728,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="country" class="form-select form-select-lg" ng-model="formDataTeam.type" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                      <option ng-repeat="item in lstTeamsType" value="{{item.id}}">{{item.label}}</option>
+                      <option ng-repeat="item in lstTeamsType" ng-value="{{item.id}}">{{item.label}}</option>
                     </select>
                     <!--end::Input-->
                   </div>

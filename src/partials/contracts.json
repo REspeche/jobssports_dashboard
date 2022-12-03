@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "label": "Amateur"
+  },
+  {
+    "id": 2,
+    "label": "Semi"
+  },
+  {
+    "id": 3,
+    "label": "Professional"
+  }
+]

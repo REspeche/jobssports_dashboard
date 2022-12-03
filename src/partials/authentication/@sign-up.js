@@ -65,7 +65,6 @@ angular.module('mainApp').controller('signUpController',
           if (response.code==0) {
             localStorage.setItem("sendMailInterval", JSON.stringify({
               email: $scope.formData.email,
-              disableLink: true,
               remainingTime: 60
             }));
             actionSvc.goToAction(5, {
