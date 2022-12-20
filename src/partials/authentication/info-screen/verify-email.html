@@ -16,7 +16,7 @@
           <!--end::Title-->
           <!--begin::Action-->
           <div class="fs-6 mb-8">
-            <div class="fw-semibold text-gray-500">Did’t receive an email? <a href="#" class="link-primary fw-bold" ng-click="tryAgain()" ng-hide="remainingTime==0">Try Again</a></div>
+            <div class="fw-semibold text-gray-500">Did’t receive an email? <a href="#" class="link-primary fw-bold" ng-click="tryAgain()" ng-show="remainingTime==0">Try Again</a></div>
             <div class="fw-semibold text-gray-500" ng-show="remainingTime>0">Wait {{remainingTime}} seconds to send it again.</div>
           </div>
           <!--end::Action-->

@@ -82,3 +82,12 @@ ui-view.page > div.d-flex {
 .g_id_signin iframe {
   margin: 0 auto !important;
 }
+
+#kt_contact_map {
+  height: 486px;
+  background-image:url('../media/map.png');
+  background-position: center;
+  background-size:contain;
+  overflow:hidden;
+  cursor: pointer;
+}

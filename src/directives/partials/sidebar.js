@@ -11,6 +11,10 @@ mainApp.directive('sidebarPartial', function() {
                 $scope.goToHome = function() {
                   actionSvc.goToAction(1);
                 };
+
+                $scope.goToPrivacyPolicy = function() {
+        					actionSvc.goToSite(101,undefined,false);
+                };
               }
             ],
             templateUrl: 'templates/directives/partials/sidebar.html'

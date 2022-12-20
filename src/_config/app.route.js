@@ -222,8 +222,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 controller  : 'redirectExternalController',
                 params: {
                     page: null,
-                    backurl: null,
-                    external: false
+                    backurl: null
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -259,6 +258,46 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 },
                 data: {
                     bodyClasses: 'accountOverview-page'
+                }
+            })
+            .state('policy', {
+                url         : '/privacy-policy',
+                templateUrl : 'templates/partials/others/policy.html',
+                controller  : 'policyController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/others/policy.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                    bodyClasses: 'policy-page'
+                }
+            })
+            .state('contact', {
+                url         : '/contact-us',
+                templateUrl : 'templates/partials/others/contact.html',
+                controller  : 'contactController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/others/contact.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                },
+                data: {
+                    bodyClasses: 'contact-page'
                 }
             });
 

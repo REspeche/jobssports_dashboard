@@ -3,7 +3,8 @@ angular.module('mainApp').controller('verifyEmailController',
     function ($scope, $interval, mainSvc, actionSvc, $stateParams) {
       $scope.formData = {
         email: ''
-      }
+      };
+      $scope.remainingTime = 0;
 
       $scope.loadPartial = function() {
         //load type

@@ -32,6 +32,7 @@
   "MSG_COD2"  : "Su contraseña ha sido cambiada con éxito",
   "MSG_COD3"  : "Función aún no implementada",
   "MSG_COD4"  : "Los datos fueron restaurados a su valor original",
+  "MSG_COD5"  : "Mensaje enviado satisfactoriamente",
   "MSG_COD100": "Los datos han sido guardado temporalmente",
   "MSG_COD101": "Si se cambia el correo electrónico de la cuenta, no se confirmará hasta que se valide.",
   "MSG_COD200": "Debe introducir una dirección de correo electrónico y una contraseña para continuar",

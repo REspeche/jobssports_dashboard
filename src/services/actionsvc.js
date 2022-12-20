@@ -8,12 +8,14 @@ mainApp.factory('actionSvc',
 				'getURL': getURL,
 				'goToDashboard': goToDashboard,
 				'goToSite': goToSite,
+				'goToExternalSite': goToExternalSite,
 				'reload': reload
 			};
 
 			function getURL(action) {
 				var retRoute = '';
 				switch (action) {
+					case 0: 	retRoute = 'verify-authentication'; break;
 					case 1: 	retRoute = 'panel'; break;
 					case 2: 	retRoute = 'sign-in'; break;
 					case 2.1: retRoute = "authentication/sign-in?endSession=1"; break;
@@ -23,16 +25,20 @@ mainApp.factory('actionSvc',
 					case 5: 	retRoute = 'verify-email'; break;
 					case 6: 	retRoute = 'create-profile'; break;
 					case 7: 	retRoute = 'account'; break;
+					case 8: 	retRoute = 'policy'; break;
+					case 9: 	retRoute = 'contact'; break;
+
+					case 100: retRoute = 'https://coming.jobs-sports.com/'; break;
+					case 101: retRoute = 'https://old.jobs-sports.com/privacy-policy/'; break;
+					case 102: retRoute = 'https://old.jobs-sports.com/contact/'; break;
+					case 103: retRoute = 'https://old.jobs-sports.com/work-with-us/'; break;
 				};
 				return retRoute;
 			};
 
 			function goToAction(action, param) {
-				if (action==1 || action==6) {
-					$state.go('redirect-external', {
-						page: 'https://coming.jobs-sports.com',
-						external: true
-					});
+				if (action==1 || action==6 || action==7) {
+					goToSite(100,undefined,false);
 					return false;
 				};
 				if (!param) $state.go(getURL(action));
@@ -41,10 +47,7 @@ mainApp.factory('actionSvc',
 
 			function goToExternal(action) {
 				if (action==1 || action==6) {
-					$state.go('redirect-external', {
-						page: 'https://coming.jobs-sports.com',
-						external: true
-					});
+					goToSite(100,undefined,false);
 					return false;
 				};
 				$state.go('redirect-external', {
@@ -62,6 +65,10 @@ mainApp.factory('actionSvc',
 
 			function goToSite(action, param, newTab) {
 				$state.goSite(getURL(action), (param)?param:{}, (newTab)?true:false);
+			};
+
+			function goToExternalSite(url, newTab) {
+				$state.goSite(url, {}, (newTab)?true:false);
 			};
 
 			function reload() {
