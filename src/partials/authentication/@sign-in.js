@@ -40,6 +40,27 @@ angular.module('mainApp').controller('signInController',
         }
       };
 
+      $scope.afterSiginGoogle = function(responsePayload) {
+        if (responsePayload.sub) {
+          mainSvc.callService({
+              url: 'auth/autoLogin.google',
+              params: {
+                 'id': responsePayload.sub,
+                 'firstName': responsePayload.given_name,
+                 'email': responsePayload.email
+              },
+              secured: false
+          }).then(function (response) {
+            if (response.token) {
+              localStorage.removeItem("formData");
+              localStorage.removeItem("listCombosSignUp");
+              authenticationSvc.saveLogin(response);
+              actionSvc.goToExternal(1); //go to home
+            };
+          });
+        };
+      };
+
       $scope.submit = function() {
         if (!$scope.formData.email || !$scope.formData.password) {
           mainSvc.showAlertByCode(200);
@@ -85,3 +106,12 @@ angular.module('mainApp').controller('signInController',
 
     }
 ]);
+
+function handleCredentialResponse(response) {
+  const responsePayload = jwt_decode(response.credential);
+
+  var scope = angular.element(document.getElementById("kt_partial_signin")).scope();
+  scope.$apply(function () {
+    scope.afterSiginGoogle(responsePayload);
+  });
+};

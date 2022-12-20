@@ -21,8 +21,11 @@ angular.module('mainApp').controller('accountController',
         phone: '',
         entered: undefined,
         emailRenew: '',
-        noticeChangeEmail: 0
+        noticeChangeEmail: 0,
+        allowMarketing: 1,
+        noticeEmail: 1
       };
+      $scope.formDataBackup = {};
       $scope.formSignin = {
         wannaChangeEmail: false,
         wannaChangePassword: false,
@@ -34,6 +37,7 @@ angular.module('mainApp').controller('accountController',
       };
       $scope.pageTab = $stateParams.page;
       $scope.lstCountries = [];
+      $scope.agreeDeactivateAccount = false;
 
       $scope.loadPartial = function() {
         mainSvc.callService({
@@ -44,6 +48,11 @@ angular.module('mainApp').controller('accountController',
           secured: true
         }).then(function (response) {
           $scope.formData = angular.copy(response);
+          $scope.formData.allowMarketing = ($scope.formData.allowMarketingBit==1?true:false);
+          $scope.formData.noticeEmail = ($scope.formData.noticeEmailBit==1?true:false);
+          // Backup
+          $scope.formDataBackup = angular.copy($scope.formData);
+
           $scope.formSignin.emailRenew = $scope.formData.emailRenew;
           $rootScope.navBar = {
             fullName: $scope.formData.fullName,
@@ -79,6 +88,12 @@ angular.module('mainApp').controller('accountController',
 
       $scope.goToHome = function() {
         actionSvc.goToAction(1);
+      };
+
+      $scope.goToAccountOverview = function() {
+        actionSvc.goToAction(8, {
+          page: 'overview'
+        });
       };
 
       $scope.goToAccountSettings = function() {
@@ -181,6 +196,39 @@ angular.module('mainApp').controller('accountController',
 
       $scope.sendEmailAgain = function() {
         $scope.updateEmail(1);
+      };
+
+      //settings
+      $scope.discardSettingsChanges = function() {
+        $scope.formData = angular.copy($scope.formDataBackup);
+        mainSvc.showAlertByCode(4);
+      };
+
+      $scope.saveSettingsChanges = function() {
+        mainSvc.showAlertByCode(1);
+      };
+
+      $scope.deactivateAccount = function() {
+        if ($scope.agreeDeactivateAccount) {
+          mainSvc.showModal(
+            {
+              text: $translate.instant('MSG_CONFIRM_DEACTIVATE'),
+              confirmButtonText: $translate.instant('BTN_CONTINUE'),
+              focusConfirm: true
+            },
+            function() {
+              mainSvc.callService({
+                  url: 'auth/logout'
+              }).then(function (response) {
+                authenticationSvc.logout();
+                actionSvc.goToExternal(2); // go to login
+              });
+            }
+          );
+        }
+        else {
+          mainSvc.showAlertByCode(213);
+        };
       };
 
       var timeInterval = function() {

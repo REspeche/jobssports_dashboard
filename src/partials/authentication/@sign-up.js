@@ -30,6 +30,36 @@ angular.module('mainApp').controller('signUpController',
         var passwordMeter = KTPasswordMeter.getInstance(passwordMeterElement);
       }
 
+      $scope.afterSiginGoogle = function(responsePayload) {
+        if (responsePayload.sub) {
+          if (!$scope.formData.agree) {
+            mainSvc.showAlertByCode(205);
+            return false;
+          };
+
+          mainSvc.callService({
+              url: 'auth/autoSignUp.google',
+              params: {
+                 'id': responsePayload.sub,
+                 'firstName': responsePayload.given_name,
+                 'email': responsePayload.email,
+                 'agree': $scope.formData.agree
+              },
+              secured: false
+          }).then(function (response) {
+            if (response.token) {
+              localStorage.removeItem("formData");
+              localStorage.removeItem("listCombosSignUp");
+              authenticationSvc.saveLogin(response);
+              actionSvc.goToExternal(1); //go to home
+            };
+          });
+        }
+        else {
+          mainSvc.showAlertByCode(307);
+        };
+      };
+
       $scope.submit = function() {
 
         //Validations
@@ -79,3 +109,12 @@ angular.module('mainApp').controller('signUpController',
       }
     }
 ]);
+
+function handleCredentialResponse(response) {
+  const responsePayload = jwt_decode(response.credential);
+
+  var scope = angular.element(document.getElementById("kt_partial_signup")).scope();
+  scope.$apply(function () {
+    scope.afterSiginGoogle(responsePayload);
+  });
+}

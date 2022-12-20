@@ -22,20 +22,31 @@ mainApp.factory('actionSvc',
 					case 4: 	retRoute = 'sign-up'; break;
 					case 5: 	retRoute = 'verify-email'; break;
 					case 6: 	retRoute = 'create-profile'; break;
-					case 7: 	retRoute = 'select-profile'; break;
-					case 8: 	retRoute = 'account'; break;
+					case 7: 	retRoute = 'account'; break;
 				};
-				var arrRoutes = retRoute.split('/');
-				$rootScope.itemRoute = arrRoutes[arrRoutes.length-1];
 				return retRoute;
 			};
 
 			function goToAction(action, param) {
+				if (action==1 || action==6) {
+					$state.go('redirect-external', {
+						page: 'https://coming.jobs-sports.com',
+						external: true
+					});
+					return false;
+				};
 				if (!param) $state.go(getURL(action));
 				else $state.go(getURL(action), param);
 			};
 
 			function goToExternal(action) {
+				if (action==1 || action==6) {
+					$state.go('redirect-external', {
+						page: 'https://coming.jobs-sports.com',
+						external: true
+					});
+					return false;
+				};
 				$state.go('redirect-external', {
 					page: getURL(action)
 				});

@@ -1,7 +1,7 @@
 <!--begin::Basic info-->
 <div class="card mb-5 mb-xl-10">
   <!--begin::Card header-->
-  <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+  <div class="card-header border-0 cursor-pointer">
     <!--begin::Card title-->
     <div class="card-title m-0">
       <h3 class="fw-bold m-0">Profile Details</h3>
@@ -139,7 +139,7 @@
             <div class="d-flex align-items-center mt-3">
               <!--begin::Option-->
               <label class="form-check form-check-custom form-check-inline form-check-solid me-5">
-                <input class="form-check-input" name="communication[]" type="checkbox" value="1" checked="checked"/>
+                <input class="form-check-input" name="communication[]" type="checkbox" value="1" ng-model="formData.noticeEmail"/>
                 <span class="fw-semibold ps-2 fs-6">Email</span>
               </label>
               <!--end::Option-->
@@ -163,7 +163,7 @@
           <!--begin::Label-->
           <div class="col-lg-8 d-flex align-items-center">
             <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-              <input class="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing" checked="checked" />
+              <input class="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing" value="1" ng-model="formData.allowMarketing"/>
               <label class="form-check-label" for="allowmarketing"></label>
             </div>
           </div>
@@ -174,8 +174,8 @@
       <!--end::Card body-->
       <!--begin::Actions-->
       <div class="card-footer d-flex justify-content-end py-6 px-9">
-        <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
-        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+        <button type="button" class="btn btn-light btn-active-light-primary me-2" ng-click="discardSettingsChanges()">Discard</button>
+        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit" ng-click="saveSettingsChanges()">Save Changes</button>
       </div>
       <!--end::Actions-->
     </form>
@@ -336,30 +336,6 @@
   <div id="kt_account_settings_connected_accounts" class="collapse show">
     <!--begin::Card body-->
     <div class="card-body border-top p-9">
-      <!--begin::Notice-->
-      <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6">
-        <!--begin::Icon-->
-        <!--begin::Svg Icon | path: icons/duotune/art/art006.svg-->
-        <span class="svg-icon svg-icon-2tx svg-icon-primary me-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path opacity="0.3" d="M22 19V17C22 16.4 21.6 16 21 16H8V3C8 2.4 7.6 2 7 2H5C4.4 2 4 2.4 4 3V19C4 19.6 4.4 20 5 20H21C21.6 20 22 19.6 22 19Z" fill="currentColor" />
-            <path d="M20 5V21C20 21.6 19.6 22 19 22H17C16.4 22 16 21.6 16 21V8H8V4H19C19.6 4 20 4.4 20 5ZM3 8H4V4H3C2.4 4 2 4.4 2 5V7C2 7.6 2.4 8 3 8Z" fill="currentColor" />
-          </svg>
-        </span>
-        <!--end::Svg Icon-->
-        <!--end::Icon-->
-        <!--begin::Wrapper-->
-        <div class="d-flex flex-stack flex-grow-1">
-          <!--begin::Content-->
-          <div class="fw-semibold">
-            <div class="fs-6 text-gray-700">Two-factor authentication adds an extra layer of security to your account. To log in, in you'll need to provide a 4 digit amazing code.
-            <a href="#" class="fw-bold">Learn More</a></div>
-          </div>
-          <!--end::Content-->
-        </div>
-        <!--end::Wrapper-->
-      </div>
-      <!--end::Notice-->
       <!--begin::Items-->
       <div class="py-2">
         <!--begin::Item-->
@@ -379,42 +355,6 @@
           </div>
         </div>
         <!--end::Item-->
-        <div class="separator separator-dashed my-5"></div>
-        <!--begin::Item-->
-        <div class="d-flex flex-stack">
-          <div class="d-flex">
-            <img src="assets/media/svg/brand-logos/github.svg" class="w-30px me-6" alt="" />
-            <div class="d-flex flex-column">
-              <a href="#" class="fs-5 text-dark text-hover-primary fw-bold">Github</a>
-              <div class="fs-6 fw-semibold text-gray-400">Keep eye on on your Repositories</div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end">
-            <div class="form-check form-check-solid form-check-custom form-switch">
-              <input class="form-check-input w-45px h-30px" type="checkbox" id="githubswitch" checked="checked" />
-              <label class="form-check-label" for="githubswitch"></label>
-            </div>
-          </div>
-        </div>
-        <!--end::Item-->
-        <div class="separator separator-dashed my-5"></div>
-        <!--begin::Item-->
-        <div class="d-flex flex-stack">
-          <div class="d-flex">
-            <img src="assets/media/svg/brand-logos/slack-icon.svg" class="w-30px me-6" alt="" />
-            <div class="d-flex flex-column">
-              <a href="#" class="fs-5 text-dark text-hover-primary fw-bold">Slack</a>
-              <div class="fs-6 fw-semibold text-gray-400">Integrate Projects Discussions</div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end">
-            <div class="form-check form-check-solid form-check-custom form-switch">
-              <input class="form-check-input w-45px h-30px" type="checkbox" id="slackswitch" />
-              <label class="form-check-label" for="slackswitch"></label>
-            </div>
-          </div>
-        </div>
-        <!--end::Item-->
       </div>
       <!--end::Items-->
     </div>
@@ -430,7 +370,7 @@
 </div>
 <!--end::Connected Accounts-->
 <!--begin::Notifications-->
-<div class="card mb-5 mb-xl-10">
+<div class="card mb-5 mb-xl-10" ng-show="formData.noticeEmail">
   <!--begin::Card header-->
   <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_email_preferences" aria-expanded="true" aria-controls="kt_account_email_preferences">
     <div class="card-title m-0">
@@ -567,128 +507,6 @@
   <!--end::Content-->
 </div>
 <!--end::Notifications-->
-<!--begin::Notifications-->
-<div class="card mb-5 mb-xl-10">
-  <!--begin::Card header-->
-  <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_notifications" aria-expanded="true" aria-controls="kt_account_notifications">
-    <div class="card-title m-0">
-      <h3 class="fw-bold m-0">Notifications</h3>
-    </div>
-  </div>
-  <!--begin::Card header-->
-  <!--begin::Content-->
-  <div id="kt_account_settings_notifications" class="collapse show">
-    <!--begin::Form-->
-    <form class="form">
-      <!--begin::Card body-->
-      <div class="card-body border-top px-9 pt-3 pb-4">
-        <!--begin::Table-->
-        <div class="table-responsive">
-          <table class="table table-row-dashed border-gray-300 align-middle gy-6">
-            <tbody class="fs-6 fw-semibold">
-              <!--begin::Table row-->
-              <tr>
-                <td class="min-w-250px fs-4 fw-bold">Notifications</td>
-                <td class="w-125px">
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="kt_settings_notification_email" checked="checked" data-kt-check="true" data-kt-check-target="[data-kt-settings-notification=email]" />
-                    <label class="form-check-label ps-2" for="kt_settings_notification_email">Email</label>
-                  </div>
-                </td>
-                <td class="w-125px">
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="kt_settings_notification_phone" checked="checked" data-kt-check="true" data-kt-check-target="[data-kt-settings-notification=phone]" />
-                    <label class="form-check-label ps-2" for="kt_settings_notification_phone">Phone</label>
-                  </div>
-                </td>
-              </tr>
-              <!--begin::Table row-->
-              <!--begin::Table row-->
-              <tr>
-                <td>Billing Updates</td>
-                <td>
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="1" id="billing1" checked="checked" data-kt-settings-notification="email" />
-                    <label class="form-check-label ps-2" for="billing1"></label>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="billing2" checked="checked" data-kt-settings-notification="phone" />
-                    <label class="form-check-label ps-2" for="billing2"></label>
-                  </div>
-                </td>
-              </tr>
-              <!--begin::Table row-->
-              <!--begin::Table row-->
-              <tr>
-                <td>New Team Members</td>
-                <td>
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="team1" checked="checked" data-kt-settings-notification="email" />
-                    <label class="form-check-label ps-2" for="team1"></label>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="team2" data-kt-settings-notification="phone" />
-                    <label class="form-check-label ps-2" for="team2"></label>
-                  </div>
-                </td>
-              </tr>
-              <!--begin::Table row-->
-              <!--begin::Table row-->
-              <tr>
-                <td>Completed Projects</td>
-                <td>
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="project1" data-kt-settings-notification="email" />
-                    <label class="form-check-label ps-2" for="project1"></label>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="project2" checked="checked" data-kt-settings-notification="phone" />
-                    <label class="form-check-label ps-2" for="project2"></label>
-                  </div>
-                </td>
-              </tr>
-              <!--begin::Table row-->
-              <!--begin::Table row-->
-              <tr>
-                <td class="border-bottom-0">Newsletters</td>
-                <td class="border-bottom-0">
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="newsletter1" data-kt-settings-notification="email" />
-                    <label class="form-check-label ps-2" for="newsletter1"></label>
-                  </div>
-                </td>
-                <td class="border-bottom-0">
-                  <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input" type="checkbox" value="" id="newsletter2" data-kt-settings-notification="phone" />
-                    <label class="form-check-label ps-2" for="newsletter2"></label>
-                  </div>
-                </td>
-              </tr>
-              <!--begin::Table row-->
-            </tbody>
-          </table>
-        </div>
-        <!--end::Table-->
-      </div>
-      <!--end::Card body-->
-      <!--begin::Card footer-->
-      <div class="card-footer d-flex justify-content-end py-6 px-9">
-        <button class="btn btn-light btn-active-light-primary me-2">Discard</button>
-        <button class="btn btn-primary px-6">Save Changes</button>
-      </div>
-      <!--end::Card footer-->
-    </form>
-    <!--end::Form-->
-  </div>
-  <!--end::Content-->
-</div>
-<!--end::Notifications-->
 <!--begin::Deactivate Account-->
 <div class="card">
   <!--begin::Card header-->
@@ -722,7 +540,7 @@
             <!--begin::Content-->
             <div class="fw-semibold">
               <h4 class="text-gray-900 fw-bold">You Are Deactivating Your Account</h4>
-              <div class="fs-6 text-gray-700">For extra security, this requires you to confirm your email or phone number when you reset yousignr password.
+              <div class="fs-6 text-gray-700">For extra security, this requires you to confirm your email or phone number when you reset your sign password.
               <br />
               <a class="fw-bold" href="#">Learn more</a></div>
             </div>
@@ -733,7 +551,7 @@
         <!--end::Notice-->
         <!--begin::Form input row-->
         <div class="form-check form-check-solid fv-row">
-          <input name="deactivate" class="form-check-input" type="checkbox" value="" id="deactivate" />
+          <input name="deactivate" class="form-check-input" type="checkbox" value="1" id="deactivate" ng-model="agreeDeactivateAccount"/>
           <label class="form-check-label fw-semibold ps-2 fs-6" for="deactivate">I confirm my account deactivation</label>
         </div>
         <!--end::Form input row-->
@@ -741,7 +559,7 @@
       <!--end::Card body-->
       <!--begin::Card footer-->
       <div class="card-footer d-flex justify-content-end py-6 px-9">
-        <button id="kt_account_deactivate_account_submit" type="submit" class="btn btn-danger fw-semibold">Deactivate Account</button>
+        <button id="kt_account_deactivate_account_submit" type="button" class="btn btn-danger fw-semibold" ng-click="deactivateAccount()">Deactivate Account</button>
       </div>
       <!--end::Card footer-->
     </form>

@@ -21,6 +21,23 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   bodyClasses: 'signIn-page'
                 }
             })
+            .state('apple', {
+                url         : '/apple',
+                templateUrl : 'templates/partials/authentication/transition-screen/apple.html',
+                controller  : 'signInController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/authentication/transition-screen/apple.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: true
+                }
+            })
             .state('verify-authentication', {
                 url         : '/verify-authentication',
                 templateUrl : 'templates/partials/authentication/transition-screen/verify-authentication.html',
@@ -205,7 +222,8 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 controller  : 'redirectExternalController',
                 params: {
                     page: null,
-                    backurl: null
+                    backurl: null,
+                    external: false
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {

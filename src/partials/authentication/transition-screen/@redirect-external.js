@@ -6,7 +6,7 @@ angular.module('mainApp').controller('redirectExternalController', ['CONSTANTS',
 
       $scope.loadPartial = function() {
         var localhost = ($location.absUrl().indexOf('localhost')>-1)?true:false;
-        var page = '/'+$stateParams.page;
+        var page = (($stateParams.external)?'':'/')+$stateParams.page;
         if (page) $window.open(page, '_self');
         else $scope.labelPage = 'Error al redireccionar. Presione <a href="'+page+'">aqui</a> para continuar.'
       }
