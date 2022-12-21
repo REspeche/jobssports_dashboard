@@ -1,8 +1,8 @@
 mainApp.constant('BASE_URL', {
     'api': 'http://localhost:3000',
     'secured': true, //[true:default]
-    'dashboard': 'http://localhost:8080/',
-    'site': 'http://localhost/',
+    'dashboard': 'http://localhost:8088/',
+    'site': 'http://localhost:8080/',
     'socket': 'http://localhost:3000',
     'cdn': 'http://incloux-jobssports-cdn.sfo3.cdn.digitaloceanspaces.com'
   })

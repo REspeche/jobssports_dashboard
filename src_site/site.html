@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="sp-html sp-seedprod sp-h-full" data-theme="dark" ng-app="mainApp">
+	<!--begin::Head-->
+	<head><base href="/"/>
+		<title>Jobs Sports 2023</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="T" />
+		<meta name="keywords" content="jobs sports, player, club, agent, coach" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="Jobs Sports" />
+		<meta property="og:url" content="https://keenthemes.com/metronic" />
+		<meta property="og:site_name" content="Jobs Sports" />
+		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+		<link rel="shortcut icon" href="favicon.ico" />
+		<!--begin::Fonts(mandatory for all pages)-->
+    <link rel='stylesheet' id='seedprod-css-css' href='assets/css/tailwind.min.css?ver=6.15.7' type='text/css' media='all' />
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300&#038;display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+		<!--end::Fonts-->
+
+    <!-- start: MAIN CSS -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- end: MAIN CSS -->
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body class="spBgcover sp-h-full sp-antialiased sp-bg-slideshow"
+		ng-controller="homeController" elem-ready="loadHome()" ng-strict-di ng-cloak>
+
+		<!-- Main layout -->
+    <ui-view class="page"></ui-view>
+    <!-- Main layout -->
+
+		<ng-idle ng-if="userInfo.isLogin"></ng-idle>
+	</body>
+	<!--end::Body-->
+
+  <!-- start: MAIN JAVASCRIPTS -->
+  <!-- inject:js -->
+  <!-- endinject -->
+  <!-- end: MAIN JAVASCRIPTS -->
+</html>

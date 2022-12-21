@@ -28,7 +28,8 @@
     "gulp-uglify-es": "^3.0.0",
     "gulp-version-number": "^0.2.4",
     "sass": "^1.55.0",
-    "stream-series": "^0.1.1"
+    "stream-series": "^0.1.1",
+    "yargs": "^17.6.2"
   },
   "devDependencies": {
     "node-sass": "^8.0.0"
