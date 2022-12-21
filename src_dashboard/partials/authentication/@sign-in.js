@@ -6,6 +6,7 @@ angular.module('mainApp').controller('signInController',
         password: LOGIN.password,
         remember: false
       };
+      $scope.showValidateMsg = false;
 
       $scope.loadPartial = function () {
         //Check Profile if it's loged
@@ -66,6 +67,11 @@ angular.module('mainApp').controller('signInController',
           mainSvc.showAlertByCode(200);
           return false;
         };
+        if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.formData.email)) {
+          mainSvc.showAlertByCode(204);
+          return false;
+        };
+
         mainSvc.callService({
             url: 'auth/login',
             params: {
@@ -102,7 +108,30 @@ angular.module('mainApp').controller('signInController',
         else {
           actionSvc.goToAction(3);
         }
-      }
+      };
+
+      $scope.sendMailValidate = function() {
+        if (!$scope.formData.email || !$scope.formData.password) {
+          mainSvc.showAlertByCode(200);
+          return false;
+        }
+        if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.formData.email)) {
+          mainSvc.showAlertByCode(204);
+          return false;
+        };
+
+        mainSvc.callService({
+            url: 'auth/validateagain',
+            params: {
+              'email': $scope.formData.email,
+              'password': $scope.formData.password
+            },
+            secured: false
+        }).then(function (response) {
+          $scope.showValidateMsg = false;
+          mainSvc.showAlertByCode(103);
+        });
+      };
 
     }
 ]);

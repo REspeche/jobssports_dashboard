@@ -9,6 +9,9 @@
 
   "LBL_MAIN_IMAGE_INFO": "formato JPG / PNG",
 
+  "LNK_SEND_EMAIL1": "Enviar correo",
+  "LNK_SEND_EMAIL2": "nuevamente para validar la cuenta",
+
   "MSG_ERROR_LOGIN": "¡Oh, lo siento! Se produjo un error al intentar la autenticación. Vuelva a intentarlo más tarde",
   "MSG_FIELDS_MANDATORY": "Los campos marcados con un * son obligatorios",
   "MSG_INFO_PROFILE": "Por favor, para acceder a las diferentes opciones del Panel, debe completar su perfil avanzado",
@@ -32,9 +35,10 @@
   "MSG_COD2"  : "Su contraseña ha sido cambiada con éxito",
   "MSG_COD3"  : "Función aún no implementada",
   "MSG_COD4"  : "Los datos fueron restaurados a su valor original",
-  "MSG_COD5"  : "Mensaje enviado satisfactoriamente",
   "MSG_COD100": "Los datos han sido guardado temporalmente",
   "MSG_COD101": "Si se cambia el correo electrónico de la cuenta, no se confirmará hasta que se valide.",
+  "MSG_COD102": "Mensaje enviado satisfactoriamente",
+  "MSG_COD103": "Te enviamos un email con los proximos pasos a seguir.",
   "MSG_COD200": "Debe introducir una dirección de correo electrónico y una contraseña para continuar",
   "MSG_COD201": "Debe ingresar un correo electrónico para continuar",
   "MSG_COD202": "Debe completar todos los datos obligatorios para continuar",

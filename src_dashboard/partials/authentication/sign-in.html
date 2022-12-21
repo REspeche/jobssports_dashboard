@@ -57,10 +57,10 @@
             </div>
             <!--end::Input group=-->
             <!--begin::Wrapper-->
-            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-              <div></div>
+            <div class="gap-3 fs-base fw-semibold mb-8 text-right">
               <!--begin::Link-->
-              <a href="#" class="link-primary" ng-click="forgotPass()">Forgot Password ?</a>
+              <p class="font-small grey-text" ng-show="showValidateMsg"><a href="#" ng-click="sendMailValidate()" class="blue-text ml-1 font-weight-bold">{{ 'LNK_SEND_EMAIL1' | translate }}</a>&nbsp;{{ 'LNK_SEND_EMAIL2' | translate }}</p>
+              <p><a href="#" class="link-primary" ng-click="forgotPass()">Forgot Password ?</a></p>
               <!--end::Link-->
             </div>
             <!--end::Wrapper-->

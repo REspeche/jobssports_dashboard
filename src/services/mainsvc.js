@@ -80,7 +80,7 @@ mainApp.factory('mainSvc',
 					var processMesage = function(response) {
 						var status = (response.data.code)?parseInt(response.data.code):0;
 						if (status > 0 && status < 400) { // 1 and 399
-							if (paramReq.showMessage) showAlertByCode(status);
+							if (paramReq.showMessage)  showAlertByCode(status);
 							return (status >= 300 && status < 400) ? false : true; //error
 						};
 					}
@@ -90,6 +90,7 @@ mainApp.factory('mainSvc',
 						if (paramReq.isFileResponse) defered.resolve(response.data);
 						else {
 							if (response.data.code > 0) {
+								if (response.data.data && !response.data.data.code) response.data.data.code = response.data.code;
 								if (processMesage(response)) defered.resolve(response.data.data);
 								else defered.reject(response.data.data);
 							} else defered.resolve(response.data.data);

@@ -1,1 +1,1 @@
-versionBuild = '1.0.23';
+versionBuild = '1.0.27';

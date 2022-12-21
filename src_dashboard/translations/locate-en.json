@@ -9,6 +9,9 @@
 
   "LBL_MAIN_IMAGE_INFO": "JPG / PNG format",
 
+  "LNK_SEND_EMAIL1": "Send the email",
+  "LNK_SEND_EMAIL2": "again to validate the account",
+
   "MSG_ERROR_LOGIN": "Oh, sorry! There was an error trying to authenticate. Please try again later",
   "MSG_FIELDS_MANDATORY": "Fields marked with a * are mandatory",
   "MSG_INFO_PROFILE": "Please, to access the different Panel options, you must complete your advanced profile",
@@ -32,9 +35,10 @@
   "MSG_COD2"  : "Your password has been changed successfully",
   "MSG_COD3"  : "Function still not implemented",
   "MSG_COD4"  : "The data was restored to original value",
-  "MSG_COD5"  : "Message sent successful",
   "MSG_COD100": "The data has been temporarily saved",
   "MSG_COD101": "If the email of the account is changed, it won't be confirmed until it is validated.",
+  "MSG_COD102": "Message sent successful",
+  "MSG_COD103": "An email has been sent to you with the steps to follow.",
   "MSG_COD200": "You must enter an email address and password to continue",
   "MSG_COD201": "You must enter an email to continue",
   "MSG_COD202": "You must complete all the mandatory data to continue",

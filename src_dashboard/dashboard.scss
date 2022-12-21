@@ -85,9 +85,14 @@ ui-view.page > div.d-flex {
 
 #kt_contact_map {
   height: 486px;
-  background-image:url('../media/map.png');
+  background-image:url('../media/dashboard/map.png');
   background-position: center;
   background-size:contain;
   overflow:hidden;
   cursor: pointer;
+}
+
+span.nolink {
+  color: var(--kt-text-warning)!important;
+  font-weight: 600 !important;
 }

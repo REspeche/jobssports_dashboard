@@ -34,7 +34,7 @@ angular.module('mainApp').controller('contactController',
 
         //Ajax send
         mainSvc.callService({
-            url: 'auth/contactus',
+            url: 'auth/contactUs',
             params: {
               'name': $scope.formData.name,
               'email': $scope.formData.email,
@@ -43,7 +43,12 @@ angular.module('mainApp').controller('contactController',
             secured: false
         }).then(function (response) {
           if (response.code==0) {
-            mainSvc.showAlertByCode(5);
+            $scope.formData = {
+              name: '',
+              email: '',
+              message: ''
+            };
+            mainSvc.showAlertByCode(102);
           }
           else {
             mainSvc.showAlertByCode(response.code);
