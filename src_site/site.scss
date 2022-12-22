@@ -1018,7 +1018,7 @@ input.inp-custom:focus {
 }
 
 div.box-link {
-  width: 165px;
+  width: 140px;
   text-align: center;
   margin-top:.5rem!important;
 
@@ -1027,4 +1027,10 @@ div.box-link {
     text-decoration: none;
     color: #43a047 !important;
   }
+}
+
+img.main-logo {
+  max-height: 150px;
+  max-width: 150px;
+  margin: 0 auto;
 }

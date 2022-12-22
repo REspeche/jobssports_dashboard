@@ -28,7 +28,7 @@ mainApp.factory('actionSvc',
 					case 8: 	retRoute = 'policy'; break;
 					case 9: 	retRoute = 'contact'; break;
 
-					case 100: retRoute = 'https://coming.jobs-sports.com/'; break;
+					case 100: retRoute = 'https://jobs-sports.com/'; break;
 					case 101: retRoute = 'https://old.jobs-sports.com/privacy-policy/'; break;
 					case 102: retRoute = 'https://old.jobs-sports.com/contact/'; break;
 					case 103: retRoute = 'https://old.jobs-sports.com/work-with-us/'; break;
