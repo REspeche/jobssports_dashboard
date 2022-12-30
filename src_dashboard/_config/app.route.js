@@ -21,32 +21,15 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                   bodyClasses: 'signIn-page'
                 }
             })
-            .state('apple', {
-                url         : '/apple',
-                templateUrl : 'templates/partials/authentication/transition-screen/apple.html',
-                controller  : 'signInController',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load([{
-                            files: [
-                                'assets/js/partials/authentication/transition-screen/apple.js'
-                            ]
-                        }]);
-                    }]
-                },
-                access: {
-                  isFree: true
-                }
-            })
             .state('verify-authentication', {
                 url         : '/verify-authentication',
-                templateUrl : 'templates/partials/authentication/transition-screen/verify-authentication.html',
+                templateUrl : 'templates/partials/transition-screen/verify-authentication.html',
                 controller  : 'verifyAuthenticationController',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/transition-screen/verify-authentication.js'
+                                'assets/js/partials/transition-screen/verify-authentication.js'
                             ]
                         }]);
                     }]
@@ -218,7 +201,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
             })
             .state('redirect-external', {
                 url         : '/redirect-external/:page',
-                templateUrl : 'templates/partials/authentication/transition-screen/redirect-external.html',
+                templateUrl : 'templates/partials/transition-screen/redirect-external.html',
                 controller  : 'redirectExternalController',
                 params: {
                     page: null,
@@ -228,7 +211,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/authentication/transition-screen/redirect-external.js'
+                                'assets/js/partials/transition-screen/redirect-external.js'
                             ]
                         }]);
                     }]

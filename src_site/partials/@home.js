@@ -8,16 +8,16 @@ angular.module('mainApp').controller('homeController',
               url: 'auth/logout'
           }).then(function (response) {
             authenticationSvc.logout();
-            actionSvc.goToExternalSite(BASE_URL.dashboard, false); // go to dashboard
+            actionSvc.goToSite(104, {}, false); // go to dashboard
           });
         }
         else {
-          actionSvc.goToExternalSite(BASE_URL.dashboard, false); // go to dashboard
+          actionSvc.goToSite(104, {}, false); // go to dashboard
         };
       };
 
       $scope.goToOldSite = function() {
-        actionSvc.goToExternalSite('https://old.jobs-sports.com', false); // go to old site
+        actionSvc.goToSite(103, {}, false); // go to old site
       };
 
     }

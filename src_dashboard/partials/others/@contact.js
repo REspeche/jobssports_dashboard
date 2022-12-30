@@ -16,7 +16,7 @@ angular.module('mainApp').controller('contactController',
       };
 
       $scope.goToMap = function() {
-        actionSvc.goToExternalSite('https://www.google.com/maps/place/221+W+Hallandale+Beach+Blvd+%23332,+Hallandale+Beach,+FL+33009/@25.9851929,-80.1554863,16z/data=!4m5!3m4!1s0x88d9ac79013fca5f:0x3882d6dc1bd01df1!8m2!3d25.9851302!4d-80.1509802', true);
+        actionSvc.goToSite('https://www.google.com/maps/place/221+W+Hallandale+Beach+Blvd+%23332,+Hallandale+Beach,+FL+33009/@25.9851929,-80.1554863,16z/data=!4m5!3m4!1s0x88d9ac79013fca5f:0x3882d6dc1bd01df1!8m2!3d25.9851302!4d-80.1509802', {}, true);
       };
 
       $scope.sendMessage = function() {
