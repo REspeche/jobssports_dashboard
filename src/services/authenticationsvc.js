@@ -27,7 +27,8 @@ mainApp.factory('authenticationSvc',
         email           : undefined,
         token           : undefined,
         logo            : '',
-        subscription    : 1
+        subscription    : 1,
+        testMode        : 0
       };
 
       var printObject = function (_isLogin, _param) {
@@ -45,7 +46,8 @@ mainApp.factory('authenticationSvc',
           email           : _param.email,
           token           : _param.token,
           logo            : _param.logo,
-          subscription    : _param.subscription
+          subscription    : _param.subscription,
+          testMode        : _param.testMode
         };
       }
 

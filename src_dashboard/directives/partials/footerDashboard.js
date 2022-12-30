@@ -6,7 +6,7 @@ mainApp.directive('footerDashboard', function() {
               function ($scope, actionSvc) {
 
                 $scope.goToPrivacyPolicy = function() {
-        					actionSvc.goToSite(101,undefined,false);
+        					actionSvc.goToSite(104,undefined,false); //go to privacy policy
                 };
 
               }

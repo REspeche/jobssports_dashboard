@@ -232,6 +232,7 @@ function compileDashboardJs() {
 
 function compilePartialSiteJs(done) {
   gulp.src([
+      'src/partials/**/@*.js',
       'src_site/partials/**/@*.js'
     ])
     .pipe(rename(function (path) {
@@ -249,6 +250,7 @@ function compilePartialSiteJs(done) {
 };
 function compilePartialDashboardJs(done) {
   gulp.src([
+      'src/partials/**/@*.js',
       'src_dashboard/partials/**/@*.js'
     ])
     .pipe(rename(function (path) {

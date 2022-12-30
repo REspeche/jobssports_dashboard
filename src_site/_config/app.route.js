@@ -20,7 +20,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
             })
             .state('redirect-external', {
                 url         : '/redirect-external/:page',
-                templateUrl : 'templates/partials/transition-screen/redirect-external.html',
+                templateUrl : 'templates/partials/transition-pages/redirect-external.html',
                 controller  : 'redirectExternalController',
                 params: {
                     page: null,
@@ -30,7 +30,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([{
                             files: [
-                                'assets/js/partials/transition-screen/redirect-external.js'
+                                'assets/js/partials/transition-pages/redirect-external.js'
                             ]
                         }]);
                     }]

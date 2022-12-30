@@ -29,24 +29,29 @@ mainApp.factory('actionSvc',
 					case 9: 	retRoute = 'contact'; break;
 
 					//Site
-					case 100: retRoute = 'verify-authentication'; break;
-					case 101: retRoute = 'home'; break;
-					case 102: retRoute = 'https://jobs-sports.com/'; break;
-					case 103: retRoute = 'https://old.jobs-sports.com/'; break;
+					case 101: retRoute = BASE_URL.site+'home'; break;
+					case 102: retRoute = BASE_URL.site; break;
+					case 103: retRoute = BASE_URL.oldSite; break;
 					case 104: retRoute = BASE_URL.dashboard; break;
-					case 104: retRoute = 'https://old.jobs-sports.com/privacy-policy/'; break;
-					case 105: retRoute = 'https://old.jobs-sports.com/contact/'; break;
-					case 106: retRoute = 'https://old.jobs-sports.com/work-with-us/'; break;
+					case 105: retRoute = BASE_URL.oldSite+'work-with-us/'; break;
 				};
 				return retRoute;
 			};
 
 			function goToAction(action, param) {
+				if ($rootScope.userInfo && $rootScope.userInfo.testMode==0 && (action==1 || action==6 || action==7)) {
+					goToSite(101,undefined,false);
+					return false;
+				};
 				if (!param) $state.go(getURL(action));
 				else $state.go(getURL(action), param);
 			};
 
 			function goToExternal(action) {
+				if ($rootScope.userInfo && $rootScope.userInfo.testMode==0 && (action==1 || action==6 || action==7)) {
+					goToSite(101,undefined,false);
+					return false;
+				};
 				$state.go('redirect-external', {
 					page: getURL(action)
 				});
@@ -61,7 +66,7 @@ mainApp.factory('actionSvc',
 			};
 
 			function goToSite(actionOrUrl, param, newTab) {
-				if (isNumber(actionOrUrl)) {
+				if (Number(actionOrUrl)===actionOrUrl) {
 					$state.goSite(getURL(actionOrUrl), (param)?param:{}, (newTab)?true:false);
 				}
 				else {

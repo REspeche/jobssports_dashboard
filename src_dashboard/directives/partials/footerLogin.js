@@ -14,7 +14,7 @@ mainApp.directive('footerLogin', function() {
                 };
 
                 $scope.goToWorkWithUs = function() {
-                  actionSvc.goToSite(103,undefined,true);
+                  actionSvc.goToSite(105, undefined, true); //go to work with us
                 };
 
               }

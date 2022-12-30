@@ -244,11 +244,6 @@ Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
 };
 
-var isNumber = function isNumber(value)
-{
-   return typeof value === 'number' && isFinite(value);
-}
-
 function isNumberKey(evt){
     var charCode = (evt.which) ? evt.which : evt.keyCode
     return !(charCode > 31 && (charCode < 48 || charCode > 57));

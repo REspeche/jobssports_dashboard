@@ -3,6 +3,7 @@ mainApp.constant('BASE_URL', {
     'secured': true, //[true:default]
     'dashboard': 'http://localhost:8088/',
     'site': 'http://localhost:8080/',
+    'oldSite': 'http://old.jobs-sports.com/',
     'socket': 'http://localhost:3000',
     'cdn': 'http://incloux-jobssports-cdn.sfo3.cdn.digitaloceanspaces.com'
   })
