@@ -344,13 +344,12 @@
             <img src="assets/media/svg/brand-logos/google-icon.svg" class="w-30px me-6" alt="" />
             <div class="d-flex flex-column">
               <a href="#" class="fs-5 text-dark text-hover-primary fw-bold">Google</a>
-              <div class="fs-6 fw-semibold text-gray-400">Plan properly your workflow</div>
+              <div class="fs-6 fw-semibold text-gray-400">Sign in through Google account</div>
             </div>
           </div>
           <div class="d-flex justify-content-end">
             <div class="form-check form-check-solid form-check-custom form-switch">
-              <input class="form-check-input w-45px h-30px" type="checkbox" id="googleswitch" checked="checked" />
-              <label class="form-check-label" for="googleswitch"></label>
+              <button class="btn btn-danger" ng-click="removeUnlinkGoogle()" ng-disabled="userInfo.linkGoogle==0">Remove</button>
             </div>
           </div>
         </div>
@@ -359,12 +358,6 @@
       <!--end::Items-->
     </div>
     <!--end::Card body-->
-    <!--begin::Card footer-->
-    <div class="card-footer d-flex justify-content-end py-6 px-9">
-      <button class="btn btn-light btn-active-light-primary me-2">Discard</button>
-      <button class="btn btn-primary">Save Changes</button>
-    </div>
-    <!--end::Card footer-->
   </div>
   <!--end::Content-->
 </div>
@@ -540,7 +533,7 @@
             <!--begin::Content-->
             <div class="fw-semibold">
               <h4 class="text-gray-900 fw-bold">You Are Deactivating Your Account</h4>
-              <div class="fs-6 text-gray-700">For extra security, this requires you to confirm your email or phone number when you reset your sign password.
+              <div class="fs-6 text-gray-700">For extra security, this requires you to confirm your password when you deactivate your account.
               <br />
               <a class="fw-bold" href="#">Learn more</a></div>
             </div>
@@ -551,7 +544,7 @@
         <!--end::Notice-->
         <!--begin::Form input row-->
         <div class="form-check form-check-solid fv-row">
-          <input name="deactivate" class="form-check-input" type="checkbox" value="1" id="deactivate" ng-model="agreeDeactivateAccount"/>
+          <input name="deactivate" class="form-check-input" type="checkbox" value="1" id="deactivate" ng-click="clickAgreeDeactivateAccount()"/>
           <label class="form-check-label fw-semibold ps-2 fs-6" for="deactivate">I confirm my account deactivation</label>
         </div>
         <!--end::Form input row-->
@@ -559,7 +552,7 @@
       <!--end::Card body-->
       <!--begin::Card footer-->
       <div class="card-footer d-flex justify-content-end py-6 px-9">
-        <button id="kt_account_deactivate_account_submit" type="button" class="btn btn-danger fw-semibold" ng-click="deactivateAccount()">Deactivate Account</button>
+        <button id="kt_account_deactivate_account_submit" type="button" class="btn btn-danger fw-semibold" ng-click="modalDeactivateAccount()">Deactivate Account</button>
       </div>
       <!--end::Card footer-->
     </form>
@@ -568,3 +561,67 @@
   <!--end::Content-->
 </div>
 <!--end::Deactivate Account-->
+
+<!--begin::Modal - New Target-->
+<div class="modal fade" id="kt_modal_deactivate_account" tabindex="-1" aria-hidden="true">
+  <!--begin::Modal dialog-->
+  <div class="modal-dialog modal-dialog-centered mw-450px">
+    <!--begin::Modal content-->
+    <div class="modal-content rounded">
+      <!--begin::Modal header-->
+      <div class="modal-header pb-0 border-0 justify-content-end">
+        <!--begin::Close-->
+        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+          <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+          <span class="svg-icon svg-icon-1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+              <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+            </svg>
+          </span>
+          <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+      </div>
+      <!--begin::Modal header-->
+      <!--begin::Modal body-->
+      <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+        <!--begin:Form-->
+        <form id="kt_modal_deactivate_account_form" class="form" action="#">
+          <!--begin::Heading-->
+          <div class="mb-13 text-center">
+            <!--begin::Title-->
+            <h1 class="mb-3">Deactivate Account</h1>
+            <!--end::Title-->
+            <!--begin::Description-->
+            <div class="text-muted fw-semibold fs-5">If you want to continue deactivating your account, please enter your password.</div>
+            <!--end::Description-->
+          </div>
+          <!--end::Heading-->
+          <!--begin::Input group-->
+          <div class="d-flex flex-column mb-8 fv-row">
+            <!--begin::Label-->
+            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+              <span class="required">Password</span>
+              <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify signin password"></i>
+            </label>
+            <!--end::Label-->
+            <input type="password" class="form-control form-control-solid" name="txtPassword" ng-model="formDeactivate.password"/>
+          </div>
+          <!--end::Input group-->
+          <!--begin::Actions-->
+          <div class="text-center">
+            <button type="button" id="kt_modal_deactivate_account_cancel" class="btn btn-light me-3" ng-click="cancelDeactivateAccount()">Cancel</button>
+            <btn-submit label="Continue" type="button" ng-click="submitDeactivateAccount()"></btn-submit>
+          </div>
+          <!--end::Actions-->
+        </form>
+        <!--end:Form-->
+      </div>
+      <!--end::Modal body-->
+    </div>
+    <!--end::Modal content-->
+  </div>
+  <!--end::Modal dialog-->
+</div>
+<!--end::Modal - New Target-->

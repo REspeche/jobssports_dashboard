@@ -1,6 +1,6 @@
 angular.module('mainApp').controller('accountController',
-['$scope', '$rootScope', 'mainSvc', 'actionSvc', '$stateParams', '$interval',
-    function ($scope, $rootScope, mainSvc, actionSvc, $stateParams, $interval) {
+['$scope', '$rootScope', 'mainSvc', 'actionSvc', '$stateParams', '$interval', '$translate', 'authenticationSvc',
+    function ($scope, $rootScope, mainSvc, actionSvc, $stateParams, $interval, $translate, authenticationSvc) {
       $scope.formData = {
         id: 0,
         firstName: '',
@@ -34,6 +34,9 @@ angular.module('mainApp').controller('accountController',
         password: '',
         passwordNew: '',
         passwordNewR: ''
+      };
+      $scope.formDeactivate = {
+        password: ''
       };
       $scope.pageTab = $stateParams.page;
       $scope.lstCountries = [];
@@ -208,27 +211,92 @@ angular.module('mainApp').controller('accountController',
         mainSvc.showAlertByCode(1);
       };
 
-      $scope.deactivateAccount = function() {
+      $scope.clickAgreeDeactivateAccount = function() {
+        $scope.agreeDeactivateAccount = !$scope.agreeDeactivateAccount;
+      };
+
+      $scope.modalDeactivateAccount = function() {
         if ($scope.agreeDeactivateAccount) {
+          $('#kt_modal_deactivate_account').modal('show');
+        }
+        else {
+          mainSvc.showAlertByCode(213);
+        };
+      }
+
+      $scope.cancelDeactivateAccount = function() {
+        $scope.formDeactivate.password = '';
+        $('#kt_modal_deactivate_account').modal('hide');
+      }
+
+      $scope.submitDeactivateAccount = function() {
+        if ($scope.formDeactivate.password!='') {
           mainSvc.showModal(
             {
               text: $translate.instant('MSG_CONFIRM_DEACTIVATE'),
-              confirmButtonText: $translate.instant('BTN_CONTINUE'),
+              confirmButtonText: $translate.instant('BTN_YES'),
+              cancelButtonText: $translate.instant('BTN_NO'),
+              showCancelButton: true,
               focusConfirm: true
             },
             function() {
               mainSvc.callService({
-                  url: 'auth/logout'
+                  url: 'profile/deactivateAccount',
+                  params: {
+                    'password': $scope.formDeactivate.password
+                  },
+                  secured: true
               }).then(function (response) {
-                authenticationSvc.logout();
-                actionSvc.goToExternal(2); // go to login
+                if (response.code==0) {
+                  mainSvc.showModal(
+                    {
+                      text: $translate.instant('MSG_COD105'),
+                      confirmButtonText: $translate.instant('BTN_CONTINUE'),
+                      focusConfirm: true
+                    },
+                    function() {
+                      authenticationSvc.logout();
+                      actionSvc.goToExternal(2); // go to login
+                    }
+                  );
+                }
+                else {
+                  mainSvc.showAlertByCode(response.code);
+                };
               });
             }
           );
         }
         else {
-          mainSvc.showAlertByCode(213);
+          mainSvc.showAlertByCode(202);
         };
+      };
+
+      $scope.removeUnlinkGoogle = function() {
+        mainSvc.showModal(
+          {
+            text: $translate.instant('MSG_UNLINK_GOOGLE'),
+            confirmButtonText: $translate.instant('BTN_YES'),
+            cancelButtonText: $translate.instant('BTN_NO'),
+            showCancelButton: true,
+            focusConfirm: true
+          },
+          function() {
+            mainSvc.callService({
+                url: 'profile/unlinkGoogle',
+                secured: true
+            }).then(function (response) {
+              if (response.code==0) {
+                $rootScope.userInfo.linkGoogle = response.linkGoogle;
+                authenticationSvc.saveLogin();
+                mainSvc.showAlertByCode(104);
+              }
+              else {
+                mainSvc.showAlertByCode(response.code);
+              }
+            });
+          }
+        );
       };
 
       var timeInterval = function() {
