@@ -41,6 +41,7 @@ angular.module('mainApp').controller('accountController',
       $scope.pageTab = $stateParams.page;
       $scope.lstCountries = [];
       $scope.agreeDeactivateAccount = false;
+      $scope.lstLogs = [];
 
       $scope.loadPartial = function() {
         mainSvc.callService({
@@ -85,6 +86,9 @@ angular.module('mainApp').controller('accountController',
               }
               else localStorage.removeItem("sendMailInterval");
             };
+            break;
+          case 'logs':
+            $scope.getLogs(false);
             break;
         };
       };
@@ -208,7 +212,31 @@ angular.module('mainApp').controller('accountController',
       };
 
       $scope.saveSettingsChanges = function() {
-        mainSvc.showAlertByCode(1);
+        if (!$scope.formData.firstName || !$scope.formData.lastName || !$scope.formData.dateBirth || !$scope.formData.phone || !$scope.formData.couId) {
+          mainSvc.showAlertByCode(200);
+          return false;
+        };
+
+        mainSvc.callService({
+            url: 'profile/updateSettings',
+            params: {
+              'firstName': $scope.formData.firstName,
+              'lastName': $scope.formData.lastName,
+              'dateBirth': $scope.formData.dateBirth,
+              'phone': $scope.formData.phone,
+              'couId': $scope.formData.couId,
+              'allowMarketing': ($scope.formData.allowMarketing)?1:0,
+              'noticeEmail': ($scope.formData.noticeEmail)?1:0
+            },
+            secured: true
+        }).then(function (response) {
+          if (response.code==0) {
+            mainSvc.showAlertByCode(1);
+          }
+          else {
+            mainSvc.showAlertByCode(response.code);
+          };
+        });
       };
 
       $scope.clickAgreeDeactivateAccount = function() {
@@ -297,6 +325,23 @@ angular.module('mainApp').controller('accountController',
             });
           }
         );
+      };
+
+      $scope.getLogs = function(isMore) {
+        mainSvc.callService({
+            url: 'profile/getLogs',
+            params: {
+              logId: (!isMore)?0:$scope.lstLogs[$scope.lstLogs.length-1].id
+            },
+            secured: true
+        }).then(function (response) {
+          if (!isMore) {
+            $scope.lstLogs = angular.copy(response);
+          }
+          else {
+            $scope.lstLogs = Object.assign({}, $scope.lstLogs, angular.copy(response));
+          }
+        });
       };
 
       var timeInterval = function() {
