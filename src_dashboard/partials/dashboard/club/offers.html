@@ -305,7 +305,7 @@
                       </div>
                       <!--end::Progress-->
                       <!--begin::Users-->
-                      <div class="symbol-group symbol-hover minH-35">
+                      <div class="symbol-group symbol-hover">
                         <!--begin::User-->
                         <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="{{itemA.fullName}}" ng-repeat="itemA in lstApplicants | filter: { id: item.id } | limitTo: 6">
                           <img alt="Pic" ng-src="{{(itemA.logo)?(path + itemA.logo):'/assets/media/avatars/blank.png'}}" ng-show="itemA.logo"/>
