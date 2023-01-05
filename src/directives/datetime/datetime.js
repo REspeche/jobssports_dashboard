@@ -7,7 +7,8 @@ mainApp.directive('dateTime', function() {
                 valuestart: '=',
                 valueend: '=',
                 range: '@',
-                yearsubtract: '@'
+                yearsubtract: '@',
+                supressMaxDate: '@'
             },
             controller: ['$scope', function ($scope) {
                 var objDate = undefined;
@@ -31,7 +32,7 @@ mainApp.directive('dateTime', function() {
                   let day = d.getDate();
                   if ($scope.range) {
                     $("#"+$scope.name).daterangepicker({
-                        maxDate: month+"-"+day+"-"+year,
+                        maxDate: (!$scope.supressMaxDate)?month+"-"+day+"-"+year:undefined,
                         startDate: $scope.valuestart,
                         endDate: $scope.valueend,
                         locale: {
@@ -48,7 +49,7 @@ mainApp.directive('dateTime', function() {
                     $("#"+$scope.name).flatpickr({
                         defaultDate: $scope.value,
                         dateFormat: "m-d-Y",
-                        maxDate: ($scope.yearsubtract)?month+"-"+day+"-"+(year-$scope.yearsubtract):month+"-"+day+"-"+year,
+                        maxDate: (!$scope.supressMaxDate)?(($scope.yearsubtract)?month+"-"+day+"-"+(year-$scope.yearsubtract):month+"-"+day+"-"+year):undefined,
                         onChange: function(selectedDates, dateStr, instance) {
                           $scope.$apply(() => {
                             $scope.value = dateFormat(selectedDates,"mm/dd/yyyy");

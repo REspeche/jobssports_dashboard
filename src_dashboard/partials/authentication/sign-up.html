@@ -16,14 +16,14 @@
               <h1 class="text-dark fw-bolder mb-3">Sign Up</h1>
               <!--end::Title-->
               <!--begin::Subtitle-->
-              <div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
+              <div class="text-gray-500 fw-semibold fs-6" ng-if="showLoginWithGoogle">Your Social Campaigns</div>
               <!--end::Subtitle=-->
             </div>
             <!--begin::Heading-->
             <!--begin::Login options-->
             <div class="row g-3 mb-9">
               <!--begin::Col-->
-              <div class="col-md-12">
+              <div class="col-md-12" ng-if="showLoginWithGoogle">
                 <!--begin::Google link=-->
                 <script src="https://accounts.google.com/gsi/client" async defer></script>
                 <div id="g_id_onload"
@@ -37,7 +37,7 @@
             </div>
             <!--end::Login options-->
             <!--begin::Separator-->
-            <div class="separator separator-content my-14">
+            <div class="separator separator-content my-14" ng-if="showLoginWithGoogle">
               <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
             </div>
             <!--end::Separator-->

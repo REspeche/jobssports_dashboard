@@ -7,6 +7,7 @@ angular.module('mainApp').controller('signInController',
         remember: false
       };
       $scope.showValidateMsg = false;
+      $scope.showLoginWithGoogle = LOGIN.enableGmail;
 
       $scope.loadPartial = function () {
         //Check Profile if it's loged

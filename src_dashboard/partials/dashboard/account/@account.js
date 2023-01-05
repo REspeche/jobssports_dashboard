@@ -3,6 +3,7 @@ angular.module('mainApp').controller('accountController',
     function ($scope, $rootScope, mainSvc, actionSvc, $stateParams, $interval, $translate, authenticationSvc) {
       $scope.formData = {
         id: 0,
+        type: 1,
         firstName: '',
         lastName: '',
         fullName: '',
@@ -23,7 +24,11 @@ angular.module('mainApp').controller('accountController',
         emailRenew: '',
         noticeChangeEmail: 0,
         allowMarketing: 1,
-        noticeEmail: 1
+        noticeEmail: 1,
+        clubName: '',
+        fullNameContact: '',
+        paymentDeclined: 0,
+        dateFoundation: undefined
       };
       $scope.formDataBackup = {};
       $scope.formSignin = {
@@ -98,13 +103,13 @@ angular.module('mainApp').controller('accountController',
       };
 
       $scope.goToAccountOverview = function() {
-        actionSvc.goToAction(8, {
+        actionSvc.goToAction(7, {
           page: 'overview'
         });
       };
 
       $scope.goToAccountSettings = function() {
-        actionSvc.goToAction(8, {
+        actionSvc.goToAction(7, {
           page: 'settings'
         });
       };
@@ -212,24 +217,51 @@ angular.module('mainApp').controller('accountController',
       };
 
       $scope.saveSettingsChanges = function() {
-        if (!$scope.formData.firstName || !$scope.formData.lastName || !$scope.formData.dateBirth || !$scope.formData.phone || !$scope.formData.couId) {
-          mainSvc.showAlertByCode(200);
+        if ($scope.formData.type==1 && (!$scope.formData.firstName || !$scope.formData.lastName || !$scope.formData.dateBirth || !$scope.formData.phone || !$scope.formData.couId)) {
+          mainSvc.showAlertByCode(202);
+          return false;
+        };
+        if ($scope.formData.type==2 && (!$scope.formData.clubName || !$scope.formData.firstName || !$scope.formData.lastName || !$scope.formData.dateFoundation || !$scope.formData.phone || !$scope.formData.couId)) {
+          mainSvc.showAlertByCode(202);
           return false;
         };
 
-        mainSvc.callService({
-            url: 'profile/updateSettings',
-            params: {
-              'firstName': $scope.formData.firstName,
-              'lastName': $scope.formData.lastName,
-              'dateBirth': $scope.formData.dateBirth,
-              'phone': $scope.formData.phone,
-              'couId': $scope.formData.couId,
-              'allowMarketing': ($scope.formData.allowMarketing)?1:0,
-              'noticeEmail': ($scope.formData.noticeEmail)?1:0
-            },
-            secured: true
-        }).then(function (response) {
+        let paramApi = {};
+        switch ($scope.formData.type) {
+          case 1:
+            paramApi = {
+                url: 'profile/updateSettingsPlayer',
+                params: {
+                  'firstName': $scope.formData.firstName,
+                  'lastName': $scope.formData.lastName,
+                  'dateBirth': $scope.formData.dateBirth,
+                  'phone': $scope.formData.phone,
+                  'couId': $scope.formData.couId,
+                  'allowMarketing': ($scope.formData.allowMarketing)?1:0,
+                  'noticeEmail': ($scope.formData.noticeEmail)?1:0
+                },
+                secured: true
+            };
+            break;
+          case 2:
+            paramApi = {
+                url: 'profile/updateSettingsClub',
+                params: {
+                  'clubName': $scope.formData.clubName,
+                  'firstName': $scope.formData.firstName,
+                  'lastName': $scope.formData.lastName,
+                  'dateFoundation': $scope.formData.dateFoundation,
+                  'phone': $scope.formData.phone,
+                  'couId': $scope.formData.couId,
+                  'allowMarketing': ($scope.formData.allowMarketing)?1:0,
+                  'noticeEmail': ($scope.formData.noticeEmail)?1:0
+                },
+                secured: true
+            };
+            break;
+        }
+
+        mainSvc.callService(paramApi).then(function (response) {
           if (response.code==0) {
             mainSvc.showAlertByCode(1);
           }

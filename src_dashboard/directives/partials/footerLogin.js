@@ -1,12 +1,11 @@
 mainApp.directive('footerLogin', function() {
-
         return {
             restrict: 'E',
             controller:['$scope', 'actionSvc',
               function ($scope, actionSvc) {
 
                 $scope.goToPrivacyPolicy = function() {
-        					actionSvc.goToAction(8); // go to privacy policy
+                  actionSvc.goToAction(8); // go to privacy policy
                 };
 
                 $scope.goToContact = function() {

@@ -100,3 +100,13 @@ span.nolink {
   color: var(--kt-text-warning)!important;
   font-weight: 600 !important;
 }
+
+.minH-35 {
+  min-height: 35px;
+}
+
+.title-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

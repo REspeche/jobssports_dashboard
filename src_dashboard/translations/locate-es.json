@@ -19,6 +19,7 @@
   "MSG_REMOVE_ACTION": "¿Está seguro de que desea suspender la cuenta \"{{name}}\"?",
   "MSG_REMOVE_IMAGE": "¿Está seguro de que desea eliminar la imagen?",
   "MSG_CONFIRM_ACTION": "¿Está seguro de que desea continuar con esta acción?",
+  "MSG_CANCEL_ACTION": "¿Está seguro de que desearia cancelarlo?",
   "MSG_CONFIRM_LOGOUT": "¿Está seguro de que desea cerrar sesión?",
   "MSG_UNLINK_GOOGLE": "¿Está seguro de que desea desvincular la cuenta de Google?",
   "MSG_CONFIRM_DEACTIVATE": "¿Está seguro de que desea desactivar su cuenta?",

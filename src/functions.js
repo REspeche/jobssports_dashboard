@@ -116,10 +116,16 @@ function DateTimeToDateObj(DATETIME) {
 function UnixTimeStampToDate(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    var monthsStr = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    var monthsStr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var year = a.getFullYear();
     var date = a.getDate();
     var dateReturn = dateFormat(new Date(year, a.getMonth(), date),"mm/dd/yyyy");
+    return dateReturn;
+}
+function UnixTimeStampToFormatStr(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var monthsStr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var dateReturn = monthsStr[a.getMonth()]+" "+a.getDate()+", "+a.getFullYear();
     return dateReturn;
 }
 

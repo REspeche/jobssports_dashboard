@@ -1,6 +1,6 @@
 angular.module('mainApp').controller('signUpController',
-['$scope', 'authenticationSvc', 'actionSvc', 'mainSvc',
-    function ($scope, authenticationSvc, actionSvc, mainSvc) {
+['$scope', 'authenticationSvc', 'actionSvc', 'mainSvc', 'LOGIN',
+    function ($scope, authenticationSvc, actionSvc, mainSvc, LOGIN) {
       $scope.formData = {
         email: '',
         password: '',
@@ -9,6 +9,7 @@ angular.module('mainApp').controller('signUpController',
       };
       $scope.blockEmail = false;
       $scope.loadForm = false;
+      $scope.showLoginWithGoogle = LOGIN.enableGmail;
 
       $scope.loadPartial = function() {
         //Check Profile if it's loged

@@ -27,6 +27,7 @@ mainApp.constant('BASE_URL', {
     'domain': 'localhost'
   })
   .constant('LOGIN', {
-    email: 'test.player@jobs-sports.com',
-    password: 'jobssports123$'
+    email: 'test.club@jobs-sports.com',
+    password: 'jobssports123$',
+    enableGmail: false
   });

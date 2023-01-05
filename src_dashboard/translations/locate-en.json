@@ -7,6 +7,8 @@
   "BTN_YES": "Yes",
   "BTN_NO": "No",
   "BTN_CONTINUE": "Continue",
+  "BTN_YES_CANCEL": "Yes, cancel it!",
+  "BTN_NO_CANCEL": "No, return",
 
   "LBL_MAIN_IMAGE_INFO": "JPG / PNG format",
 
@@ -19,6 +21,7 @@
   "MSG_REMOVE_ACTION": "Are you sure you want to suspend account \"{{name}}\"?",
   "MSG_REMOVE_IMAGE": "Are you sure you want to remove the image?",
   "MSG_CONFIRM_ACTION": "Are you sure you want to proceed with this action?",
+  "MSG_CANCEL_ACTION": "Are you sure you would like to cancel?",
   "MSG_CONFIRM_LOGOUT": "Are you sure you want to sign out?",
   "MSG_UNLINK_GOOGLE": "Are you sure you want to unlink the Google account?",
   "MSG_CONFIRM_DEACTIVATE": "Are you sure you want to desactivate your account?",

@@ -13,7 +13,15 @@ mainApp.directive('sidebarPartial', function() {
                 };
 
                 $scope.goToPrivacyPolicy = function() {
-        					actionSvc.goToSite(104,undefined,false); //go to privacy policy
+        					actionSvc.goToAction(8.1); //go to privacy policy
+                };
+
+                $scope.goToContactUs = function() {
+                  actionSvc.goToAction(9.1); //go to contact us
+                };
+
+                $scope.goToOffers = function() {
+                  actionSvc.goToAction(10); //go to club offers
                 };
               }
             ],

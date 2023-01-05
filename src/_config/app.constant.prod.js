@@ -28,5 +28,6 @@ mainApp.constant('BASE_URL', {
   })
   .constant('LOGIN', {
     email: '',
-    password: ''
+    password: '',
+    enableGmail: true
   });

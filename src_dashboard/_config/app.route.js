@@ -162,23 +162,6 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     bodyClasses: 'changePass-page'
                 }
             })
-            .state('panel', {
-                url         : '/panel',
-                templateUrl : 'templates/partials/dashboard/panel/panel.html',
-                controller  : 'panelController',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load([{
-                            files: [
-                                'assets/js/partials/dashboard/panel/panel.js'
-                            ]
-                        }]);
-                    }]
-                },
-                data: {
-                    bodyClasses: 'panel-page'
-                }
-            })
             .state('welcome', {
                 url         : '/authentication/welcome',
                 templateUrl : 'templates/partials/authentication/info-screen/welcome.html',
@@ -223,28 +206,8 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                     bodyClasses: 'load-screen'
                 }
             })
-            .state('account', {
-                url         : '/account/:page',
-                params: {
-                    page: 'overview'
-                },
-                templateUrl : 'templates/partials/dashboard/account/account.html',
-                controller  : 'accountController',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load([{
-                            files: [
-                                'assets/js/partials/dashboard/account/account.js'
-                            ]
-                        }]);
-                    }]
-                },
-                data: {
-                    bodyClasses: 'accountOverview-page'
-                }
-            })
             .state('policy', {
-                url         : '/privacy-policy',
+                url         : '/authentication/privacy-policy',
                 templateUrl : 'templates/partials/others/policy.html',
                 controller  : 'policyController',
                 resolve: {
@@ -264,7 +227,7 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 }
             })
             .state('contact', {
-                url         : '/contact-us',
+                url         : '/authentication/contact-us',
                 templateUrl : 'templates/partials/others/contact.html',
                 controller  : 'contactController',
                 resolve: {
@@ -281,6 +244,103 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 },
                 data: {
                     bodyClasses: 'contact-page'
+                }
+            })
+            .state('panel', {
+                url         : '/panel/home',
+                templateUrl : 'templates/partials/dashboard/panel/panel.html',
+                controller  : 'panelController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/dashboard/panel/panel.js'
+                            ]
+                        }]);
+                    }]
+                },
+                data: {
+                    bodyClasses: 'panel-page'
+                }
+            })
+            .state('account', {
+                url         : '/panel/account/:page',
+                params: {
+                    page: 'overview'
+                },
+                templateUrl : 'templates/partials/dashboard/account/account.html',
+                controller  : 'accountController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/dashboard/account/account.js'
+                            ]
+                        }]);
+                    }]
+                },
+                data: {
+                    bodyClasses: 'accountOverview-page'
+                }
+            })
+            .state('policySecure', {
+                url         : '/panel/privacy-policy',
+                templateUrl : 'templates/partials/others/policySecure.html',
+                controller  : 'policyController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/others/policy.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: false
+                },
+                data: {
+                    bodyClasses: 'policy-page'
+                }
+            })
+            .state('contactSecure', {
+                url         : '/panel/contact-us',
+                templateUrl : 'templates/partials/others/contactSecure.html',
+                controller  : 'contactController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/others/contact.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: false
+                },
+                data: {
+                    bodyClasses: 'contact-page'
+                }
+            })
+            .state('clubOffers', {
+                url         : '/panel/club/offers',
+                templateUrl : 'templates/partials/dashboard/club/offers.html',
+                controller  : 'listOffersController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/dashboard/club/offers.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: false
+                },
+                data: {
+                    bodyClasses: 'club-offers'
                 }
             });
 

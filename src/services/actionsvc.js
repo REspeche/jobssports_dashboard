@@ -18,15 +18,18 @@ mainApp.factory('actionSvc',
 					case 0: 	retRoute = 'verify-authentication'; break;
 					case 1: 	retRoute = 'panel'; break;
 					case 2: 	retRoute = 'sign-in'; break;
-					case 2.1: retRoute = "authentication/sign-in?endSession=1"; break;
-					case 2.2: retRoute = "authentication/sign-in?endToken=1"; break;
+					case 2.1: retRoute = "sign-in?endSession=1"; break;
+					case 2.2: retRoute = "sign-in?endToken=1"; break;
 					case 3: 	retRoute = 'reset-password'; break;
 					case 4: 	retRoute = 'sign-up'; break;
 					case 5: 	retRoute = 'verify-email'; break;
 					case 6: 	retRoute = 'create-profile'; break;
 					case 7: 	retRoute = 'account'; break;
 					case 8: 	retRoute = 'policy'; break;
+					case 8.1: retRoute = 'policySecure'; break;
 					case 9: 	retRoute = 'contact'; break;
+					case 9.1: retRoute = 'contactSecure'; break;
+					case 10:  retRoute = 'clubOffers'; break;
 
 					//Site
 					case 101: retRoute = BASE_URL.site+'home'; break;
