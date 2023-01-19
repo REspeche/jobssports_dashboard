@@ -1,0 +1,452 @@
+<!--begin::App-->
+<div class="d-flex flex-column flex-root app-root" id="kt_app_root" ng-init="loadPartial()">
+  <!--begin::Page-->
+  <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+    <header-partial></header-partial>
+    <!--begin::Wrapper-->
+    <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+      <sidebar-partial></sidebar-partial>
+      <!--begin::Main-->
+      <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+        <!--begin::Content wrapper empty-->
+        <div class="d-flex flex-column flex-column-fluid">
+          <!--begin::Toolbar-->
+          <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+            <!--begin::Toolbar container-->
+            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+              <!--begin::Page title-->
+              <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                <!--begin::Title-->
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">My Profile</h1>
+                <!--end::Title-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                  <!--begin::Item-->
+                  <li class="breadcrumb-item text-muted">Profile</li>
+                  <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+              </div>
+              <!--end::Page title-->
+            </div>
+            <!--end::Toolbar container-->
+          </div>
+          <!--end::Toolbar-->
+          <!--begin::Content-->
+          <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="app-container container-xxl" ng-show="loadForm">
+              <!--begin::Card-->
+              <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body p-0">
+                  <!--begin::Wrapper-->
+                  <div class="card-px text-center py-20">
+                    <!--begin::Wrapper-->
+                    <div class="w-100">
+                      <!--begin::Heading-->
+                      <div class="pb-10 pb-lg-15">
+                        <!--begin::Title-->
+                        <h2 class="fw-bold text-dark">Personal Info</h2>
+                        <!--end::Title-->
+                      </div>
+                      <!--end::Heading-->
+
+                      <!--begin::Input group-->
+                      <div class="mb-10 fv-row">
+                        <!--begin::Label-->
+                        <label class="form-label d-flex align-items-center mb-3 required">Full Name
+                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Correctly insert the first and last name of the player"></i></label>
+                        <!--end::Label-->
+                        <!--begin::Row-->
+                        <div class="row mb-2">
+                          <!--begin::First Name-->
+                          <div class="col-md-6">
+                            <input type="text" placeholder="First Name" name="firstName" autocomplete="off" class="form-control bg-transparent" ng-model="formData.firstName"/>
+                          </div>
+                          <!--end::First Name-->
+                          <!--begin::Last Name-->
+                          <div class="col-md-6">
+                            <input type="text" placeholder="Last Name" name="lastName" autocomplete="off" class="form-control bg-transparent" ng-model="formData.lastName"/>
+                          </div>
+                          <!--end::Last Name-->
+                        </div>
+                        <!--end::Row-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Clubs, Agents and Coachs will see this name like profile identification</div>
+                        <!--end::Hint-->
+                      </div>
+                      <!--end::Input group-->
+                      <!--begin::Input group-->
+                      <div class="mb-10 fv-row">
+                        <!--begin::Label-->
+                        <label class="form-label d-flex align-items-center mb-3 required">Gender</label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <select name="gender" class="form-select form-select-lg" ng-model="formData.gender" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                          <option ng-repeat="item in lstGenders" ng-value="{{item.id}}">{{item.label}}</option>
+                        </select>
+                        <!--end::Input-->
+                      </div>
+                      <!--end::Input group-->
+                      <!--begin::Input group-->
+                      <div class="mb-10 fv-row">
+                        <!--begin::Row-->
+                        <div class="row mb-2">
+                          <div class="col-md-6">
+                            <!--begin::Label-->
+                            <label class="form-label d-flex align-items-center mb-3 required">Birth Date
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="You must be over 18 years old"></i></label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <date-time name="kt_datepicker_playerbirth" value="formData.dateBirth" yearsubtract="18"></date-time>
+                            <!--end::Input-->
+                          </div>
+                          <div class="col-md-6">
+                            <!--begin::Label-->
+                            <label class="form-label d-flex align-items-center mb-3 required">Country of Birth</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <select name="country" class="form-select form-select-lg" ng-model="formData.countryBirth" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                              <option ng-repeat="item in lstCountries" ng-value="{{item.id}}">{{item.label}}</option>
+                            </select>
+                            <!--end::Input-->
+                          </div>
+                        </div>
+                        <!--end::Row-->
+                      </div>
+                      <!--end::Input group-->
+                      <!--begin::Input group-->
+                      <div class="mb-10 fv-row">
+                        <!--begin::Row-->
+                        <div class="row mb-2">
+                          <div class="col-md-6">
+                            <!--begin::Label-->
+                            <label class="form-label d-flex align-items-center mb-3">Phone</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input id="kt_club_phone" class="form-control" placeholder="Contact phone" ng-model="formData.phone" type="text"/>
+                            <!--end::Input-->
+                          </div>
+                          <div class="col-md-6">
+                            <!--begin::Label-->
+                            <label class="form-label d-flex align-items-center mb-3">Valid Passport
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="The passport should not be from the country of birth"></i></label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <select name="countryPassport" class="form-select form-select-lg" ng-model="formData.countryPassport" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                              <option ng-repeat="item in lstCountriesPass" ng-value="{{item.id}}">{{item.label}}</option>
+                            </select>
+                            <!--end::Input-->
+                          </div>
+                        </div>
+                        <!--end::Row-->
+                      </div>
+                      <!--end::Input group-->
+                      <!--begin::Input group-->
+                      <div class="row mb-2">
+                        <div class="col-md-6">
+                          <!--begin::Label-->
+                          <label class="form-label d-flex align-items-center mb-3 required">Identify Picture</label>
+                          <!--end::Label-->
+                          <!--begin::Image input-->
+                          <image-input name="filPictureLogoPlayer" size="125" image="path + formData.logo"></image-input>
+                          <!--end::Image input-->
+                        </div>
+                        <div class="col-md-6">
+                          <div ng-show="formData.countryPassport>0">
+                            <!--begin::Label-->
+                            <label class="form-label d-flex align-items-center mb-3">Passport Picture</label>
+                            <!--end::Label-->
+                            <!--begin::Image input-->
+                            <image-input data-name="filPassport" data-size="125" base64="formData.countryPassport" file="countryPassport_FileNew"></image-input>
+                            <!--end::Image input-->
+                          </div>
+                        </div>
+                      </div>
+                      <!--end::Input group-->
+                    </div>
+                    <!--end::Wrapper-->
+                  </div>
+                  <!--end::Wrapper-->
+                </div>
+                <!--end::Card body-->
+              </div>
+              <!--end::Card-->
+
+              <!--begin::Card-->
+              <div class="card mt-10">
+                <!--begin::Card body-->
+                <div class="card-body p-0">
+                  <!--begin::Wrapper-->
+                  <div class="card-px text-center py-20 w-100">
+                    <!--begin::Heading-->
+                    <div class="pb-10 pb-lg-12">
+                      <!--begin::Title-->
+                      <h2 class="fw-bold text-dark">Sport Career</h2>
+                      <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->
+                    <!--begin::Input group-->
+                    <div class="mb-10 fv-row">
+                      <!--begin::Label-->
+                      <label class="d-flex align-items-center form-label mb-3"><span class="required">Club Career</span>
+                      <!--end::Label-->
+                      <a href="#" class="btn btn-icon btn-info ms-3" ng-click="addClub()">
+                        <i class="fas fa-plus fs-4"></i>
+                      </a>
+                      </label>
+                      <!--begin::Hint-->
+                      <div class="form-text">Add a detail of the clubs you have played for in chronological order.</div>
+                      <!--end::Hint-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-10" ng-show="formData.clubs.length>0">
+                      <!--begin::Input-->
+                      <div class="table-responsive">
+                       <table class="table table-rounded table-striped border gy-7 gs-7">
+                        <thead>
+                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                          <th>Name</th>
+                          <th>Contract</th>
+                          <th>Country</th>
+                          <th>Start</th>
+                          <th>End Date</th>
+                          <th></th>
+                         </tr>
+                        </thead>
+                        <tbody>
+                         <tr ng-repeat="item in formData.clubs | filter: onlyActive">
+                          <td>{{item.name}}</td>
+                          <td>{{showContractType(item.contract)}}</td>
+                          <td>{{showCountry(item.country)}}</td>
+                          <td>{{item.rangeDateStart}}</td>
+                          <td>{{item.rangeDateEnd}}</td>
+                          <td class="text-right">
+                            <i class="fa-solid fa-pen-to-square text-primary" ng-click="editClub(item)"></i>
+                            <i class="fa-solid fa-trash text-danger ms-2" ng-click="removeClub($index)"></i>
+                          </td>
+                         </tr>
+                        </tbody>
+                       </table>
+                      </div>
+                      <!--end::Input-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="mb-10 fv-row">
+                      <!--begin::Label-->
+                      <label class="d-flex align-items-center form-label mb-3">National Teams
+                      <!--end::Label-->
+                      <a href="#" class="btn btn-icon btn-info ms-3" ng-click="addTeam()">
+                        <i class="fas fa-plus fs-4"></i>
+                      </a>
+                      </label>
+                      <!--begin::Hint-->
+                      <div class="form-text">Add a detail of the national teams you have played for in chronological order.</div>
+                      <!--end::Hint-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-10" ng-show="formData.nationalTeams.length>0">
+                      <!--begin::Input-->
+                      <div class="table-responsive">
+                       <table class="table table-rounded table-striped border gy-7 gs-7">
+                        <thead>
+                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                          <th>Type</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th></th>
+                         </tr>
+                        </thead>
+                        <tbody>
+                         <tr ng-repeat="item in formData.nationalTeams | filter: onlyActive">
+                          <td>{{showTeamType(item.type)}}</td>
+                          <td>{{item.rangeDateStart}}</td>
+                          <td>{{item.rangeDateEnd}}</td>
+                          <td class="text-right">
+                            <i class="fa-solid fa-pen-to-square text-primary" ng-click="editTeam(item)"></i>
+                            <i class="fa-solid fa-trash text-danger ms-2" ng-click="removeTeam($index)"></i>
+                          </td>
+                         </tr>
+                        </tbody>
+                       </table>
+                      </div>
+                      <!--end::Input-->
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Wrapper-->
+                </div>
+                <!--end::Card body-->
+              </div>
+              <!--end::Card-->
+
+            </div>
+            <!--end::Content container-->
+          </div>
+          <!--end::Content-->
+        </div>
+        <!--end::Content wrapper empty-->
+        <footer-dashboard></footer-dashboard>
+      </div>
+      <!--end:::Main-->
+    </div>
+    <!--end::Wrapper-->
+  </div>
+  <!--end::Page-->
+</div>
+<!--end::App-->
+
+
+<div class="modal fade" tabindex="-1" id="kt_modal_club">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Club info</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-1"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+              <!--begin::Input group-->
+              <div class="mb-10 fv-row">
+                <!--begin::Row-->
+                <div class="row mb-5">
+                  <div class="col-md-6">
+                    <!--start::Label-->
+                    <label class="d-flex align-items-center form-label mb-3 required">Name</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" placeholder="Club Name" name="clubName" autocomplete="off" class="form-control bg-transparent" ng-model="formDataClub.name"/>
+                    <!--end::Input-->
+                  </div>
+                  <div class="col-md-6">
+                    <!--start::Label-->
+                    <label class="d-flex align-items-center form-label mb-3 required">Contract Type</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select name="country" class="form-select form-select-lg" ng-model="formDataClub.contract" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                      <option ng-repeat="item in lstContracts" ng-value="{{item.id}}">{{item.label}}</option>
+                    </select>
+                    <!--end::Input-->
+                  </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-5">
+                  <div class="col-md-6">
+                    <!--start::Label-->
+                    <label class="d-flex align-items-center form-label mb-3 required">Country</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select name="country" class="form-select form-select-lg" ng-model="formDataClub.country" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                      <option ng-repeat="item in lstCountries" ng-value="{{item.id}}">{{item.label}}</option>
+                    </select>
+                    <!--end::Input-->
+                  </div>
+                  <div class="col-md-6">
+                    <!--start::Label-->
+                    <label class="d-flex align-items-center form-label mb-3 required">Start/End Date</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <date-time name="kt_daterangepicker_club" valuestart="formDataClub.rangeDateStart" valueend="formDataClub.rangeDateEnd" range="true"></date-time>
+                    <!--end::Input-->
+                  </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="mb-5">
+                  <!--start::Label-->
+                  <label class="d-flex align-items-center form-label mb-3 pl-0">Description</label>
+                  <!--end::Label-->
+                  <!--begin::Input-->
+                  <textarea class="form-control" data-kt-autosize="true" ng-model="formDataClub.description">{{formDataClub.description}}</textarea>
+                  <!--end::Input-->
+                  <!--begin::Hint-->
+                  <div class="form-text">Add a short description of your achievements that you have obtained.</div>
+                  <!--end::Hint-->
+                </div>
+                <!--end::Row-->
+              </div>
+              <!--end::Input group-->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="saveAddClub()" ng-show="formDataClub.id==0">Add</button>
+                <button type="button" class="btn btn-primary" ng-click="saveEditClub()" ng-show="formDataClub.id>0">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="kt_modal_team">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">National Team info</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-1"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+              <!--begin::Input group-->
+              <div class="mb-10 fv-row">
+                <!--begin::Row-->
+                <div class="row mb-5">
+                  <div class="col-md-6">
+                    <!--start::Label-->
+                    <label class="d-flex align-items-center form-label mb-3 required">Type</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select name="country" class="form-select form-select-lg" ng-model="formDataTeam.type" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                      <option ng-repeat="item in lstTeamsType" ng-value="{{item.id}}">{{item.label}}</option>
+                    </select>
+                    <!--end::Input-->
+                  </div>
+                  <div class="col-md-6">
+                    <!--start::Label-->
+                    <label class="d-flex align-items-center form-label mb-3 required">Start/End Date</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <date-time name="kt_daterangepicker_team" valuestart="formDataTeam.rangeDateStart" valueend="formDataTeam.rangeDateEnd" range="true"></date-time>
+                    <!--end::Input-->
+                  </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="mb-5">
+                  <!--start::Label-->
+                  <label class="d-flex align-items-center form-label mb-3 pl-0">Description</label>
+                  <!--end::Label-->
+                  <!--begin::Input-->
+                  <textarea class="form-control" data-kt-autosize="true" ng-model="formDataTeam.description">{{formDataTeam.description}}</textarea>
+                  <!--end::Input-->
+                  <!--begin::Hint-->
+                  <div class="form-text">Add a short description of your achievements that you have obtained.</div>
+                  <!--end::Hint-->
+                </div>
+                <!--end::Row-->
+              </div>
+              <!--end::Input group-->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="saveAddTeam()" ng-show="formDataTeam.id==0">Add</button>
+                <button type="button" class="btn btn-primary" ng-click="saveEditTeam()" ng-show="formDataTeam.id>0">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>

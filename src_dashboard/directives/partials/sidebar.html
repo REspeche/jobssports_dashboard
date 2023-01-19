@@ -61,7 +61,19 @@
         </div>
         <!--end:Menu title-->
         <!--begin:Menu item-->
-        <div class="menu-item">
+        <div class="menu-item" ng-if="userInfo.type==1">
+          <!--begin:Menu link-->
+          <a class="menu-link" href="#" ng-click="goToPlayerProfile()">
+            <span class="menu-bullet">
+              <span class="bullet bullet-dot"></span>
+            </span>
+            <span class="menu-title">Profile</span>
+          </a>
+          <!--end:Menu link-->
+        </div>
+        <!--end:Menu item-->
+        <!--begin:Menu item-->
+        <div class="menu-item" ng-if="userInfo.type==2">
           <!--begin:Menu link-->
           <a class="menu-link" href="#" ng-click="goToOffers()">
             <span class="menu-bullet">

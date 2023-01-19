@@ -220,7 +220,7 @@ angular.module('mainApp').controller('createProfileController',
             });
             $scope.loadForm = true;
           });
-        }
+        };
 
         $( document ).ready(function() {
             //restrict date birth
@@ -628,7 +628,6 @@ angular.module('mainApp').controller('createProfileController',
         });
 
         //Ajax send
-        debugger;
         mainSvc.callService({
             url: 'profile/createNewProfile_'+$scope.formData.type,
             params: paramSet,
@@ -739,6 +738,7 @@ angular.module('mainApp').controller('createProfileController',
         resetObjDataTeam();
         $scope.formDataTeam.rangeDateStart = _dNow;
         $scope.formDataTeam.rangeDateEnd = _dNow;
+        $scope.formDataTeam.action = 1;
         $("#kt_modal_team").modal('show');
       }
 
@@ -765,11 +765,12 @@ angular.module('mainApp').controller('createProfileController',
       }
 
       $scope.removeTeam = function(idx) {
-        $scope.formData.player.nationalTeams.splice(idx, 1);
+        $scope.formData.player.nationalTeams[idx].action = 3;
       }
 
       $scope.editTeam = function(item) {
         $scope.formDataTeam = angular.copy(item);
+        $scope.formDataTeam.action = 2;
         $("#kt_modal_team").modal('show');
       }
 

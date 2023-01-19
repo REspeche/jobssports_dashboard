@@ -23,6 +23,10 @@ mainApp.directive('sidebarPartial', function() {
                 $scope.goToOffers = function() {
                   actionSvc.goToAction(10); //go to club offers
                 };
+
+                $scope.goToPlayerProfile = function() {
+                  actionSvc.goToAction(11); //go to player profile
+                };
               }
             ],
             templateUrl: 'templates/directives/partials/sidebar.html'

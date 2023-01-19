@@ -342,6 +342,26 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
                 data: {
                     bodyClasses: 'club-offers'
                 }
+            })
+            .state('playerProfile', {
+                url         : '/panel/player/profile',
+                templateUrl : 'templates/partials/dashboard/player/profile.html',
+                controller  : 'profileController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([{
+                            files: [
+                                'assets/js/partials/dashboard/player/profile.js'
+                            ]
+                        }]);
+                    }]
+                },
+                access: {
+                  isFree: false
+                },
+                data: {
+                    bodyClasses: 'player-profile'
+                }
             });
 
         $urlRouterProvider.otherwise('/verify-authentication'); //page by default

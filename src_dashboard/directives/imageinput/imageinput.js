@@ -4,7 +4,8 @@ mainApp.directive('imageInput', function() {
       scope: {
           name: '@',
           size: '@',
-          file: "="
+          file: "=",
+          image: "="
       },
       controller:['$scope', 'mainSvc', 'CONSTANTS',
         function ($scope, mainSvc, CONSTANTS) {
@@ -19,10 +20,19 @@ mainApp.directive('imageInput', function() {
               getBase64($scope.file).then(function(data) {
                 $scope.$apply(
                   function() {
-                    (input_selector).attr('style', 'background-image:url("'+data.toString()+'")');
+                    $(input_selector).attr('style', 'background-image:url("'+data.toString()+'")');
                   }
                 );
               });
+            }
+            else {
+              if ($scope.image) {
+                $scope.$apply(
+                  function() {
+                    $(input_selector).attr('style', 'background-image:url("'+$scope.image.toString()+'")');
+                  }
+                );
+              };
             };
 
             //Events

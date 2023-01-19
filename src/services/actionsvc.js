@@ -30,6 +30,7 @@ mainApp.factory('actionSvc',
 					case 9: 	retRoute = 'contact'; break;
 					case 9.1: retRoute = 'contactSecure'; break;
 					case 10:  retRoute = 'clubOffers'; break;
+					case 11:  retRoute = 'playerProfile'; break;
 
 					//Site
 					case 101: retRoute = BASE_URL.site+'home'; break;

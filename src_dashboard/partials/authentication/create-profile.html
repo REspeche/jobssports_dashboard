@@ -863,7 +863,7 @@
                      </tr>
                     </thead>
                     <tbody>
-                     <tr ng-repeat="item in formData.player.nationalTeams">
+                     <tr ng-repeat="item in formData.player.nationalTeams | filter: onlyActive">
                       <td>{{showTeamType(item.type)}}</td>
                       <td>{{item.rangeDateStart}}</td>
                       <td>{{item.rangeDateEnd}}</td>
